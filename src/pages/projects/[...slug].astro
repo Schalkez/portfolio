@@ -1,15 +1,22 @@
 ---
 import { getProjects } from "src/utils";
+import BaseLayout from "$layouts/BaseLayout.astro";
+import ProjectGrid from "$components/ProjectPages/ProjectGrid.astro";
 
 export async function getStaticPaths() {
-	const posts = await getProjects();
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = await getProjects();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
 
-const _post = Astro.props;
+const post = Astro.props;
+const { Content } = await post.render();
 ---
 
-<slot />
+<BaseLayout {...post.data}>
+  <ProjectGrid project={post.data}>
+    <Content />
+  </ProjectGrid>
+</BaseLayout>
