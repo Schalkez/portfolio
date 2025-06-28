@@ -1,0 +1,50 @@
+{
+  "name": "astro-portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.0.3",
+    "@astrojs/svelte": "^7.0.2",
+    "@astrojs/tailwind": "^5.1.4",
+    "@melt-ui/svelte": "^0.86.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15",
+    "@theatre/core": "^0.7.2",
+    "@theatre/studio": "^0.7.2",
+    "@threlte/core": "^8.0.0-next.30",
+    "@threlte/extras": "^9.0.0-next.39",
+    "@threlte/theatre": "^3.0.0-next.9",
+    "@use-gesture/vanilla": "^10.3.1",
+    "astro": "^5.1.1",
+    "astro-embed": "^0.9.0",
+    "gsap": "^3.12.5",
+    "lodash": "^4.17.21",
+    "path": "^0.12.7",
+    "postprocessing": "^6.36.4",
+    "svelte": "^5.1.13",
+    "tailwind-merge": "^2.5.4",
+    "tailwind-variants": "^0.3.0",
+    "tailwindcss": "^3.4.14",
+    "three": "^0.177.0",
+    "threlte": "^3.13.1",
+    "typescript": "^5.6.3",
+    "uber-noise": "^0.2.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.6",
+    "@melt-ui/pp": "^0.3.2",
+    "@types/lodash": "^4.17.19",
+    "tailwindcss-animate": "^1.0.7",
+    "three-perf": "^1.0.10"
+  }
+}

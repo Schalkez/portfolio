@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+
+const { role } = Astro.props;
+
+const startLabel =
+	typeof role.start === "string" ? role.start : role.start.label;
+const startDate =
+	typeof role.start === "string" ? role.start : role.start.dateTime;
+
+const endLabel = typeof role.end === "string" ? role.end : role.end.label;
+const endDate = typeof role.end === "string" ? role.end : role.end.dateTime;
+---
+
+<li class="flex gap-4">
+  <div
+    class="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-base-800/5 ring-1 ring-base-900/5 dark:border dark:border-base-700/50 dark:bg-base-800 dark:ring-0"
+  >
+    <Image
+      src={role.logo}
+      alt={role.company + " logo"}
+      loading="lazy"
+      class="object-cover {role.logo.rounded ? 'rounded-full' : ''}"
+    />
+  </div>
+  <div class="flex flex-col w-full">
+    <div class="flex justify-between w-full gap-2">
+      <div class="sr-only">Company</div>
+      <div
+        class="flex-grow flex-shrink basis-[60%] text-sm font-medium text-base-900 dark:text-base-100"
+      >
+        {role.company}
+      </div>
+      <div class="sr-only">Date</div>
+      <div
+        class="text-xs text-base-400 dark:text-base-500 flex-grow flex-shrink basis-[40%]"
+        aria-label={`${startLabel} until ${endLabel}`}
+      >
+        <time datetime={startDate}>{startLabel}</time>{" "}
+        <span aria-hidden="true">—</span>{" "}
+        <time datetime={endDate}>{endLabel}</time>
+      </div>
+    </div>
+    <div class="sr-only">Role</div>
+    <div class="text-xs text-base-500 dark:text-base-400">
+      {role.title}
+    </div>
+  </div>
+</li>

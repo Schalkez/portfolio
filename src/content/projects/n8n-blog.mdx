@@ -1,0 +1,53 @@
+---
+name: "n8n *** agg**"
+date: "2025-06-20"
+featured: true
+
+thumbnail: "/src/assets/projects/n8n-blog/thumbnail.webp"
+video: ""
+
+aspect: "aspect-[9/14]"
+projectUrl: ""
+codeUrl: ""
+
+projectPageVersion: "full"
+
+tags:
+  - "n8n"
+  - "firebase"
+  - "python"
+  - "fastapi"
+  - "genai"
+  - "nextjs"
+  - "news aggregator"
+  - "ai"
+  - "article summarization"
+  - "topic classification"
+
+mainTags:
+  - "automation"
+  - "news"
+
+images:
+  - "/src/assets/projects/n8n-blog/thumbnail.webp"
+---
+
+import ProjectGrid from "$components/ProjectPages/ProjectGrid.astro";
+
+<ProjectGrid project={frontmatter}>
+
+A smart news/blog aggregator platform that leverages n8n for workflow automation, Firebase for real-time data storage, and Python FastAPI for backend processing. The system fetches the latest news and blog articles daily from various sources, then uses GenAI to extract and summarize the content of each article.
+
+Articles are automatically categorized by topic and assigned a relevant illustration using AI image generation or search. The summarized and classified articles are stored in Firebase and displayed on a modern Next.js frontend, providing users with a daily feed of concise, categorized news with visual context.
+
+Key technologies:
+
+- **n8n**: Orchestrates the entire workflow, schedules and triggers data fetching, and coordinates between services.
+- **Firebase**: Stores articles, summaries, topics, and images in real-time.
+- **Python FastAPI**: Handles custom backend logic, article parsing, and API endpoints.
+- **GenAI**: Summarizes articles and classifies topics.
+- **Next.js**: Renders the frontend, showing categorized, summarized news with relevant images.
+
+This project automates the process of news aggregation, summarization, topic classification, and illustration, making it easy for users to stay updated with the most important articles every day.
+
+</ProjectGrid>

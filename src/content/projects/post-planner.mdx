@@ -1,0 +1,46 @@
+---
+name: "Post Planner"
+date: "2025-05-01"
+featured: true
+
+thumbnail: "/src/assets/projects/post-planner/thumbnail.webp"
+video: ""
+
+aspect: "aspect-[21/9]"
+projectUrl: ""
+codeUrl: ""
+
+projectPageVersion: "full"
+
+tags:
+  - "next.js"
+  - "next auth"
+  - "facebook api"
+  - "tanstack query"
+  - "supabase"
+  - "postgresql"
+  - "ai"
+  - "elevenlabs"
+  - "heygen"
+
+mainTags:
+  - "social media"
+  - "automation"
+
+images:
+  - "/src/assets/projects/post-planner/thumbnail.webp"
+---
+
+import ProjectGrid from "$components/ProjectPages/ProjectGrid.astro";
+
+<ProjectGrid project={frontmatter}>
+
+A comprehensive social media management platform designed to streamline content planning and automated posting across Facebook, Instagram, and TikTok. This full-stack application empowers content creators and businesses to efficiently manage their social media presence with intelligent scheduling and AI-powered content generation.
+
+Built with Next.js for the full-stack framework, featuring NextAuth.js with Facebook strategy for seamless social media authentication. The platform integrates with Meta Developers API to enable direct posting capabilities across Facebook and Instagram platforms.
+
+The application leverages AI technology to generate engaging content scripts and storylines, while integrating ElevenLabs for high-quality voice synthesis and HeyGen for creating personalized AI avatars. This combination enables users to produce professional multimedia content without extensive manual effort.
+
+Key features include intelligent content scheduling, automated posting at optimal times, AI-powered script generation, voice synthesis, avatar creation, and comprehensive analytics. The platform uses TanStack Query for efficient data management and Supabase with PostgreSQL for robust database operations.
+
+</ProjectGrid>

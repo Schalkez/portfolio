@@ -1,0 +1,15 @@
+---
+import { getProjects } from "src/utils";
+
+export async function getStaticPaths() {
+	const posts = await getProjects();
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
+const _post = Astro.props;
+---
+
+<slot />
