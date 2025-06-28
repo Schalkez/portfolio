@@ -9,43 +9,62 @@ import ProjectButtons from "./ProjectButtons.astro";
 const { project } = Astro.props;
 
 const images = import.meta.glob(
-	"/src/assets/projects/**/*.{png,webp,jpg,jpeg,svg}",
+  "/src/assets/projects/**/*.{png,webp,jpg,jpeg,svg}"
 );
 const projectImages = await Promise.all(
-	(project.images || []).map(async (image: string) => {
-		const imageModule = images[image];
-		return imageModule ? await imageModule() : null;
-	}),
+  (project.images || []).map(async (image: string) => {
+    const imageModule = images[image];
+    return imageModule ? await imageModule() : null;
+  })
 );
 
 const firstImage = _.first(projectImages);
 const firstImagePath = _.first(project.images) as string | undefined;
+
+// Import SVG as raw if it's an SVG
+let firstImageSvg: string | null = null;
+if (_.endsWith(firstImagePath, ".svg")) {
+  try {
+    const svgModule = await import(firstImagePath + "?raw");
+    firstImageSvg = svgModule.default;
+  } catch (error) {
+    console.log("Failed to import SVG as raw:", error);
+  }
+}
+
+const hasImages = !_.isEmpty(project.images);
+const isSvg = _.endsWith(firstImagePath, ".svg");
+const hasFirstImage = !_.isNil(firstImage);
+const hasSvgContent = !_.isNil(firstImageSvg);
+const hasMultipleImages = _.size(project.images) >= 4;
+const hasTags = !_.isEmpty(project.tags);
+const hasBackgroundColor = !_.isNil(project.backgroundColor);
 ---
 
 <div class="text-white relative">
   <!-- Background blur -->
   {
-    project.images && project.images.length > 0 ? (
+    hasImages ? (
       <div class="fixed inset-0 -z-10">
         <div class="absolute inset-0 bg-black/80" />
-        {project.name === "chiatien.org" && (
-          <div class="absolute inset-0 bg-white/80 z-[-1]" />
-        )}
-        {project.name === "chiatien.org" &&
-        typeof firstImagePath === "string" &&
-        firstImagePath.endsWith(".svg") ? (
-          <img
-            src={firstImagePath}
-            alt=""
-            class="h-full w-full object-cover object-center z-10 blur-xl"
-            style="height:100vh;width:100vw; position: relative;"
+        {hasBackgroundColor && (
+          <div
+            class="absolute inset-0"
+            style={`background-color: ${project.backgroundColor}; z-index: -2;`}
           />
-        ) : typeof firstImagePath === "string" && firstImagePath ? (
+        )}
+        {isSvg && hasSvgContent ? (
+          <div
+            set:html={firstImageSvg}
+            class="h-full w-full object-cover object-center z-10 blur-xl"
+            style="height:100vh;width:100vw; position: absolute; top: 0; left: 0; display: flex; align-items: center; justify-content: center; padding: 10px 0;"
+          />
+        ) : hasFirstImage ? (
           <img
-            src={firstImagePath}
+            src={firstImage.default.src}
             alt=""
             class="h-full w-full object-cover object-center blur-md opacity-30"
-            style="height:100vh;width:100vw;"
+            style="height:100vh;width:100vw; padding: 10px 0;"
           />
         ) : null}
       </div>
@@ -57,7 +76,7 @@ const firstImagePath = _.first(project.images) as string | undefined;
 
     <!-- Image gallery -->
     {
-      project.images && project.images.length >= 4 ? (
+      hasMultipleImages ? (
         <div class="mx-auto mt-6 max-w-2xl sm:px-6 md:grid md:max-w-5xl md:grid-cols-3 md:gap-x-8 md:px-8">
           <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-3xl md:block border border-white/10">
             <Image
@@ -102,7 +121,7 @@ const firstImagePath = _.first(project.images) as string | undefined;
             />
           </div>
         </div>
-      ) : project.images && project.images.length > 0 ? (
+      ) : hasImages ? (
         <slot name="demo" />
       ) : (
         <slot name="demo" />
@@ -127,7 +146,7 @@ const firstImagePath = _.first(project.images) as string | undefined;
       <div class="mt-4 md:row-span-3 md:mt-0">
         <div class="mt-0">
           {
-            project.tags && (
+            hasTags && (
               <div class="mt-0 sm:mt-4">
                 <div class="flex flex-wrap gap-3">
                   {project.tags.map((tag: string) => (
@@ -157,7 +176,7 @@ const firstImagePath = _.first(project.images) as string | undefined;
     </div>
 
     {
-      project.images && project.images.length >= 4 ? (
+      hasMultipleImages ? (
         <div class="mx-auto mt-6 max-w-2xl sm:px-6 md:hidden pb-24">
           <div class="aspect-h-2 aspect-w-3 overflow-hidden sm:rounded-3xl mt-4 border-y sm:border border-white/10">
             <Image
