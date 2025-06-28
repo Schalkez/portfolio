@@ -3,12 +3,17 @@
   import { fade, slide } from "svelte/transition";
   import MobileNavigationItem from "./MobileNavigationItem.svelte";
   import { useClickOutside } from "../../utils/useClickOutside";
+  import LanguageSwitcher from "./LanguageSwitcher.svelte";
 
   export const className: string = "";
 
   export let active: Item;
 
   export let items: Item[];
+  export let navigationItems: { href: string; label: string }[];
+
+  export let currentLang: string = "vi";
+  export let currentPath: string = "/";
 
   let isOpen = false;
   let popupElement: HTMLElement;
@@ -87,10 +92,22 @@
       <ul
         class="-my-2 divide-y divide-white/10 text-base text-base-800 dark:divide-base-100/5 dark:text-base-100"
       >
-        {#each items as item}
-          <MobileNavigationItem current={item} {active} {hide} />
+        {#each items as item, index}
+          <MobileNavigationItem
+            current={item}
+            label={navigationItems[index].label}
+            {active}
+            {hide}
+            {currentLang}
+          />
         {/each}
       </ul>
     </nav>
+    <div class="mt-6 pt-6 border-t border-white/10 dark:border-base-100/5">
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-base-600 dark:text-base-400">Language</span>
+        <LanguageSwitcher {currentLang} {currentPath} />
+      </div>
+    </div>
   </div>
 {/if}

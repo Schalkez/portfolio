@@ -9,27 +9,30 @@ import Learning from "$components/Learning/Learning.svelte";
 import Navbar from "$components/Navigation/Navbar.svelte";
 import Projects from "$components/Projects/Projects.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
+import { getLangFromUrl, useTranslations } from "src/i18n/ui";
 import { getFeaturedProjects } from "src/utils";
 
 const _projects = await getFeaturedProjects();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <BaseLayout>
-  <Navbar client:load />
+  <Navbar client:load lang={lang} />
 
   <PlanetScene client:visible />
 
-  <Hero client:load />
+  <Hero client:load lang={lang} />
 
-  <About />
+  <About lang={lang} />
 
-  <Projects projects={_projects} />
+  <Projects projects={_projects} lang={lang} />
 
-  <BlogLatest />
+  <BlogLatest lang={lang} />
 
-  <Learning client:visible />
+  <Learning client:visible lang={lang} />
 
-  <Contact />
+  <Contact lang={lang} />
 
-  <Footer />
+  <Footer lang={lang} />
 </BaseLayout>

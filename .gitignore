@@ -25,3 +25,6 @@ pnpm-debug.log*
 .idea/
 
 .vscode/
+
+# astro-i18n-aut temporary files
+astro_tmp_pages_*

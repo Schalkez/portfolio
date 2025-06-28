@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-const basePath = "";
+const basePath = "/";
 
 const lowPolyNatureCollectionModels: Record<
   string,
@@ -81,14 +81,14 @@ export const collections: Record<Collections, Collection> = {
 };
 
 export function getModels(
-  collection: Collections = "lowpoly_nature",
+  collection: Collections = "lowpoly_nature"
 ): string[] {
   return Object.keys(collections[collection].models);
 }
 
 export function getModelPathsAndMaterials(
   name: string,
-  collection: Collections = "lowpoly_nature",
+  collection: Collections = "lowpoly_nature"
 ): {
   filePaths: string[];
   materials: string[];
@@ -104,7 +104,7 @@ export function getModelPathsAndMaterials(
   if (model.versions) {
     for (let i = 1; i <= model.versions; i++) {
       filePaths.push(
-        `${basePath}${collections[collection].name}/${name}_${i}.gltf`,
+        `${basePath}${collections[collection].name}/${name}_${i}.gltf`
       );
     }
   } else {
@@ -119,7 +119,7 @@ export function getModelPathsAndMaterials(
 
 export async function loadModels(
   name: string,
-  collection: Collections = "lowpoly_nature",
+  collection: Collections = "lowpoly_nature"
 ): Promise<THREE.Object3D[]> {
   const loader = new GLTFLoader();
   const modelInfo = getModelPathsAndMaterials(name, collection);
@@ -149,7 +149,7 @@ export async function loadModels(
         (error) => {
           console.error(`Failed to load model ${filePath}:`, error);
           reject(error);
-        },
+        }
       );
     });
   });
