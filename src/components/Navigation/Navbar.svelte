@@ -22,8 +22,8 @@
   }}
 />
 
-<div class="fixed top-6 w-full z-40 pointer-events-none">
-  <div class="flex flex-1 justify-end md:justify-center">
+<div class="fixed top-6 w-full z-40">
+  <div class="flex flex-1 justify-center">
     <DesktopNavigation
       {items}
       bind:active
@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div class="fixed bottom-6 right-0 z-40">
+<div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40">
   <MobileNavigation
     {items}
     bind:active

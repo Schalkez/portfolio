@@ -1,11 +1,11 @@
 <script lang="ts">
-import type { Item } from "./items";
+  import type { Item } from "./items";
 
-export const current: Item = "home";
+  export let current: Item = "home";
 
-export const active: Item = "home";
+  export let active: Item = "home";
 
-export let hide: () => void;
+  export let hide: () => void;
 </script>
 
 <li>

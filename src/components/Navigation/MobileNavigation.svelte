@@ -1,23 +1,25 @@
 <script lang="ts">
-import { createPopover } from "@melt-ui/svelte";
-import type { Item } from "./items";
+  import { createPopover, melt } from "@melt-ui/svelte";
+  import type { Item } from "./items";
+  import { fade, slide } from "svelte/transition";
+  import MobileNavigationItem from "./MobileNavigationItem.svelte";
 
-const {
-	elements: { trigger, content, arrow, close },
-	states: { open },
-} = createPopover({
-	forceVisible: true,
-});
+  const {
+    elements: { trigger, content, arrow, close },
+    states: { open },
+  } = createPopover({
+    forceVisible: true,
+  });
 
-export const className: string = "";
+  export const className: string = "";
 
-function _hide() {
-	open.set(false);
-}
+  function hide() {
+    open.set(false);
+  }
 
-export let active: Item;
+  export let active: Item;
 
-export let items: Item[];
+  export let items: Item[];
 </script>
 
 <button

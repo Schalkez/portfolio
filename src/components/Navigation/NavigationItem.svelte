@@ -1,7 +1,9 @@
 <script lang="ts">
-export const isActive = false;
+  import { fade } from "svelte/transition";
 
-export const href = "";
+  export let isActive = false;
+
+  export let href = "";
 </script>
 
 <li>
