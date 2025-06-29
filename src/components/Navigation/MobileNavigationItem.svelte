@@ -9,11 +9,12 @@
   export let hide: () => void;
 
   export let currentLang: string = "vi";
+  export let currentPath: string = "/";
 </script>
 
 <li>
   <a
-    href="/{currentLang}#{current}"
+    href={`/${currentLang}/#${current}`}
     class="block py-2 {active == current ? 'dark:text-accent-400' : ''}"
     on:click={hide}
   >

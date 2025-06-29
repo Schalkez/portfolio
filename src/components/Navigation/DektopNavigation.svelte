@@ -17,7 +17,7 @@
   >
     {#each navigationItems as item, index}
       <NavigationItem
-        href={`/${currentLang}#${items[index]}`}
+        href={`/${currentLang}/#${items[index]}`}
         isActive={active == items[index]}>{item.label}</NavigationItem
       >
     {/each}

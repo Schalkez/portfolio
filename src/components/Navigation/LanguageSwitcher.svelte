@@ -8,17 +8,25 @@
   }>();
 
   function getLanguageUrl(lang: string) {
-    const current = props.currentPath;
     if (lang === "en") {
-      // Loại bỏ /vi ở đầu nếu có
-      return current.replace(/^\/vi(\/|$)/, "/");
+      return "/en/";
     }
-    // Nếu đã có /vi thì giữ nguyên, nếu chưa thì thêm vào
-    return current.startsWith("/vi") ? current : `/vi${current}`;
+    return "/vi/";
   }
 
   function handleLanguageChange(lang: string) {
-    window.location.href = getLanguageUrl(lang);
+    const url = getLanguageUrl(lang);
+    console.log(
+      "LanguageSwitcher: currentLang =",
+      props.currentLang,
+      "| chọn lang =",
+      lang,
+      "-> chuyển tới",
+      url,
+      "| currentPath:",
+      props.currentPath
+    );
+    window.location.href = url;
   }
 
   // Đường dẫn SVG cờ trong public/flags/
@@ -37,6 +45,7 @@
 </script>
 
 <Select
+  key={props.currentLang}
   options={languageOptions}
   value={props.currentLang}
   width="w-12"

@@ -21,6 +21,11 @@
   const navigationItems = getNavigationItems(t);
   const currentPath =
     typeof window !== "undefined" ? window.location.pathname : "/";
+
+  // Debug lang
+  if (typeof window !== "undefined") {
+    console.log("Navbar lang:", lang);
+  }
 </script>
 
 <svelte:window

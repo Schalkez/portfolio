@@ -20,7 +20,11 @@ export function getLangFromUrl(url: URL) {
 }
 
 export function useTranslations(lang: keyof typeof ui) {
-  return function t(key: keyof typeof en) {
-    return ui[lang][key] || ui[defaultLang][key];
+  return function t(key: string) {
+    return (
+      ui[lang][key as keyof typeof en] ||
+      ui[defaultLang][key as keyof typeof en] ||
+      key
+    );
   };
 }
