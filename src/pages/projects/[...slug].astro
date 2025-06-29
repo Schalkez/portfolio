@@ -57,6 +57,24 @@ const seoProps = {
   tags: finalPost.data.tags || [],
 };
 
+// Xử lý image URL cho structured data
+let imageUrl: string;
+if (typeof seoProps.image === "string") {
+  // Nếu là string, tạo URL tương đối
+  imageUrl = new URL(seoProps.image, Astro.url).toString();
+} else if (
+  seoProps.image &&
+  typeof seoProps.image === "object" &&
+  "src" in seoProps.image &&
+  typeof seoProps.image.src === "string"
+) {
+  // Nếu là ImageMetadata object, sử dụng src
+  imageUrl = new URL(seoProps.image.src, Astro.url).toString();
+} else {
+  // Fallback
+  imageUrl = new URL("og.jpg", Astro.url).toString();
+}
+
 // Structured data cho project
 const structuredData = {
   "@context": "https://schema.org",
@@ -74,7 +92,7 @@ const structuredData = {
   },
   dateCreated: finalPost.data.date.toISOString(),
   url: Astro.url.toString(),
-  image: new URL(seoProps.image, Astro.url).toString(),
+  image: imageUrl,
   keywords: seoProps.keywords,
   inLanguage: currentLang === "vi" ? "vi-VN" : "en-US",
   genre: "Web Development",
