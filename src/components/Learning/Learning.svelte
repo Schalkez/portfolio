@@ -7,6 +7,12 @@
     date: string;
   }
 
+  interface Props {
+    lang: string;
+  }
+
+  export let lang: string;
+
   const learnings: Learning[] = [
     {
       title: "Astro",
@@ -100,9 +106,122 @@
     },
   ];
 
+  // Nội dung tiếng Việt cho learnings
+  const learningsVi: Learning[] = [
+    {
+      title: "Astro",
+      description:
+        "Thực sự thích Astro; nó cảm giác như Svelte nhưng thậm chí phù hợp hơn cho các trang tĩnh tập trung vào nội dung.",
+      date: "2025-3",
+    },
+    {
+      title: "supabase & postgresql",
+      description:
+        "Bắt đầu sử dụng Supabase cho một vài dự án. Mặc dù tôi vẫn thích MongoDB hơn, Supabase cung cấp một số tính năng thú vị.",
+      date: "2024-10",
+    },
+    {
+      title: "svelte & sveltekit",
+      description:
+        "Svelte là framework ưa thích của tôi cho phát triển web. Tôi sử dụng nó cho hầu hết các dự án cá nhân, bao gồm website này.",
+      date: "2024-06",
+    },
+    {
+      title: "tanstack query & zustand & jotai",
+      description:
+        "TanStack Query, Zustand và Jotai làm cho việc quản lý state và dữ liệu trong ứng dụng trở nên mượt mà và hiệu quả một cách đáng kinh ngạc.",
+      date: "2024-03",
+    },
+    {
+      title: "firebase & gcp",
+      description:
+        "Đã thử Firebase và Google Cloud Platform cho một số dự án. MongoDB vẫn là yêu thích của tôi, nhưng chúng có những điểm mạnh độc đáo.",
+      date: "2024-02",
+    },
+    {
+      title: "fastify",
+      description:
+        "Fastify mang lại trải nghiệm nhanh và mạnh mẽ để xây dựng API, làm cho nó trở thành lựa chọn tuyệt vời cho các dự án backend.",
+      date: "2023-12",
+    },
+    {
+      title: "mysql",
+      description:
+        "Đã sử dụng MySQL trước khi chuyển sang MongoDB, và tính linh hoạt của MongoDB đã giữ tôi không nhìn lại.",
+      date: "2023-10",
+    },
+    {
+      title: "nest.js",
+      description:
+        "Nest.js cung cấp cấu trúc sạch sẽ và mạnh mẽ cho ứng dụng Node.js, giúp tôi chuyển đổi từ MySQL sang MongoDB dễ dàng hơn.",
+      date: "2023-09",
+    },
+    {
+      title: "mongodb",
+      description:
+        "Chuyển từ MySQL sang MongoDB là một bước ngoặt, mang lại tính linh hoạt vô song để xử lý dữ liệu.",
+      date: "2023-02",
+    },
+    {
+      title: "tailwindcss",
+      description:
+        "TailwindCSS là một ý tưởng tuyệt vời nhưng không theo quy ước, vượt trội hơn CSS thuần. Nó có trong hầu hết các dự án gần đây của tôi, bao gồm trang này.",
+      date: "2023-01",
+    },
+    {
+      title: "styled-components",
+      description:
+        "Styled-components làm cho việc viết CSS trong JavaScript trở nên trực quan và mạnh mẽ, được sử dụng trong nhiều dự án hiện đại của tôi.",
+      date: "2022-10",
+    },
+    {
+      title: "next.js",
+      description:
+        "Không phải fan lớn của React, nhưng Next.js vẫn là framework hàng đầu, chưa có lựa chọn thay thế mạnh mẽ cho phát triển native.",
+      date: "2022-10",
+    },
+    {
+      title: "express.js",
+      description:
+        "Express.js là lựa chọn vững chắc để xây dựng API, được sử dụng rộng rãi mặc dù tôi có cảm xúc lẫn lộn về hệ sinh thái dựa trên React.",
+      date: "2022-07",
+    },
+    {
+      title: "redux",
+      description:
+        "Redux mạnh mẽ cho quản lý state trong ứng dụng React, mặc dù tôi thấy nó phức tạp so với các lựa chọn thay thế mới hơn.",
+      date: "2022-05",
+    },
+    {
+      title: "react.js",
+      description:
+        "React không phải là yêu thích của tôi, nhưng sự phổ biến và thiếu lựa chọn thay thế mạnh mẽ cho native giữ nó có liên quan cho nhiều dự án.",
+      date: "2022-03",
+    },
+  ];
+
+  // Lấy nội dung theo ngôn ngữ
+  const titles = {
+    en: {
+      title: "always keep learning",
+      description:
+        "one of the things i love most about programming is that there's always something new to learn. here's a selection of some of the things i've been learning lately:",
+      showMore: "show more",
+    },
+    vi: {
+      title: "luôn luôn học hỏi",
+      description:
+        "một trong những điều tôi yêu thích nhất về lập trình là luôn có điều mới để học. đây là một số thứ tôi đã học gần đây:",
+      showMore: "xem thêm",
+    },
+  };
+
+  const content = titles[lang as keyof typeof titles] || titles.en;
+  const currentLearnings = lang === "vi" ? learningsVi : learnings;
+
   function _formatDate(date: string) {
     return new Date(date)
-      .toLocaleDateString("en-US", {
+      .toLocaleDateString(lang === "vi" ? "vi-VN" : "en-US", {
         year: "numeric",
         month: "long",
       })
@@ -111,7 +230,9 @@
 
   let showAll = false;
 
-  $: shownLearnings = showAll ? learnings : [...learnings].slice(0, 3);
+  $: shownLearnings = showAll
+    ? currentLearnings
+    : [...currentLearnings].slice(0, 3);
 </script>
 
 <div class="relative isolate overflow-hidden bg-background">
@@ -121,12 +242,10 @@
         <h1
           class="text-4xl font-bold tracking-tight text-base-800 dark:text-base-100 sm:text-5xl"
         >
-          always keep learning
+          {content.title}
         </h1>
         <p class="mt-6 text-base text-base-600 dark:text-base-400">
-          one of the things i love most about programming is that there's always
-          something new to learn. here's a selection of some of the things i've
-          been learning lately:
+          {content.description}
         </p>
       </div>
       <div
@@ -183,7 +302,7 @@
                 class="group flex items-center rounded-full mr-4 bg-white/90 px-4 py-2 text-sm font-medium text-base-800 shadow-lg shadow-base-800/5 ring-1 ring-base-900/5 backdrop-blur dark:bg-white/5 dark:text-base-200 dark:ring-white/10 dark:hover:ring-white/20"
                 aria-label="Update dimensions"
               >
-                show more
+                {content.showMore}
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

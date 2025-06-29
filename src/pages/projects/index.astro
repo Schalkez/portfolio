@@ -2,10 +2,12 @@
 import Projects from "$components/Projects/Projects.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { getProjects } from "src/utils";
+import { getLocale } from "astro-i18n-aut";
 
-const projects = await getProjects();
+const lang = getLocale(Astro.url);
+const projects = await getProjects(lang);
 ---
 
 <BaseLayout>
-  <Projects projects={projects} />
+  <Projects projects={projects} lang={lang} />
 </BaseLayout>

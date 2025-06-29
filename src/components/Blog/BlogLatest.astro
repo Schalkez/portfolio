@@ -1,15 +1,41 @@
 ---
 import { getBlogPosts } from "src/utils";
 
-const posts = (await getBlogPosts()).slice(0, 4);
-
-function formatDate(date: Date) {
-	return date.toLocaleDateString("en-US", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	});
+interface Props {
+  lang: string;
 }
+
+const { lang } = Astro.props;
+const posts = (await getBlogPosts(lang)).slice(0, 4);
+
+function formatDate(date: Date, locale: string) {
+  return date.toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+// Lấy nội dung theo ngôn ngữ
+const titles = {
+  en: {
+    title: "my ramblings",
+    description:
+      "here are some of my thoughts on things i'm learning or working on.",
+    read: "read",
+  },
+  vi: {
+    title: "những suy nghĩ của tôi",
+    description:
+      "đây là một số suy nghĩ của tôi về những thứ tôi đang học hoặc làm việc.",
+    read: "đọc",
+  },
+};
+
+const content = titles[lang as keyof typeof titles] || titles.en;
+
+// Tạo base URL theo ngôn ngữ hiện tại
+const baseUrl = lang === "vi" ? "/vi" : "";
 ---
 
 <div class="relative isolate overflow-hidden bg-background">
@@ -19,10 +45,10 @@ function formatDate(date: Date) {
         <h1
           class="text-4xl font-bold tracking-tight text-base-800 dark:text-base-100 sm:text-5xl"
         >
-          my ramblings
+          {content.title}
         </h1>
         <p class="mt-6 text-base text-base-600 dark:text-base-400">
-          here are some of my thoughts on things i'm learning or working on.
+          {content.description}
         </p>
       </div>
       <div class="mt-16">
@@ -41,18 +67,20 @@ function formatDate(date: Date) {
                     >
                       <span class="h-4 w-0.5 rounded-full bg-base-200 dark:bg-base-500" />
                     </span>
-                    {formatDate(article.data.pubDate).toLowerCase()}
+                    {formatDate(article.data.pubDate, lang).toLowerCase()}
                   </div>
 
                   <p class="relative z-10 mt-2 text-sm text-base-600 dark:text-base-400">
                     {article.data.description}
                   </p>
 
-                  <a href={"blog/post/" + article.slug}>
+                  <a
+                    href={`${baseUrl}/blog/post/${article.slug.replace(`${lang}/`, "")}/`}
+                  >
                     <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-base-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-base-800/50 sm:-inset-x-6 sm:rounded-2xl" />
                     <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
                     <span class="relative z-10 mt-4 flex items-center text-sm font-medium text-base-400 transition-colors duration-200 group-hover:text-accent-400">
-                      read
+                      {content.read}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

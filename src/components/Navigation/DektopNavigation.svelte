@@ -9,6 +9,19 @@
   export let navigationItems: { href: string; label: string }[];
   export let currentLang: string = "vi";
   export let currentPath: string = "/";
+
+  // Tạo base URL theo ngôn ngữ
+  const baseUrl = currentLang === "vi" ? "/vi" : "";
+
+  // Debug
+  if (typeof window !== "undefined") {
+    console.log(
+      "DesktopNavigation - currentLang:",
+      currentLang,
+      "baseUrl:",
+      baseUrl
+    );
+  }
 </script>
 
 <nav class={className}>
@@ -17,7 +30,7 @@
   >
     {#each navigationItems as item, index}
       <NavigationItem
-        href={`/${currentLang}/#${items[index]}`}
+        href={`${baseUrl}/#${items[index]}`}
         isActive={active == items[index]}>{item.label}</NavigationItem
       >
     {/each}

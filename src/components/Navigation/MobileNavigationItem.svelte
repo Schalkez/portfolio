@@ -10,11 +10,14 @@
 
   export let currentLang: string = "vi";
   export let currentPath: string = "/";
+
+  // Tạo base URL theo ngôn ngữ
+  const baseUrl = currentLang === "vi" ? "/vi" : "";
 </script>
 
 <li>
   <a
-    href={`/${currentLang}/#${current}`}
+    href={`${baseUrl}/#${current}`}
     class="block py-2 {active == current ? 'dark:text-accent-400' : ''}"
     on:click={hide}
   >

@@ -6,7 +6,13 @@ import Depth3D from "./Depth3D/Depth3D.svelte";
 import Map from "./Map.astro";
 import Resume from "./Resume/Resume.astro";
 
-const about = await getEntry("main", "about");
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+
+const about = await getEntry("main", `${lang}/about`);
 if (!about) throw new Error("About entry not found");
 const { Content } = await about.render();
 

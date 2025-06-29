@@ -4,21 +4,52 @@ import { getBlogPosts } from "src/utils";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import ProseWrapper from "$layouts/ProseWrapper.astro";
 import Navbar from "$components/Navigation/Navbar.svelte";
+import { getLocale } from "astro-i18n-aut";
 
 export async function getStaticPaths() {
-  const posts = await getBlogPosts();
-  return posts.map((post: CollectionEntry<"blog">) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  const langs = ["en", "vi"];
+  const paths = [];
+
+  for (const lang of langs) {
+    const posts = await getBlogPosts(lang);
+    paths.push(
+      ...posts.map((post: CollectionEntry<"blog">) => {
+        const cleanSlug = post.slug.replace(`${lang}/`, "");
+        return {
+          params: { slug: cleanSlug },
+          props: { post, lang },
+        };
+      })
+    );
+  }
+
+  return paths;
 }
 
-const _post = Astro.props;
-const { Content } = await _post.render();
+const { post, lang } = Astro.props;
+const currentLang = getLocale(Astro.url);
+
+// Đảm bảo lấy post đúng ngôn ngữ
+let finalPost = post;
+if (currentLang !== lang) {
+  // Nếu ngôn ngữ hiện tại khác với ngôn ngữ của post, lấy post đúng
+  const posts = await getBlogPosts(currentLang);
+  const correctPost = posts.find(
+    (p) => p.slug.replace(`${currentLang}/`, "") === Astro.params.slug
+  );
+  if (correctPost) {
+    finalPost = correctPost;
+  }
+}
+
+const { Content } = await finalPost.render();
+
+// Debug
+console.log(`Blog post: ${finalPost.slug}, lang: ${currentLang}`);
 ---
 
-<BaseLayout {..._post.data}>
-  <Navbar client:load />
+<BaseLayout {...finalPost.data}>
+  <Navbar client:load lang={currentLang} />
 
   <div class="relative isolate overflow-hidden bg-background">
     <div class="mx-auto max-w-4xl px-6 lg:px-8">
@@ -27,24 +58,27 @@ const { Content } = await _post.render();
           <h1
             class="text-4xl font-bold tracking-tight text-base-800 dark:text-base-100 sm:text-5xl mb-8"
           >
-            {_post.data.title}
+            {finalPost.data.title}
           </h1>
 
           {
-            _post.data.description && (
+            finalPost.data.description && (
               <p class="text-lg text-base-600 dark:text-base-400 mb-8">
-                {_post.data.description}
+                {finalPost.data.description}
               </p>
             )
           }
 
           <div class="text-sm text-base-500 dark:text-base-500 mb-12">
             {
-              _post.data.pubDate.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })
+              finalPost.data.pubDate.toLocaleDateString(
+                currentLang === "vi" ? "vi-VN" : "en-US",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              )
             }
           </div>
 

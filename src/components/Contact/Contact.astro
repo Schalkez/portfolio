@@ -5,6 +5,28 @@ import Github from "$components/Icons/Github.astro";
 import LinkedIn from "$components/Icons/LinkedIn.astro";
 import Mail from "$components/Icons/Mail.astro";
 import { SOCIALS } from "src/config";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+
+// Lấy nội dung theo ngôn ngữ
+const titles = {
+  en: {
+    title: "get in touch",
+    description:
+      "you have a project in mind? let's talk about it. drop me a line and I'll get back to you as soon as possible.",
+  },
+  vi: {
+    title: "liên hệ",
+    description:
+      "bạn có một dự án trong đầu? hãy nói chuyện về nó. gửi cho tôi một dòng và tôi sẽ phản hồi sớm nhất có thể.",
+  },
+};
+
+const content = titles[lang as keyof typeof titles] || titles.en;
 ---
 
 <div
@@ -17,13 +39,12 @@ import { SOCIALS } from "src/config";
         <h2
           class="text-3xl font-bold tracking-tight text-base-900 dark:text-base-100 pointer-events-auto"
         >
-          get in touch
+          {content.title}
         </h2>
         <p
           class="mt-4 leading-7 text-base-600 dark:text-base-300 pointer-events-auto"
         >
-          you have a project in mind? let's talk about it. drop me a line and
-          I'll get back to you as soon as possible.
+          {content.description}
         </p>
 
         <ul role="list" class="mt-8 pointer-events-auto">

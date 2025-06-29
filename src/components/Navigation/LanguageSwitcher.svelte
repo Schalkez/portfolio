@@ -7,9 +7,11 @@
     currentPath: string;
   }>();
 
+  let isLoading = $state(false);
+
   function getLanguageUrl(lang: string) {
     if (lang === "en") {
-      return "/en/";
+      return "/";
     }
     return "/vi/";
   }
@@ -26,7 +28,15 @@
       "| currentPath:",
       props.currentPath
     );
-    window.location.href = url;
+
+    // Chỉ chuyển đổi nếu ngôn ngữ khác với hiện tại
+    if (lang !== props.currentLang) {
+      isLoading = true;
+      // Thêm một chút delay để user thấy loading
+      setTimeout(() => {
+        window.location.href = url;
+      }, 100);
+    }
   }
 
   // Đường dẫn SVG cờ trong public/flags/
@@ -52,5 +62,8 @@
   onChange={handleLanguageChange}
   noArrow={true}
   noBorder={true}
-  customClass="px-3 text-sm font-medium text-base-800 shadow-lg shadow-base-800/5 ring-base-900/5 dark:text-base-200 dark:ring-white/10"
+  disabled={isLoading}
+  customClass="px-3 text-sm font-medium text-base-800 shadow-lg shadow-base-800/5 ring-base-900/5 dark:text-base-200 dark:ring-white/10 {isLoading
+    ? 'opacity-50'
+    : ''}"
 />

@@ -2,21 +2,52 @@
 import { getProjects } from "src/utils";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import ProjectGrid from "$components/ProjectPages/ProjectGrid.astro";
+import { getLocale } from "astro-i18n-aut";
 
 export async function getStaticPaths() {
-  const posts = await getProjects();
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  const langs = ["en", "vi"];
+  const paths = [];
+
+  for (const lang of langs) {
+    const posts = await getProjects(lang);
+    paths.push(
+      ...posts.map((post) => {
+        const cleanSlug = post.slug.replace(`${lang}/`, "");
+        return {
+          params: { slug: cleanSlug },
+          props: { post, lang },
+        };
+      })
+    );
+  }
+
+  return paths;
 }
 
-const post = Astro.props;
-const { Content } = await post.render();
+const { post, lang } = Astro.props;
+const currentLang = getLocale(Astro.url);
+
+// Đảm bảo lấy project đúng ngôn ngữ
+let finalPost = post;
+if (currentLang !== lang) {
+  // Nếu ngôn ngữ hiện tại khác với ngôn ngữ của project, lấy project đúng
+  const projects = await getProjects(currentLang);
+  const correctProject = projects.find(
+    (p) => p.slug.replace(`${currentLang}/`, "") === Astro.params.slug
+  );
+  if (correctProject) {
+    finalPost = correctProject;
+  }
+}
+
+const { Content } = await finalPost.render();
+
+// Debug: log để kiểm tra
+console.log(`Rendering project: ${finalPost.slug}, lang: ${currentLang}`);
 ---
 
-<BaseLayout {...post.data}>
-  <ProjectGrid project={post.data}>
+<BaseLayout {...finalPost.data}>
+  <ProjectGrid project={finalPost.data}>
     <Content />
   </ProjectGrid>
 </BaseLayout>
