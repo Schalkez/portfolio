@@ -6,7 +6,7 @@ import _ from "lodash";
 import ProjectBreadcrumb from "./ProjectBreadcrumb.astro";
 import ProjectButtons from "./ProjectButtons.astro";
 
-const { project } = Astro.props;
+const { project, lang = "en" } = Astro.props;
 
 const images = import.meta.glob(
   "/src/assets/projects/**/*.{png,webp,jpg,jpeg,svg}"
@@ -72,7 +72,7 @@ const hasBackgroundColor = !_.isNil(project.backgroundColor);
   }
 
   <div class="pt-6 sm:pt-24">
-    <ProjectBreadcrumb name={project.name} />
+    <ProjectBreadcrumb name={project.name} lang={lang} />
 
     <!-- Image gallery -->
     {

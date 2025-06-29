@@ -3,6 +3,7 @@ import { getProjects } from "src/utils";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import ProjectGrid from "$components/ProjectPages/ProjectGrid.astro";
 import { getLocale } from "astro-i18n-aut";
+import { SITE } from "src/config";
 
 export async function getStaticPaths() {
   const langs = ["en", "vi"];
@@ -42,12 +43,55 @@ if (currentLang !== lang) {
 
 const { Content } = await finalPost.render();
 
+// SEO meta tags cho project
+const seoProps = {
+  title: `${finalPost.data.name} - Project by Hiền`,
+  description:
+    finalPost.data.shortDescription ||
+    `Check out ${finalPost.data.name}, a project developed by Hiền using modern web technologies.`,
+  keywords:
+    finalPost.data.tags?.join(", ") || "project, web development, portfolio",
+  type: "website",
+  author: "Hiền",
+  image: finalPost.data.thumbnail || "og.jpg",
+  tags: finalPost.data.tags || [],
+};
+
+// Structured data cho project
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: finalPost.data.name,
+  description: finalPost.data.shortDescription || `A project developed by Hiền`,
+  author: {
+    "@type": "Person",
+    name: "Hiền",
+    url: SITE,
+  },
+  creator: {
+    "@type": "Person",
+    name: "Hiền",
+  },
+  dateCreated: finalPost.data.date.toISOString(),
+  url: Astro.url.toString(),
+  image: new URL(seoProps.image, Astro.url).toString(),
+  keywords: seoProps.keywords,
+  inLanguage: currentLang === "vi" ? "vi-VN" : "en-US",
+  genre: "Web Development",
+  category: "Software Project",
+};
+
 // Debug: log để kiểm tra
 console.log(`Rendering project: ${finalPost.slug}, lang: ${currentLang}`);
 ---
 
-<BaseLayout {...finalPost.data}>
-  <ProjectGrid project={finalPost.data}>
+<BaseLayout {...seoProps}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData)}
+  />
+
+  <ProjectGrid project={finalPost.data} lang={currentLang}>
     <Content />
   </ProjectGrid>
 </BaseLayout>

@@ -4,7 +4,9 @@ import { getBlogPosts } from "src/utils";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import ProseWrapper from "$layouts/ProseWrapper.astro";
 import Navbar from "$components/Navigation/Navbar.svelte";
+import BlogBreadcrumb from "$components/Blog/BlogBreadcrumb.astro";
 import { getLocale } from "astro-i18n-aut";
+import { SITE } from "src/config";
 
 export async function getStaticPaths() {
   const langs = ["en", "vi"];
@@ -44,16 +46,68 @@ if (currentLang !== lang) {
 
 const { Content } = await finalPost.render();
 
+// SEO meta tags cho blog post
+const seoProps = {
+  title: finalPost.data.title,
+  description: finalPost.data.description,
+  keywords: finalPost.data.tags?.join(", ") || "blog, article, web development",
+  type: "article",
+  author: "Hiền",
+  publishedTime: finalPost.data.pubDate.toISOString(),
+  modifiedTime:
+    finalPost.data.updatedDate?.toISOString() ||
+    finalPost.data.pubDate.toISOString(),
+  image: finalPost.data.heroImage || "og.jpg",
+  tags: finalPost.data.tags || [],
+};
+
+// Structured data cho blog post
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: finalPost.data.title,
+  description: finalPost.data.description,
+  author: {
+    "@type": "Person",
+    name: "Hiền",
+    url: SITE,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Hiền's Portfolio",
+    url: SITE,
+  },
+  datePublished: finalPost.data.pubDate.toISOString(),
+  dateModified:
+    finalPost.data.updatedDate?.toISOString() ||
+    finalPost.data.pubDate.toISOString(),
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": Astro.url,
+  },
+  image: new URL(seoProps.image, Astro.url).toString(),
+  keywords: seoProps.keywords,
+  articleSection: "Blog",
+  inLanguage: currentLang === "vi" ? "vi-VN" : "en-US",
+};
+
 // Debug
 console.log(`Blog post: ${finalPost.slug}, lang: ${currentLang}`);
 ---
 
-<BaseLayout {...finalPost.data}>
+<BaseLayout {...seoProps}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData)}
+  />
+
   <Navbar client:load lang={currentLang} />
 
   <div class="relative isolate overflow-hidden bg-background">
     <div class="mx-auto max-w-4xl px-6 lg:px-8">
       <div class="py-24 md:py-32">
+        <BlogBreadcrumb title={finalPost.data.title} lang={currentLang} />
+
         <div class="max-w-3xl">
           <h1
             class="text-4xl font-bold tracking-tight text-base-800 dark:text-base-100 sm:text-5xl mb-8"

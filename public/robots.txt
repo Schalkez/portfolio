@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://portfolio.chiatien.org/sitemap.xml
+
+# RSS/Atom Feeds
+Allow: /rss.xml
+Allow: /atom.xml
+Allow: /feed.json
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /admin/ 

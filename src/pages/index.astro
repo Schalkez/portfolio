@@ -14,9 +14,48 @@ import { getFeaturedProjects } from "src/utils";
 
 const lang = getLocale(Astro.url);
 const _projects = await getFeaturedProjects(lang);
+
+// SEO meta tags cho trang chủ
+const seoProps = {
+  title: "Hiền - Full-Stack Software Engineer Portfolio",
+  description:
+    "Hi, I'm Hiền! A passionate full-stack software engineer based in Berlin. Specializing in modern web technologies like Astro, Svelte, React, and TypeScript. Check out my projects and experience.",
+  keywords:
+    "hiền, software engineer, full-stack developer, berlin, portfolio, web development, astro, svelte, react, typescript, javascript",
+  type: "website",
+};
+
+// Structured data cho trang chủ
+const homeStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Hiền's Portfolio - Home",
+  description:
+    "Personal portfolio and blog of Hiền, a full-stack software engineer",
+  url: "https://portfolio.chiatien.org",
+  mainEntity: {
+    "@type": "Person",
+    name: "Hiền",
+    jobTitle: "Full-Stack Software Engineer",
+    description: "Passionate full-stack software engineer based in Berlin",
+    knowsAbout: [
+      "Web Development",
+      "Astro",
+      "Svelte",
+      "React",
+      "TypeScript",
+      "JavaScript",
+    ],
+  },
+};
 ---
 
-<BaseLayout>
+<BaseLayout {...seoProps}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(homeStructuredData)}
+  />
+
   <Navbar client:load lang={lang} />
   <PlanetScene client:visible />
   <Hero client:load lang={lang} />

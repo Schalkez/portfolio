@@ -4,14 +4,19 @@ import { BASE, SITE_FAVICON } from "src/config";
 const _canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const {
-	title: _title,
-	description: _description,
-	image: _image = "og.jpg",
+  title: _title,
+  description: _description,
+  image: _image = "og.jpg",
+  keywords: _keywords,
+  author: _author = "Hiền",
+  type: _type = "website",
 } = Astro.props;
 
-const _defaultTitle = "hi, i'm florian";
+const _defaultTitle = "hi, i'm hiền";
 const _defaultDescription =
-	"hello world! this is my personal website. i'm florian, a full-stack software engineer based in berlin.";
+  "hello world! this is my personal website. i'm hiền, a full-stack software engineer based in berlin.";
+const _defaultKeywords =
+  "hiền, software engineer, full-stack developer, berlin, portfolio, web development, astro, svelte, react";
 ---
 
 <!-- Global Metadata -->
@@ -23,6 +28,25 @@ const _defaultDescription =
   href=`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${SITE_FAVICON}</text></svg>`
 />
 
+<link rel="manifest" href="/manifest.json" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="RSS Feed"
+  href="/rss.xml"
+/>
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  title="Atom Feed"
+  href="/atom.xml"
+/>
+<link
+  rel="alternate"
+  type="application/json"
+  title="JSON Feed"
+  href="/feed.json"
+/>
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
@@ -32,13 +56,22 @@ const _defaultDescription =
 <title>{_title || _defaultTitle}</title>
 <meta name="title" content={_title || _defaultTitle} />
 <meta name="description" content={_description || _defaultDescription} />
+<meta name="keywords" content={_keywords || _defaultKeywords} />
+<meta name="author" content={_author} />
+<meta name="robots" content="index, follow" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={_type} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={_title || _defaultTitle} />
 <meta property="og:description" content={_description || _defaultDescription} />
 <meta property="og:image" content={new URL(BASE + _image, Astro.url)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Hiền's Portfolio" />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -49,6 +82,101 @@ const _defaultDescription =
   content={_description || _defaultDescription}
 />
 <meta property="twitter:image" content={new URL(BASE + _image, Astro.url)} />
+<meta name="twitter:creator" content="@hiền" />
+
+<!-- Additional SEO Meta Tags -->
+<meta name="theme-color" content="#000000" />
+<meta name="msapplication-TileColor" content="#000000" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+/>
+<meta name="apple-mobile-web-app-title" content="Hiền's Portfolio" />
+
+<!-- Structured Data -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Hiền",
+    jobTitle: "Full-Stack Software Engineer",
+    url: "https://portfolio.chiatien.org",
+    sameAs: [
+      "https://github.com/Schalkez",
+      "https://www.linkedin.com/in/hien-nguyen-duc-2053b0240/",
+      "https://fb.com/nguyenhien2611",
+    ],
+    worksFor: {
+      "@type": "Organization",
+      name: "Self-employed",
+    },
+    knowsAbout: [
+      "Web Development",
+      "Full-Stack Development",
+      "Astro",
+      "Svelte",
+      "React",
+      "JavaScript",
+      "TypeScript",
+    ],
+    description:
+      "Full-stack software engineer specializing in modern web technologies",
+    image: {
+      "@type": "ImageObject",
+      url: "https://portfolio.chiatien.org/og.jpg",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Berlin",
+      addressCountry: "DE",
+    },
+  })}
+/>
+
+<!-- Website Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Hiền's Portfolio",
+    url: "https://portfolio.chiatien.org",
+    description:
+      "Personal portfolio and blog of Hiền, a full-stack software engineer",
+    author: {
+      "@type": "Person",
+      name: "Hiền",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Hiền",
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://portfolio.chiatien.org/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  })}
+/>
+
+<!-- Organization Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Hiền's Portfolio",
+    url: "https://portfolio.chiatien.org",
+    logo: "https://portfolio.chiatien.org/og.jpg",
+    sameAs: [
+      "https://github.com/Schalkez",
+      "https://www.linkedin.com/in/hien-nguyen-duc-2053b0240/",
+      "https://fb.com/nguyenhien2611",
+    ],
+  })}
+/>
 
 <!-- Umami Analytics -->
 <script

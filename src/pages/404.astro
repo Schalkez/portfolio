@@ -1,0 +1,64 @@
+---
+import BaseLayout from "$layouts/BaseLayout.astro";
+import Navbar from "$components/Navigation/Navbar.svelte";
+import { getLocale } from "astro-i18n-aut";
+
+const currentLang = getLocale(Astro.url);
+
+const seoProps = {
+  title: "404 - Page Not Found | Hiền's Portfolio",
+  description:
+    "The page you're looking for doesn't exist. Let's get you back on track to explore Hiền's portfolio and projects.",
+  keywords: "404, page not found, portfolio, hiền",
+  type: "website",
+};
+---
+
+<BaseLayout {...seoProps}>
+  <Navbar client:load lang={currentLang} />
+
+  <div class="relative isolate overflow-hidden bg-background">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
+      <div class="py-24 md:py-32">
+        <div class="max-w-3xl mx-auto text-center">
+          <h1
+            class="text-6xl font-bold tracking-tight text-base-800 dark:text-base-100 sm:text-8xl mb-8"
+          >
+            404
+          </h1>
+
+          <h2
+            class="text-2xl font-semibold text-base-700 dark:text-base-200 mb-4"
+          >
+            {currentLang === "vi" ? "Trang không tồn tại" : "Page Not Found"}
+          </h2>
+
+          <p class="text-lg text-base-600 dark:text-base-400 mb-8">
+            {
+              currentLang === "vi"
+                ? "Trang bạn đang tìm kiếm không tồn tại. Hãy quay lại trang chủ để khám phá portfolio của tôi."
+                : "The page you're looking for doesn't exist. Let's get you back on track to explore my portfolio."
+            }
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={currentLang === "vi" ? "/vi" : "/"}
+              class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent-600 hover:bg-accent-700 transition-colors"
+            >
+              {currentLang === "vi" ? "Về trang chủ" : "Go Home"}
+            </a>
+
+            <a
+              href={currentLang === "vi" ? "/vi/#projects" : "/#projects"}
+              class="inline-flex items-center px-6 py-3 border border-base-300 text-base font-medium rounded-md text-base-700 bg-white hover:bg-base-50 dark:text-base-200 dark:bg-base-800 dark:border-base-600 dark:hover:bg-base-700 transition-colors"
+            >
+              {currentLang === "vi" ? "Xem dự án" : "View Projects"}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+

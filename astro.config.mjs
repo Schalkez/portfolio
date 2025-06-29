@@ -40,6 +40,15 @@ export default defineConfig({
       noExternal: ["gsap"],
     },
     logLevel: "error",
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ["gsap"],
+          },
+        },
+      },
+    },
   },
 
   site: SITE,
@@ -47,5 +56,17 @@ export default defineConfig({
   trailingSlash: "always",
   build: {
     format: "directory",
+  },
+
+  // SEO và Performance optimizations
+  experimental: {
+    // assets: true, // Removed - not valid in current Astro version
+  },
+
+  // Image optimization
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
   },
 });

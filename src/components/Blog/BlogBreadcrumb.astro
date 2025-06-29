@@ -1,10 +1,10 @@
 ---
 interface Props {
-  name: string;
+  title: string;
   lang?: string;
 }
 
-const { name, lang = "en" } = Astro.props;
+const { title, lang = "en" } = Astro.props;
 
 const baseUrl = lang === "vi" ? "/vi" : "";
 ---
@@ -17,9 +17,9 @@ const baseUrl = lang === "vi" ? "/vi" : "";
     <li>
       <div class="flex items-center">
         <a
-          href={`${baseUrl}/#projects`}
+          href={`${baseUrl}/#blog`}
           class="mr-2 text-sm font-medium text-neutral-900 hover:text-neutral-800 dark:text-neutral-100"
-          >projects</a
+          >blog</a
         >
         <svg
           width="16"
@@ -36,7 +36,7 @@ const baseUrl = lang === "vi" ? "/vi" : "";
 
     <li class="text-sm">
       <div class="font-medium text-neutral-500 dark:text-neutral-400">
-        {name}
+        {title}
       </div>
     </li>
   </ol>
@@ -51,15 +51,16 @@ const baseUrl = lang === "vi" ? "/vi" : "";
       {
         "@type": "ListItem",
         position: 1,
-        name: "Projects",
-        item: `${Astro.site}${baseUrl}/#projects`,
+        name: "Blog",
+        item: `${Astro.site}${baseUrl}/#blog`,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: name,
+        name: title,
         item: Astro.url.toString(),
       },
     ],
   })}
 />
+
