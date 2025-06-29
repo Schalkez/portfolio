@@ -34,7 +34,8 @@
   }}
 />
 
-<div class="fixed top-6 w-full z-40">
+<!-- Desktop Navigation - Top -->
+<div class="fixed top-6 w-full z-40 hidden md:block">
   <div class="flex flex-1 justify-center">
     <DesktopNavigation
       {items}
@@ -42,18 +43,25 @@
       bind:active
       currentLang={lang}
       {currentPath}
-      className="pointer-events-auto hidden md:block"
+      className="pointer-events-auto"
     />
   </div>
 </div>
 
-<div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40">
-  <MobileNavigation
-    {items}
-    {navigationItems}
-    bind:active
-    currentLang={lang}
-    {currentPath}
-    className="pointer-events-auto md:hidden mt-10"
-  />
+<!-- Mobile Navigation - Bottom (PWA Style) -->
+<div class="fixed bottom-0 left-0 right-0 z-40 md:hidden">
+  <div
+    class="bg-white/90 backdrop-blur-md border-t border-base-200/50 dark:bg-black/90 dark:border-base-700/50"
+  >
+    <div class="flex justify-center items-center px-4 py-3">
+      <MobileNavigation
+        {items}
+        {navigationItems}
+        bind:active
+        currentLang={lang}
+        {currentPath}
+        className="pointer-events-auto w-full"
+      />
+    </div>
+  </div>
 </div>

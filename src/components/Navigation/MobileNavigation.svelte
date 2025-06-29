@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Item } from "./items";
-  import { fade, slide } from "svelte/transition";
   import MobileNavigationItem from "./MobileNavigationItem.svelte";
-  import { useClickOutside } from "../../utils/useClickOutside";
   import LanguageSwitcher from "./LanguageSwitcher.svelte";
 
   export const className: string = "";
@@ -14,100 +12,25 @@
 
   export let currentLang: string = "vi";
   export let currentPath: string = "/";
-
-  let isOpen = false;
-  let popupElement: HTMLElement;
-
-  function toggle() {
-    isOpen = !isOpen;
-  }
-
-  function hide() {
-    isOpen = false;
-  }
 </script>
 
-<button
-  type="button"
-  class="group flex items-center rounded-full mr-4 bg-white/90 px-4 py-2 text-sm font-medium text-base-800 shadow-lg shadow-base-800/5 ring-1 ring-base-900/5 backdrop-blur dark:bg-white/5 dark:text-base-200 dark:ring-white/10 dark:hover:ring-white/20 {className}"
-  on:click={toggle}
-  aria-label="Open navigation menu"
->
-  menu
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    class="ml-2 h-auto w-4 stroke-base-500 group-hover:stroke-base-700 dark:group-hover:stroke-base-400"
-    aria-hidden="true"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="m4.5 15.75 7.5-7.5 7.5 7.5"
-    />
-  </svg>
-
-  <span class="sr-only">Open Popover</span>
-</button>
-
-{#if isOpen}
-  <div
-    transition:fade={{ duration: 300 }}
-    class="fixed inset-0 z-[9999] bg-base-800/40 backdrop-blur-sm dark:bg-black/50 transition-all duration-300"
-    on:click={hide}
-  ></div>
-
-  <div
-    bind:this={popupElement}
-    use:useClickOutside={{ enabled: isOpen, callback: hide }}
-    transition:slide={{ duration: 300 }}
-    class="fixed bottom-[-150px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] origin-center rounded-3xl bg-white p-8 ring-1 backdrop-blur-md ring-base-900/5 dark:bg-black dark:ring-white/10 max-w-sm w-[90vw]"
-  >
-    <div class="flex flex-row-reverse items-center justify-between">
-      <button
-        aria-label="Close menu"
-        class="-m-1 p-1 focus:outline-none"
-        on:click={hide}
-      >
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          class="h-6 w-6 text-base-500 dark:text-base-400"
-        >
-          <path
-            d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
-            fill="none"
-            stroke="currentColor"
-          />
-        </svg>
-      </button>
-      <h2 class="text-sm font-medium text-base-600 dark:text-base-400">
-        navigation
-      </h2>
+<nav class={className}>
+  <div class="flex items-center justify-center w-full max-w-md mx-auto">
+    <!-- Navigation Items -->
+    <div class="flex items-center space-x-0.5 sm:space-x-1">
+      {#each items as item, index}
+        <MobileNavigationItem
+          current={item}
+          label={navigationItems[index].label}
+          {active}
+          {currentLang}
+        />
+      {/each}
     </div>
-    <nav class="mt-6">
-      <ul
-        class="-my-2 divide-y divide-white/10 text-base text-base-800 dark:divide-base-100/5 dark:text-base-100"
-      >
-        {#each items as item, index}
-          <MobileNavigationItem
-            current={item}
-            label={navigationItems[index].label}
-            {active}
-            {hide}
-            {currentLang}
-          />
-        {/each}
-      </ul>
-    </nav>
-    <div class="mt-6 pt-6 border-t border-white/10 dark:border-base-100/5">
-      <div class="flex items-center justify-between">
-        <span class="text-sm text-base-600 dark:text-base-400">Language</span>
-        <LanguageSwitcher {currentLang} {currentPath} />
-      </div>
+
+    <!-- Language Switcher - ở cuối -->
+    <div class="flex items-center ml-2 sm:ml-3">
+      <LanguageSwitcher {currentLang} {currentPath} isMobile={true} />
     </div>
   </div>
-{/if}
+</nav>

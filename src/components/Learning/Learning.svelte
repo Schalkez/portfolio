@@ -17,91 +17,91 @@
     {
       title: "Astro",
       description:
-        "Really enjoying Astro; it feels like Svelte but even better suited for content-focused static sites.",
-      date: "2025-3",
+        "Astro is a fresh breeze in web development, offering a lightweight and optimized experience for content-focused static sites. It has quickly become my favorite, surpassing even Svelte in simplicity and efficiency.",
+      date: "2025-03",
     },
     {
-      title: "supabase & postgresql",
+      title: "Supabase & PostgreSQL",
       description:
-        "Started using Supabase for a few projects. While I still prefer MongoDB, Supabase offers some neat features.",
+        "Exploring Supabase opened a new door with PostgreSQL, blending real-time power with a user-friendly interface. While MongoDB remains my favorite, Supabase offers remarkable flexibility for projects.",
       date: "2024-10",
     },
     {
-      title: "svelte & sveltekit",
+      title: "Svelte & SvelteKit",
       description:
-        "Svelte is my go-to framework for web development. I use it for most personal projects, including this website.",
+        "Svelte is my passion in web development. With its simplicity and outstanding performance, SvelteKit powers many personal projects, including this website.",
       date: "2024-06",
     },
     {
-      title: "tanstack query & zustand & jotai",
+      title: "TanStack Query & Zustand & Jotai",
       description:
-        "TanStack Query, Zustand, and Jotai make state and data management in apps incredibly smooth and efficient.",
+        "The trio of TanStack Query, Zustand, and Jotai has revolutionized state and data management, delivering a seamless and highly efficient experience in complex applications.",
       date: "2024-03",
     },
     {
-      title: "firebase & gcp",
+      title: "Firebase & Google Cloud Platform",
       description:
-        "Tried Firebase and Google Cloud Platform for some projects. MongoDB remains my favorite, but they have unique strengths.",
+        "Firebase and GCP provide robust platforms for storage and deployment. Though MongoDB is my favorite, these tools bring unique strengths to scalable projects.",
       date: "2024-02",
     },
     {
-      title: "fastify",
+      title: "Fastify",
       description:
-        "Fastify delivers a fast and powerful experience for building APIs, making it a great choice for backend projects.",
+        "Fastify offers speed and power for building APIs. While not my top choice, it remains a reliable companion for backend projects.",
       date: "2023-12",
     },
     {
-      title: "mysql",
+      title: "MySQL",
       description:
-        "Used MySQL before switching to MongoDB, and the flexibility of MongoDB has kept me from looking back.",
+        "MySQL delivers tight structure and elegant organization in data management, providing a solid foundation for consistent and beautiful data handling.",
       date: "2023-10",
     },
     {
-      title: "nest.js",
+      title: "Nest.js",
       description:
-        "Nest.js provides a clean and robust structure for Node.js apps, easing my transition from MySQL to MongoDB.",
+        "Nest.js offers a clean and powerful framework for Node.js applications, making transitions between MySQL and MongoDB smooth and efficient.",
       date: "2023-09",
     },
     {
-      title: "mongodb",
+      title: "MongoDB",
       description:
-        "Switching from MySQL to MongoDB was a game-changer, offering unmatched flexibility for handling data.",
+        "MongoDB is a game-changer, offering unmatched flexibility in data management and unlocking endless possibilities for creative projects.",
       date: "2023-02",
     },
     {
-      title: "tailwindcss",
+      title: "TailwindCSS",
       description:
-        "TailwindCSS is a brilliant yet unconventional idea, far superior to plain CSS. It's in most of my recent projects, including this site.",
+        "TailwindCSS is a new breeze in design, breaking free from traditional CSS constraints. Its flexibility and speed make it a cornerstone in nearly all my recent projects.",
       date: "2023-01",
     },
     {
-      title: "styled-components",
+      title: "Styled-components",
       description:
-        "Styled-components makes writing CSS in JavaScript intuitive and powerful, used in many of my modern projects.",
+        "Styled-components makes writing CSS in JavaScript intuitive and powerful, serving as a key pillar in crafting modern interfaces for my projects.",
       date: "2022-10",
     },
     {
-      title: "next.js",
+      title: "Next.js",
       description:
-        "Not a huge fan of React, but Next.js remains the leading framework, with no strong alternatives for native development yet.",
+        "Though not a huge fan of React, Next.js stands as a leading star in web development, with unmatched performance and SEO features that are hard to replace.",
       date: "2022-10",
     },
     {
-      title: "express.js",
+      title: "Express.js",
       description:
-        "Express.js is a solid choice for building APIs, widely used despite my mixed feelings about React-based ecosystems.",
+        "Express.js is a solid foundation for building APIs. Despite mixed feelings about the React ecosystem, it remains a trusted choice for backend development.",
       date: "2022-07",
     },
     {
-      title: "redux",
+      title: "Redux",
       description:
-        "Redux is powerful for state management in React apps, though I find it complex compared to newer alternatives.",
+        "Redux is a powerful tool for state management in React, though I find it complex compared to modern, lighter alternatives.",
       date: "2022-05",
     },
     {
-      title: "react.js",
+      title: "React.js",
       description:
-        "React isn't my favorite, but its popularity and lack of strong native alternatives keep it relevant for many projects.",
+        "React isn’t my favorite, but its popularity and vast ecosystem keep it a significant choice for many projects.",
       date: "2022-03",
     },
   ];
@@ -111,91 +111,91 @@
     {
       title: "Astro",
       description:
-        "Thực sự thích Astro; nó cảm giác như Svelte nhưng thậm chí phù hợp hơn cho các trang tĩnh tập trung vào nội dung.",
-      date: "2025-3",
+        "Astro là một luồng gió mới trong phát triển web, mang đến trải nghiệm nhẹ nhàng và tối ưu cho các trang tĩnh tập trung vào nội dung. Nó nhanh chóng trở thành yêu thích của tôi, vượt qua cả Svelte về sự đơn giản và hiệu quả.",
+      date: "2025-03",
     },
     {
-      title: "supabase & postgresql",
+      title: "Supabase & PostgreSQL",
       description:
-        "Bắt đầu sử dụng Supabase cho một vài dự án. Mặc dù tôi vẫn thích MongoDB hơn, Supabase cung cấp một số tính năng thú vị.",
+        "Khám phá Supabase mở ra một cánh cửa mới với PostgreSQL, kết hợp sức mạnh thời gian thực và giao diện thân thiện. Dù trái tim tôi vẫn thuộc về MongoDB, Supabase mang đến sự linh hoạt đáng kinh ngạc cho các dự án.",
       date: "2024-10",
     },
     {
-      title: "svelte & sveltekit",
+      title: "Svelte & SvelteKit",
       description:
-        "Svelte là framework ưa thích của tôi cho phát triển web. Tôi sử dụng nó cho hầu hết các dự án cá nhân, bao gồm website này.",
+        "Svelte là ngọn lửa đam mê của tôi trong phát triển web. Với sự đơn giản và hiệu suất vượt trội, SvelteKit đã trở thành trái tim của các dự án cá nhân, bao gồm cả website này.",
       date: "2024-06",
     },
     {
-      title: "tanstack query & zustand & jotai",
+      title: "TanStack Query & Zustand & Jotai",
       description:
-        "TanStack Query, Zustand và Jotai làm cho việc quản lý state và dữ liệu trong ứng dụng trở nên mượt mà và hiệu quả một cách đáng kinh ngạc.",
+        "Bộ ba TanStack Query, Zustand và Jotai đã cách mạng hóa cách tôi quản lý trạng thái và dữ liệu. Chúng mang đến trải nghiệm mượt mà, giúp các ứng dụng phức tạp trở nên dễ dàng và hiệu quả.",
       date: "2024-03",
     },
     {
-      title: "firebase & gcp",
+      title: "Firebase & Google Cloud Platform",
       description:
-        "Đã thử Firebase và Google Cloud Platform cho một số dự án. MongoDB vẫn là yêu thích của tôi, nhưng chúng có những điểm mạnh độc đáo.",
+        "Firebase và GCP là những nền tảng mạnh mẽ cho lưu trữ và triển khai. Dù MongoDB vẫn giữ vị trí yêu thích, các công cụ này mang đến điểm mạnh độc đáo cho các dự án cần mở rộng.",
       date: "2024-02",
     },
     {
-      title: "fastify",
+      title: "Fastify",
       description:
-        "Fastify mang lại trải nghiệm nhanh và mạnh mẽ để xây dựng API, làm cho nó trở thành lựa chọn tuyệt vời cho các dự án backend.",
+        "Fastify là tốc độ và sức mạnh trong việc xây dựng API. Dù không phải lựa chọn hàng đầu của tôi, nó vẫn là một người bạn đồng hành đáng tin cậy cho các dự án backend.",
       date: "2023-12",
     },
     {
-      title: "mysql",
+      title: "MySQL",
       description:
-        "Đã sử dụng MySQL trước khi chuyển sang MongoDB, và tính linh hoạt của MongoDB đã giữ tôi không nhìn lại.",
+        "MySQL mang đến sự chặt chẽ và tổ chức rõ ràng trong quản lý dữ liệu. Nó là một nền tảng vững chắc để đảm bảo tính nhất quán và đẹp mắt trong các dự án.",
       date: "2023-10",
     },
     {
-      title: "nest.js",
+      title: "Nest.js",
       description:
-        "Nest.js cung cấp cấu trúc sạch sẽ và mạnh mẽ cho ứng dụng Node.js, giúp tôi chuyển đổi từ MySQL sang MongoDB dễ dàng hơn.",
+        "Nest.js là bộ khung mạnh mẽ cho các ứng dụng Node.js, với cấu trúc sạch sẽ giúp việc chuyển đổi giữa MySQL và MongoDB trở nên mượt mà và hiệu quả.",
       date: "2023-09",
     },
     {
-      title: "mongodb",
+      title: "MongoDB",
       description:
-        "Chuyển từ MySQL sang MongoDB là một bước ngoặt, mang lại tính linh hoạt vô song để xử lý dữ liệu.",
+        "MongoDB là một bước ngoặt, mang đến tính linh hoạt vô song trong quản lý dữ liệu. Nó mở ra vô số khả năng để tôi sáng tạo trong các dự án.",
       date: "2023-02",
     },
     {
-      title: "tailwindcss",
+      title: "TailwindCSS",
       description:
-        "TailwindCSS là một ý tưởng tuyệt vời nhưng không theo quy ước, vượt trội hơn CSS thuần. Nó có trong hầu hết các dự án gần đây của tôi, bao gồm trang này.",
+        "TailwindCSS là luồng gió mới trong thiết kế, phá vỡ quy ước của CSS truyền thống. Với tính linh hoạt và tốc độ, nó đã trở thành trụ cột trong hầu hết các dự án gần đây.",
       date: "2023-01",
     },
     {
-      title: "styled-components",
+      title: "Styled-components",
       description:
-        "Styled-components làm cho việc viết CSS trong JavaScript trở nên trực quan và mạnh mẽ, được sử dụng trong nhiều dự án hiện đại của tôi.",
+        "Styled-components làm cho việc viết CSS trong JavaScript trở nên trực quan và mạnh mẽ. Nó là chìa khóa để tạo ra giao diện hiện đại trong các dự án của tôi.",
       date: "2022-10",
     },
     {
-      title: "next.js",
+      title: "Next.js",
       description:
-        "Không phải fan lớn của React, nhưng Next.js vẫn là framework hàng đầu, chưa có lựa chọn thay thế mạnh mẽ cho phát triển native.",
+        "Dù không phải fan lớn của React, Next.js vẫn là ngọn cờ đầu trong phát triển web, với hiệu suất và tính năng SEO khó có đối thủ thay thế.",
       date: "2022-10",
     },
     {
-      title: "express.js",
+      title: "Express.js",
       description:
-        "Express.js là lựa chọn vững chắc để xây dựng API, được sử dụng rộng rãi mặc dù tôi có cảm xúc lẫn lộn về hệ sinh thái dựa trên React.",
+        "Express.js là nền tảng vững chắc để xây dựng API. Dù tôi có cảm xúc lẫn lộn với hệ sinh thái React, nó vẫn là lựa chọn đáng tin cậy cho backend.",
       date: "2022-07",
     },
     {
-      title: "redux",
+      title: "Redux",
       description:
-        "Redux mạnh mẽ cho quản lý state trong ứng dụng React, mặc dù tôi thấy nó phức tạp so với các lựa chọn thay thế mới hơn.",
+        "Redux là công cụ mạnh mẽ để quản lý trạng thái trong React, nhưng tôi thấy nó phức tạp so với các giải pháp hiện đại và nhẹ nhàng hơn.",
       date: "2022-05",
     },
     {
-      title: "react.js",
+      title: "React.js",
       description:
-        "React không phải là yêu thích của tôi, nhưng sự phổ biến và thiếu lựa chọn thay thế mạnh mẽ cho native giữ nó có liên quan cho nhiều dự án.",
+        "React không phải yêu thích của tôi, nhưng sự phổ biến và hệ sinh thái rộng lớn khiến nó vẫn là lựa chọn quan trọng trong nhiều dự án.",
       date: "2022-03",
     },
   ];

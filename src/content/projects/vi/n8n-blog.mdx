@@ -32,16 +32,22 @@ images:
   - "/src/assets/projects/n8n-blog/thumbnail.webp"
 ---
 
-Một nền tảng tổng hợp tin tức/blog thông minh tận dụng n8n để tự động hóa quy trình làm việc, Firebase để lưu trữ dữ liệu thời gian thực và Python FastAPI để xử lý backend. Hệ thống lấy tin tức và bài viết blog mới nhất hàng ngày từ nhiều nguồn khác nhau, sau đó sử dụng GenAI để trích xuất và tóm tắt nội dung của mỗi bài viết.
+Một nền tảng _thông minh_ được thiết kế để **tự động hóa** việc tổng hợp và trình bày tin tức, blog từ nhiều nguồn, mang đến cho người dùng một _feed tin tức_ **ngắn gọn** và _được cá nhân hóa_ mỗi ngày. Hệ thống sử dụng **AI** để tóm tắt, phân loại và minh họa nội dung, giúp người dùng dễ dàng nắm bắt thông tin quan trọng.
 
-Các bài viết được phân loại tự động theo chủ đề và được gán một hình minh họa phù hợp bằng cách lấy random hình ảnh trong storage. Các bài viết đã tóm tắt và phân loại được lưu trữ trong Firebase và hiển thị trên frontend Next.js hiện đại, cung cấp cho người dùng một feed tin tức hàng ngày ngắn gọn, được phân loại với ngữ cảnh trực quan.
+### **Công nghệ chính**
 
-Công nghệ chính:
+- **n8n**: _Điều phối_ quy trình làm việc, lập lịch lấy dữ liệu và tích hợp các dịch vụ.
+- **Firebase**: Lưu trữ _thời gian thực_ cho bài viết, tóm tắt, chủ đề và hình ảnh.
+- **Python FastAPI**: Xử lý _backend_ tùy chỉnh và cung cấp _API endpoints_ hiệu quả.
+- **GenAI**: _Tóm tắt_ bài viết và _phân loại_ chủ đề một cách thông minh.
+- **Next.js**: Giao diện _frontend hiện đại_, hiển thị feed tin tức với _hình ảnh phù hợp_.
 
-- **n8n**: Điều phối toàn bộ quy trình làm việc, lập lịch và kích hoạt việc lấy dữ liệu, và phối hợp giữa các dịch vụ.
-- **Firebase**: Lưu trữ bài viết, tóm tắt, chủ đề và hình ảnh theo thời gian thực.
-- **Python FastAPI**: Xử lý logic backend tùy chỉnh, phân tích bài viết và API endpoints.
-- **GenAI**: Tóm tắt bài viết và phân loại chủ đề.
-- **Next.js**: Render frontend, hiển thị tin tức được phân loại, tóm tắt với hình ảnh phù hợp.
+### **Tính năng nổi bật**
 
-Dự án này tự động hóa quá trình tổng hợp tin tức, tóm tắt, phân loại chủ đề và minh họa, giúp người dùng dễ dàng cập nhật với những bài viết quan trọng nhất mỗi ngày.
+- **Tự động tổng hợp**: Lấy tin tức và blog _hàng ngày_ từ nhiều nguồn.
+- **Tóm tắt thông minh**: Sử dụng _GenAI_ để cô đọng nội dung thành các bản tóm tắt _ngắn gọn_.
+- **Phân loại chủ đề**: Tự động gán bài viết vào các danh mục như công nghệ, văn hóa, v.v.
+- **Minh họa trực quan**: Gắn _hình ảnh ngẫu nhiên_ theo chủ đề từ kho lưu trữ.
+- **Feed cá nhân hóa**: Hiển thị tin tức _được phân loại_ với giao diện _mượt mà_ và _hấp dẫn_.
+
+Nền tảng này _tự động hóa_ toàn bộ quy trình từ lấy tin, tóm tắt, phân loại đến minh họa, giúp người dùng _tiết kiệm thời gian_ và luôn _cập nhật_ với những thông tin _quan trọng nhất_.

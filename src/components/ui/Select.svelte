@@ -19,6 +19,7 @@
     noArrow?: boolean;
     noBorder?: boolean;
     customClass?: string;
+    isMobile?: boolean;
   }
 
   const props = $props<any>();
@@ -77,12 +78,16 @@
       : 'border border-base-200'} {props.customClass ||
       'bg-white px-3 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-accent-500 dark:bg-base-900 dark:border-base-700 dark:text-base-100 hover:bg-base-50 dark:hover:bg-base-800 transition-colors'} disabled:opacity-50 disabled:cursor-not-allowed"
   >
-    <span class="flex items-center gap-2 truncate">
+    <span class="flex items-center gap-1 sm:gap-2 truncate">
       {#if selectedOption && selectedOption.icon}
-        <img src={selectedOption.icon} alt="" class="w-6 h-6 object-contain" />
+        <img
+          src={selectedOption.icon}
+          alt=""
+          class="w-5 h-5 sm:w-6 sm:h-6 object-contain"
+        />
       {/if}
       {#if !(props.width && props.width.includes("w-12")) && selectedOption}
-        <span>{selectedOption.label}</span>
+        <span class="text-xs sm:text-sm">{selectedOption.label}</span>
       {/if}
     </span>
     {#if !props.noArrow}
@@ -106,14 +111,16 @@
   {#if isOpen}
     <div
       bind:this={dropdownElement}
-      class="absolute top-full left-0 right-0 z-50 mt-1 bg-white dark:bg-base-900 border border-base-200 dark:border-base-700 rounded-md shadow-lg max-h-60 overflow-auto"
+      class="absolute {props.isMobile
+        ? 'bottom-full mb-1'
+        : 'top-full mt-1'} left-0 right-0 z-50 bg-white dark:bg-base-900 border border-base-200 dark:border-base-700 rounded-md shadow-lg max-h-60 overflow-auto"
     >
       {#each props.options as option}
         <button
           type="button"
           onclick={() => handleOptionClick(option)}
           disabled={option.disabled}
-          class="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-base-100 dark:hover:bg-base-800 transition-colors {props.value ===
+          class="w-full flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 text-xs sm:text-sm hover:bg-base-100 dark:hover:bg-base-800 transition-colors {props.value ===
           option.value
             ? 'bg-accent-50 dark:bg-accent-900/20 text-accent-600 dark:text-accent-400'
             : 'text-base-900 dark:text-base-100'} {option.disabled
@@ -121,7 +128,11 @@
             : ''}"
         >
           {#if option.icon}
-            <img src={option.icon} alt="" class="w-6 h-6 object-contain" />
+            <img
+              src={option.icon}
+              alt=""
+              class="w-5 h-5 sm:w-6 sm:h-6 object-contain"
+            />
           {/if}
           {#if !(props.width && props.width.includes("w-12"))}
             <span>{option.label}</span>
