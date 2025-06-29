@@ -1,12 +1,13 @@
 ---
 import { BASE, SITE_FAVICON } from "src/config";
+import meImage from "src/assets/about/me/me.webp";
 
 const _canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const {
   title: _title,
   description: _description,
-  image: _image = "og.jpg",
+  image: _image = meImage,
   keywords: _keywords,
   author: _author = "Hiền",
   type: _type = "website",
@@ -17,6 +18,26 @@ const _defaultDescription =
   "hello world! this is my personal website. i'm hiền, a full-stack software engineer based in berlin.";
 const _defaultKeywords =
   "hiền, software engineer, full-stack developer, berlin, portfolio, web development, astro, svelte, react";
+
+// Xử lý image URL cho Open Graph
+let imageUrl: string;
+if (typeof _image === "string") {
+  // Nếu là string, tạo URL tương đối
+  imageUrl = new URL(BASE + _image, Astro.url).toString();
+} else if (
+  _image &&
+  typeof _image === "object" &&
+  "src" in _image &&
+  typeof _image.src === "string"
+) {
+  // Nếu là ImageMetadata object, sử dụng src
+  imageUrl = new URL(_image.src, Astro.url).toString();
+} else {
+  // Fallback sử dụng me.webp
+  imageUrl = new URL(meImage.src, Astro.url).toString();
+}
+
+console.log(imageUrl);
 ---
 
 <!-- Global Metadata -->
@@ -67,7 +88,7 @@ const _defaultKeywords =
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={_title || _defaultTitle} />
 <meta property="og:description" content={_description || _defaultDescription} />
-<meta property="og:image" content={new URL(BASE + _image, Astro.url)} />
+<meta property="og:image" content={imageUrl} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:site_name" content="Hiền's Portfolio" />
@@ -81,7 +102,7 @@ const _defaultKeywords =
   property="twitter:description"
   content={_description || _defaultDescription}
 />
-<meta property="twitter:image" content={new URL(BASE + _image, Astro.url)} />
+<meta property="twitter:image" content={imageUrl} />
 <meta name="twitter:creator" content="@hiền" />
 
 <!-- Additional SEO Meta Tags -->
@@ -125,7 +146,7 @@ const _defaultKeywords =
       "Full-stack software engineer specializing in modern web technologies",
     image: {
       "@type": "ImageObject",
-      url: "https://portfolio.chiatien.org/og.jpg",
+      url: new URL(meImage.src, Astro.url).toString(),
     },
     address: {
       "@type": "PostalAddress",
@@ -169,7 +190,7 @@ const _defaultKeywords =
     "@type": "Organization",
     name: "Hiền's Portfolio",
     url: "https://portfolio.chiatien.org",
-    logo: "https://portfolio.chiatien.org/og.jpg",
+    logo: new URL(meImage.src, Astro.url).toString(),
     sameAs: [
       "https://github.com/Schalkez",
       "https://www.linkedin.com/in/hien-nguyen-duc-2053b0240/",
