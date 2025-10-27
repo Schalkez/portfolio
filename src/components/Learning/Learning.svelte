@@ -225,7 +225,7 @@
         year: "numeric",
         month: "long",
       })
-      .toLowerCase();
+      ;
   }
 
   let showAll = false;

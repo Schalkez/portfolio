@@ -45,6 +45,7 @@
     "@biomejs/biome": "^2.0.6",
     "@melt-ui/pp": "^0.3.2",
     "@types/lodash": "^4.17.19",
+    "clsx": "^2.1.1",
     "tailwindcss-animate": "^1.0.7",
     "three-perf": "^1.0.10"
   }
