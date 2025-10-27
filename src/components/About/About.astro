@@ -71,8 +71,27 @@ const depthMe = (await import("$assets/about/me/me-depth.webp")).default;
             <div class="rounded-xl overflow-hidden h-[180px]">
               <Map />
             </div>
-            <div class="text-sm text-base-500 mt-2">
-              Based in Da Nang, Vietnam
+            <div class="mt-3 flex items-center justify-between gap-3">
+              <div class="text-sm text-base-500">
+                Based in Da Nang, Vietnam
+              </div>
+              <a
+                href="/cv/Nguyen-Duc-Hien-Full-Stack-CV-20251028.pdf"
+                download
+                class="inline-flex items-center gap-2 rounded-full text-accent-300 bg-accent-700/10 px-6 py-2 text-sm font-semibold border border-accent-500/30 hover:bg-accent-700/20 transition-colors duration-200"
+              >
+                {lang === "vi" ? "Tải CV" : "Download CV"}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v9m0 0 3-3m-3 3-3-3M4.5 19.5h15" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>

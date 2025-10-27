@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
   import { languages } from "../../i18n/ui";
   import Select from "../ui/Select.svelte";
 
@@ -19,28 +19,19 @@
 
   function handleLanguageChange(lang: string) {
     const url = getLanguageUrl(lang);
-    console.log(
-      "LanguageSwitcher: currentLang =",
-      props.currentLang,
-      "| chọn lang =",
-      lang,
-      "-> chuyển tới",
-      url,
-      "| currentPath:",
-      props.currentPath
-    );
+    console.log("LanguageSwitcher:", { current: props.currentLang, next: lang, to: url, path: props.currentPath });
 
-    // Chỉ chuyển đổi nếu ngôn ngữ khác với hiện tại
+    // Small delay to show a visual feedback
     if (lang !== props.currentLang) {
       isLoading = true;
-      // Thêm một chút delay để user thấy loading
+      // ThÃªm má»™t Small delay to show a visual feedback
       setTimeout(() => {
         window.location.href = url;
       }, 100);
     }
   }
 
-  // Đường dẫn SVG cờ trong public/flags/
+  // ÄÆ°á»ng dáº«n SVG cá» trong public/flags/
   const flags: Record<string, string> = {
     en: "/flags/us.svg",
     vi: "/flags/vn.svg",
@@ -88,3 +79,5 @@
       : ''}"
   />
 {/if}
+
+

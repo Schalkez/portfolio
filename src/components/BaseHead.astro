@@ -13,16 +13,16 @@ const {
   type: _type = "website",
 } = Astro.props;
 
-const _defaultTitle = "hi, i'm Hien";
+const _defaultTitle = "hi, i'm Hiền";
 const _defaultDescription =
-  "hello world! this is my personal website. i'm Hien, a full-stack software engineer.";
+  "hello world! this is my personal website. i'm Hiền, a full-stack software engineer.";
 const _defaultKeywords =
-  "Hien, software engineer, full-stack developer, portfolio, web development, astro, svelte, react";
+  "Hiền, software engineer, full-stack developer, portfolio, web development, astro, svelte, react";
 
-// X��- lA� image URL cho Open Graph
+// Resolve image URL for Open Graph
 let imageUrl: string;
 if (typeof _image === "string") {
-  // N���u lA� string, t���o URL t����ng �`��`i
+  // If string, build absolute URL
   imageUrl = new URL(BASE + _image, Astro.url).toString();
 } else if (
   _image &&
@@ -30,14 +30,13 @@ if (typeof _image === "string") {
   "src" in _image &&
   typeof _image.src === "string"
 ) {
-  // N���u lA� ImageMetadata object, s��- d���ng src
-  imageUrl = new URL(_image.src, Astro.url).toString();
+  // If ImageMetadata object, use src
+  imageUrl = new URL((_image as { src: string }).src, Astro.url).toString();
 } else {
-  // Fallback s��- d���ng me.webp
+  // Fallback to me.webp
   imageUrl = new URL(meImage.src, Astro.url).toString();
 }
 
-console.log(imageUrl);
 ---
 
 <!-- Global Metadata -->
@@ -46,28 +45,13 @@ console.log(imageUrl);
 
 <link
   rel="icon"
-  href=`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${SITE_FAVICON}</text></svg>`
+  href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${SITE_FAVICON}</text></svg>`}
 />
 
 <link rel="manifest" href="/manifest.json" />
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  title="RSS Feed"
-  href="/rss.xml"
-/>
-<link
-  rel="alternate"
-  type="application/atom+xml"
-  title="Atom Feed"
-  href="/atom.xml"
-/>
-<link
-  rel="alternate"
-  type="application/json"
-  title="JSON Feed"
-  href="/feed.json"
-/>
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/atom.xml" />
+<link rel="alternate" type="application/json" title="JSON Feed" href="/feed.json" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
@@ -91,37 +75,31 @@ console.log(imageUrl);
 <meta property="og:image" content={imageUrl} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:site_name" content="Hien's Portfolio" />
+<meta property="og:site_name" content="Hiền's Portfolio" />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={_title || _defaultTitle} />
-<meta
-  property="twitter:description"
-  content={_description || _defaultDescription}
-/>
+<meta property="twitter:description" content={_description || _defaultDescription} />
 <meta property="twitter:image" content={imageUrl} />
-<meta name="twitter:creator" content="@Hien" />
+<meta name="twitter:creator" content="@hien" />
 
 <!-- Additional SEO Meta Tags -->
 <meta name="theme-color" content="#000000" />
 <meta name="msapplication-TileColor" content="#000000" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta
-  name="apple-mobile-web-app-status-bar-style"
-  content="black-translucent"
-/>
-<meta name="apple-mobile-web-app-title" content="Hien's Portfolio" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Hiền's Portfolio" />
 
-<!-- Structured Data -->
+<!-- Structured Data: Person -->
 <script
   type="application/ld+json"
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Hien",
+    name: "Hiền",
     jobTitle: "Full-Stack Software Engineer",
     url: "https://portfolio.chiatien.org",
     sameAs: [
@@ -129,10 +107,7 @@ console.log(imageUrl);
       "https://www.linkedin.com/in/hien-nguyen-duc-2053b0240/",
       "https://fb.com/nguyenhien2611",
     ],
-    worksFor: {
-      "@type": "Organization",
-      name: "Self-employed",
-    },
+    worksFor: { "@type": "Organization", name: "Self-employed" },
     knowsAbout: [
       "Web Development",
       "Full-Stack Development",
@@ -144,31 +119,21 @@ console.log(imageUrl);
     ],
     description:
       "Full-stack software engineer specializing in modern web technologies",
-    image: {
-      "@type": "ImageObject",
-      url: new URL(meImage.src, Astro.url).toString(),
-    },
+    image: { "@type": "ImageObject", url: new URL(meImage.src, Astro.url).toString() },
   })}
 />
 
-<!-- Website Schema -->
+<!-- Structured Data: Website -->
 <script
   type="application/ld+json"
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Hien's Portfolio",
+    name: "Hiền's Portfolio",
     url: "https://portfolio.chiatien.org",
-    description:
-      "Personal portfolio and blog of Hien, a full-stack software engineer",
-    author: {
-      "@type": "Person",
-      name: "Hien",
-    },
-    publisher: {
-      "@type": "Person",
-      name: "Hien",
-    },
+    description: "Personal portfolio and blog of Hiền, a full-stack software engineer",
+    author: { "@type": "Person", name: "Hiền" },
+    publisher: { "@type": "Person", name: "Hiền" },
     potentialAction: {
       "@type": "SearchAction",
       target: "https://portfolio.chiatien.org/search?q={search_term_string}",
@@ -177,13 +142,13 @@ console.log(imageUrl);
   })}
 />
 
-<!-- Organization Schema -->
+<!-- Structured Data: Organization -->
 <script
   type="application/ld+json"
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Hien's Portfolio",
+    name: "Hiền's Portfolio",
     url: "https://portfolio.chiatien.org",
     logo: new URL(meImage.src, Astro.url).toString(),
     sameAs: [
@@ -195,8 +160,5 @@ console.log(imageUrl);
 />
 
 <!-- Umami Analytics -->
-<script
-  defer
-  src="https://cloud.umami.is/script.js"
-  data-website-id="5321d742-2ddd-4961-83ce-327a6d10257e"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="5321d742-2ddd-4961-83ce-327a6d10257e"></script>
 

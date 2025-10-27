@@ -1,4 +1,4 @@
----
+﻿---
 import type { CollectionEntry } from "astro:content";
 import { getBlogPosts } from "src/utils";
 import BaseLayout from "$layouts/BaseLayout.astro";
@@ -31,10 +31,10 @@ export async function getStaticPaths() {
 const { post, lang } = Astro.props;
 const currentLang = getLocale(Astro.url);
 
-// Đảm bảo lấy post đúng ngôn ngữ
+// Äáº£m báº£o láº¥y post Ä‘Ãºng ngÃ´n ngá»¯
 let finalPost = post;
 if (currentLang !== lang) {
-  // Nếu ngôn ngữ hiện tại khác với ngôn ngữ của post, lấy post đúng
+  // Náº¿u ngÃ´n ngá»¯ hiá»‡n táº¡i khÃ¡c vá»›i ngÃ´n ngá»¯ cá»§a post, láº¥y post Ä‘Ãºng
   const posts = await getBlogPosts(currentLang);
   const correctPost = posts.find(
     (p) => p.slug.replace(`${currentLang}/`, "") === Astro.params.slug
@@ -144,3 +144,6 @@ console.log(`Blog post: ${finalPost.slug}, lang: ${currentLang}`);
     </div>
   </div>
 </BaseLayout>
+
+
+

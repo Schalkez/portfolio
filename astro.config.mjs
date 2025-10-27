@@ -1,4 +1,4 @@
-// @ts-check
+﻿// @ts-check
 
 import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
@@ -58,7 +58,7 @@ export default defineConfig({
     format: "directory",
   },
 
-  // SEO và Performance optimizations
+  // SEO vÃ  Performance optimizations
   experimental: {
     // assets: true, // Removed - not valid in current Astro version
   },
@@ -66,7 +66,8 @@ export default defineConfig({
   // Image optimization
   image: {
     service: {
-      entrypoint: "astro/assets/services/sharp",
+      entrypoint: "astro/assets/services/noop",
     },
   },
 });
+

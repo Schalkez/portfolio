@@ -101,7 +101,7 @@ Giờ tôi có lộ trình rõ ràng, không còn cảm giác "chẳng biết b�
 
 ---
 
-### Bước 3: Code cùng AI — nhưng bạn giữ quyền kiểm soát
+### Bước 3: Code cùng AI Agent (Codex, CursorAI) — nhưng bạn giữ quyền kiểm soát
 
 Đây là phần quan trọng nhất: **Đừng bao giờ copy code mà không hiểu.**
 

@@ -96,7 +96,7 @@ Now I have a clear path — no more “Where do I even start?”
 
 ---
 
-### Step 3: Code with AI — you stay in control
+### Step 3: Code with Agent (Codex, CursorAI) — you stay in control
 
 This is the key: never copy code you don’t understand.
 

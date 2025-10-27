@@ -18,7 +18,7 @@ const videoFiles = await Promise.all(
   })
 );
 
-// Lấy nội dung theo ngôn ngữ
+// Localized titles and description
 const titles = {
   en: {
     title: "things i've made",
@@ -28,13 +28,13 @@ const titles = {
   vi: {
     title: "những thứ tôi đã làm",
     description:
-      "Trong những năm qua, tôi đã say mê khám phá và phát triển nhiều dự án phụ nhỏ, mỗi dự án là một sân chơi để tôi thỏa sức sáng tạo. Dưới đây là một vài dự án gần đây mà tôi tự hào chia sẻ. Một phần trong số đó là mã nguồn mở, vì vậy nếu bạn thấy hứng thú, hãy thoải mái khám phá mã nguồn và cùng tôi xây dựng điều gì đó tuyệt vời!",
+      "tôi đã thực hiện nhiều dự án cá nhân trong những năm qua; dưới đây là một vài dự án gần đây. nhiều dự án là mã nguồn mở — nếu bạn thấy hứng thú, hãy xem thử mã nguồn nhé.",
   },
 };
 
 const content = titles[lang as keyof typeof titles] || titles.en;
 
-// Tạo base URL theo ngôn ngữ hiện tại
+// Build base URL by current language
 const baseUrl = lang === "en" ? "/en" : "";
 ---
 
@@ -114,3 +114,4 @@ const baseUrl = lang === "en" ? "/en" : "";
     </div>
   </div>
 </div>
+

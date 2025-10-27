@@ -16,7 +16,7 @@ function formatDate(date: Date, locale: string) {
   });
 }
 
-// Lấy nội dung theo ngôn ngữ
+// Localized titles and labels
 const titles = {
   en: {
     title: "my ramblings",
@@ -27,14 +27,14 @@ const titles = {
   vi: {
     title: "những suy nghĩ của tôi",
     description:
-      "đây là một số suy nghĩ của tôi về những thứ tôi đang học hoặc làm việc.",
+      "đây là một số suy nghĩ của tôi về những thứ tôi đang học hoặc đang làm.",
     read: "đọc",
   },
 };
 
 const content = titles[lang as keyof typeof titles] || titles.en;
 
-// Tạo base URL theo ngôn ngữ hiện tại
+// Build base URL by current language
 const baseUrl = lang === "en" ? "/en" : "";
 ---
 
@@ -106,3 +106,4 @@ const baseUrl = lang === "en" ? "/en" : "";
     </div>
   </div>
 </div>
+
