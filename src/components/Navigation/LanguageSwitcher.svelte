@@ -12,9 +12,9 @@
 
   function getLanguageUrl(lang: string) {
     if (lang === "en") {
-      return "/";
+      return "/en/";
     }
-    return "/vi/";
+    return "/";
   }
 
   function handleLanguageChange(lang: string) {

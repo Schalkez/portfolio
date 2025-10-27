@@ -4,9 +4,9 @@ interface Props {
   lang?: string;
 }
 
-const { name, lang = "en" } = Astro.props;
+const { name, lang = "vi" } = Astro.props;
 
-const baseUrl = lang === "vi" ? "/vi" : "";
+const baseUrl = lang === "en" ? "/en" : "";
 ---
 
 <nav aria-label="Breadcrumb" class="mb-8">

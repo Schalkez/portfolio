@@ -6,7 +6,7 @@ export const languages = {
   vi: "Tiếng Việt",
 };
 
-export const defaultLang = "en";
+export const defaultLang = "vi";
 
 export const ui = {
   en,

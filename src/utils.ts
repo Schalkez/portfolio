@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getFeaturedProjects = async (lang: string = "en") => {
+export const getFeaturedProjects = async (lang: string = "vi") => {
   const imageImports = import.meta.glob(
     "/src/assets/projects/**/*.{png,webp,jpg,jpeg,svg}",
     { eager: true }
@@ -37,7 +37,7 @@ export const getFeaturedProjects = async (lang: string = "en") => {
     });
 };
 
-export const getProjects = async (lang: string = "en") => {
+export const getProjects = async (lang: string = "vi") => {
   const imageImports = import.meta.glob(
     "/src/assets/projects/**/*.{png,webp,jpg,jpeg,svg}",
     { eager: true }
@@ -66,7 +66,7 @@ export const getProjects = async (lang: string = "en") => {
     });
 };
 
-export const getBlogPosts = async (lang: string = "en") => {
+export const getBlogPosts = async (lang: string = "vi") => {
   const posts = (await getCollection("blog", ({ id }) =>
     id.startsWith(`${lang}/`)
   )) as CollectionEntry<"blog">[];

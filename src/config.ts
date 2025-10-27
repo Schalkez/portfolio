@@ -10,5 +10,5 @@ export const SOCIALS = {
   GITHUB: "https://github.com/Schalkez",
   LINKEDIN: "https://www.linkedin.com/in/hien-nguyen-duc-2053b0240/",
   MAIL: "mailto:mynameishieenf@gmail.com",
-  SUBSTACK: "https://flobit.substack.com/",
+  SUBSTACK: "",
 };

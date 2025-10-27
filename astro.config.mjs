@@ -8,7 +8,7 @@ import { resolve } from "path";
 import { BASE, SITE } from "./src/config";
 import { i18n } from "astro-i18n-aut/integration";
 
-const defaultLocale = "en";
+const defaultLocale = "vi";
 const locales = {
   en: "en-US",
   vi: "vi-VN",

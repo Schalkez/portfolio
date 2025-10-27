@@ -7,7 +7,7 @@
   export let currentLang: string = "vi";
 
   function getHref(item: Item, lang: string): string {
-    const basePath = lang === "vi" ? "/vi" : "/en";
+    const basePath = lang === "en" ? "/en" : "";
     return `${basePath}/#${item}`;
   }
 

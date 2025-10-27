@@ -11,7 +11,7 @@
   export let currentPath: string = "/";
 
   // Tạo base URL theo ngôn ngữ
-  const baseUrl = currentLang === "vi" ? "/vi" : "";
+  const baseUrl = currentLang === "en" ? "/en" : "";
 
   // Debug
   if (typeof window !== "undefined") {

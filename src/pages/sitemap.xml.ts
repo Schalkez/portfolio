@@ -12,12 +12,12 @@ export async function GET() {
     "/blog",
     "/learning",
     "/contact",
-    "/vi",
-    "/vi/about",
-    "/vi/projects",
-    "/vi/blog",
-    "/vi/learning",
-    "/vi/contact",
+    "/en",
+    "/en/about",
+    "/en/projects",
+    "/en/blog",
+    "/en/learning",
+    "/en/contact",
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

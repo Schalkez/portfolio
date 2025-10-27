@@ -13,16 +13,16 @@ const {
   type: _type = "website",
 } = Astro.props;
 
-const _defaultTitle = "hi, i'm hiền";
+const _defaultTitle = "hi, i'm Hien";
 const _defaultDescription =
-  "hello world! this is my personal website. i'm hiền, a full-stack software engineer based in berlin.";
+  "hello world! this is my personal website. i'm Hien, a full-stack software engineer.";
 const _defaultKeywords =
-  "hiền, software engineer, full-stack developer, berlin, portfolio, web development, astro, svelte, react";
+  "Hien, software engineer, full-stack developer, portfolio, web development, astro, svelte, react";
 
-// Xử lý image URL cho Open Graph
+// X��- lA� image URL cho Open Graph
 let imageUrl: string;
 if (typeof _image === "string") {
-  // Nếu là string, tạo URL tương đối
+  // N���u lA� string, t���o URL t����ng �`��`i
   imageUrl = new URL(BASE + _image, Astro.url).toString();
 } else if (
   _image &&
@@ -30,10 +30,10 @@ if (typeof _image === "string") {
   "src" in _image &&
   typeof _image.src === "string"
 ) {
-  // Nếu là ImageMetadata object, sử dụng src
+  // N���u lA� ImageMetadata object, s��- d���ng src
   imageUrl = new URL(_image.src, Astro.url).toString();
 } else {
-  // Fallback sử dụng me.webp
+  // Fallback s��- d���ng me.webp
   imageUrl = new URL(meImage.src, Astro.url).toString();
 }
 
@@ -91,7 +91,7 @@ console.log(imageUrl);
 <meta property="og:image" content={imageUrl} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:site_name" content="Hiền's Portfolio" />
+<meta property="og:site_name" content="Hien's Portfolio" />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
@@ -103,7 +103,7 @@ console.log(imageUrl);
   content={_description || _defaultDescription}
 />
 <meta property="twitter:image" content={imageUrl} />
-<meta name="twitter:creator" content="@hiền" />
+<meta name="twitter:creator" content="@Hien" />
 
 <!-- Additional SEO Meta Tags -->
 <meta name="theme-color" content="#000000" />
@@ -113,7 +113,7 @@ console.log(imageUrl);
   name="apple-mobile-web-app-status-bar-style"
   content="black-translucent"
 />
-<meta name="apple-mobile-web-app-title" content="Hiền's Portfolio" />
+<meta name="apple-mobile-web-app-title" content="Hien's Portfolio" />
 
 <!-- Structured Data -->
 <script
@@ -121,7 +121,7 @@ console.log(imageUrl);
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Hiền",
+    name: "Hien",
     jobTitle: "Full-Stack Software Engineer",
     url: "https://portfolio.chiatien.org",
     sameAs: [
@@ -148,11 +148,6 @@ console.log(imageUrl);
       "@type": "ImageObject",
       url: new URL(meImage.src, Astro.url).toString(),
     },
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Berlin",
-      addressCountry: "DE",
-    },
   })}
 />
 
@@ -162,17 +157,17 @@ console.log(imageUrl);
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Hiền's Portfolio",
+    name: "Hien's Portfolio",
     url: "https://portfolio.chiatien.org",
     description:
-      "Personal portfolio and blog of Hiền, a full-stack software engineer",
+      "Personal portfolio and blog of Hien, a full-stack software engineer",
     author: {
       "@type": "Person",
-      name: "Hiền",
+      name: "Hien",
     },
     publisher: {
       "@type": "Person",
-      name: "Hiền",
+      name: "Hien",
     },
     potentialAction: {
       "@type": "SearchAction",
@@ -188,7 +183,7 @@ console.log(imageUrl);
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Hiền's Portfolio",
+    name: "Hien's Portfolio",
     url: "https://portfolio.chiatien.org",
     logo: new URL(meImage.src, Astro.url).toString(),
     sameAs: [
@@ -204,3 +199,4 @@ console.log(imageUrl);
   defer
   src="https://cloud.umami.is/script.js"
   data-website-id="5321d742-2ddd-4961-83ce-327a6d10257e"></script>
+
