@@ -35,6 +35,19 @@ const blog = defineCollection({
 		useHeroAsOGImage: z.boolean().optional(),
 		// wether to show title and short description in the og image
 		noTextInOGImage: z.boolean().optional(),
+
+		// optional custom slug override
+		slug: z.string().optional(),
+
+		// author name for the post
+		author: z.string().optional(),
+
+		// open graph metadata overrides
+		ogTitle: z.string().optional(),
+		ogDescription: z.string().optional(),
+
+		// optional cover image path if different from hero
+		coverImage: z.string().optional(),
 	}),
 });
 
