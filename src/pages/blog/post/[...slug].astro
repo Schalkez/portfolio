@@ -1,4 +1,4 @@
-﻿---
+---
 import type { CollectionEntry } from "astro:content";
 import { getBlogPosts } from "src/utils";
 import BaseLayout from "$layouts/BaseLayout.astro";
@@ -7,10 +7,11 @@ import Navbar from "$components/Navigation/Navbar.svelte";
 import BlogBreadcrumb from "$components/Blog/BlogBreadcrumb.astro";
 import { getLocale } from "astro-i18n-aut";
 import { SITE } from "src/config";
+import BackToTop from "$components/ui/BackToTop.svelte";
 
 export async function getStaticPaths() {
   const langs = ["en", "vi"];
-  const paths = [];
+  const paths: any[] = [];
 
   for (const lang of langs) {
     const posts = await getBlogPosts(lang);
@@ -31,10 +32,9 @@ export async function getStaticPaths() {
 const { post, lang } = Astro.props;
 const currentLang = getLocale(Astro.url);
 
-// Äáº£m báº£o láº¥y post Ä‘Ãºng ngÃ´n ngá»¯
+// Ensure we render the post in the current locale
 let finalPost = post;
 if (currentLang !== lang) {
-  // Náº¿u ngÃ´n ngá»¯ hiá»‡n táº¡i khÃ¡c vá»›i ngÃ´n ngá»¯ cá»§a post, láº¥y post Ä‘Ãºng
   const posts = await getBlogPosts(currentLang);
   const correctPost = posts.find(
     (p) => p.slug.replace(`${currentLang}/`, "") === Astro.params.slug
@@ -46,13 +46,19 @@ if (currentLang !== lang) {
 
 const { Content } = await finalPost.render();
 
-// Build alternate path for language switcher for this post using the actual post slug
+// Alternate path for language switcher (supports optional pairSlug)
 const otherLang = currentLang === "vi" ? "en" : "vi";
 const cleanSlug = finalPost.slug.replace(`${currentLang}/`, "");
+let otherSlug: string | null = null;
+const pair = (finalPost.data as any).pairSlug;
+if (pair) {
+  if (typeof pair === "string") otherSlug = pair;
+  else if (typeof pair === "object" && pair[otherLang]) otherSlug = pair[otherLang];
+}
 const basePrefix = otherLang === "en" ? "/en" : "";
-const langSwitchAltPath = `${basePrefix}/blog/post/${cleanSlug}/`;
+const langSwitchAltPath = `${basePrefix}/blog/post/${otherSlug || cleanSlug}/`;
 
-// SEO meta tags cho blog post
+// SEO meta
 const seoProps = {
   title: finalPost.data.title,
   description: finalPost.data.description,
@@ -63,11 +69,11 @@ const seoProps = {
   modifiedTime:
     finalPost.data.updatedDate?.toISOString() ||
     finalPost.data.pubDate.toISOString(),
-  image: finalPost.data.heroImage || "og.jpg",
+  image: (finalPost.data as any).heroImage || "og.jpg",
   tags: finalPost.data.tags || [],
 };
 
-// Structured data cho blog post
+// Structured data
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -96,9 +102,6 @@ const structuredData = {
   articleSection: "Blog",
   inLanguage: currentLang === "vi" ? "vi-VN" : "en-US",
 };
-
-// Debug
-console.log(`Blog post: ${finalPost.slug}, lang: ${currentLang}`);
 ---
 
 <BaseLayout {...seoProps}>
@@ -153,8 +156,7 @@ console.log(`Blog post: ${finalPost.slug}, lang: ${currentLang}`);
       </div>
     </div>
   </div>
+
+  <BackToTop client:load />
 </BaseLayout>
-
-
-
 
