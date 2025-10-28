@@ -11,10 +11,24 @@
   let isLoading = $state(false);
 
   function getLanguageUrl(lang: string) {
-    if (lang === "en") {
-      return "/en/";
+    // Page-specific override from a page (e.g., blog post can set alternate path)
+    if (typeof window !== "undefined") {
+      const alt = (window as any).__LANG_SWITCH_ALT_PATH as string | undefined;
+      const current = props.currentLang;
+      const target = lang;
+      if (alt && current !== target) return alt;
     }
-    return "/";
+
+    const path = props.currentPath || "/";
+    if (lang === "en") {
+      if (path === "/en") return "/en/";
+      if (path.startsWith("/en/")) return path;
+      return path === "/" ? "/en/" : `/en${path}`;
+    }
+    // Vietnamese is default at root: strip "/en" if present
+    if (path === "/en") return "/";
+    if (path.startsWith("/en/")) return path.slice(3);
+    return path;
   }
 
   function handleLanguageChange(lang: string) {

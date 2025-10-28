@@ -46,6 +46,12 @@ if (currentLang !== lang) {
 
 const { Content } = await finalPost.render();
 
+// Build alternate path for language switcher for this post using the actual post slug
+const otherLang = currentLang === "vi" ? "en" : "vi";
+const cleanSlug = finalPost.slug.replace(`${currentLang}/`, "");
+const basePrefix = otherLang === "en" ? "/en" : "";
+const langSwitchAltPath = `${basePrefix}/blog/post/${cleanSlug}/`;
+
 // SEO meta tags cho blog post
 const seoProps = {
   title: finalPost.data.title,
@@ -97,6 +103,10 @@ console.log(`Blog post: ${finalPost.slug}, lang: ${currentLang}`);
 
 <BaseLayout {...seoProps}>
   <script
+    is:inline
+    set:html={`window.__LANG_SWITCH_ALT_PATH = ${JSON.stringify(langSwitchAltPath)};`}
+  />
+  <script
     type="application/ld+json"
     set:html={JSON.stringify(structuredData)}
   />
@@ -144,6 +154,7 @@ console.log(`Blog post: ${finalPost.slug}, lang: ${currentLang}`);
     </div>
   </div>
 </BaseLayout>
+
 
 
 
