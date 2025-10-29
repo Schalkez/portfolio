@@ -11,7 +11,7 @@
 
   const threshold = props.threshold ?? 240;
   const right = props.right ?? "right-6 sm:right-8";
-  const bottom = props.bottom ?? "bottom-6 sm:bottom-8";
+  const bottom = props.bottom ?? "bottom-20 md:bottom-8";
   const size = props.size ?? 48;
   const title = props.title ?? "Back to top";
   const variant = props.variant ?? 'ghost';

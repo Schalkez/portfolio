@@ -48,6 +48,9 @@ const blog = defineCollection({
 
 		// optional cover image path if different from hero
 		coverImage: z.string().optional(),
+
+		// optional slug mapping for other locales
+		pairSlug: z.union([z.string(), z.record(z.string(), z.string())]).optional(),
 	}),
 });
 
