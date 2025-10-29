@@ -1,0 +1,54 @@
+---
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = {
+  en: {
+    title: "things i've made",
+    description:
+      "Projects are being updated. Come back soon to see the refreshed list.",
+    badge: "Updating",
+  },
+  vi: {
+    title: "những thứ tôi đã làm",
+    description:
+      "Mục dự án đang được cập nhật. Quay lại sau để xem danh sách mới nhé.",
+    badge: "Đang cập nhật",
+  },
+}[lang as 'en' | 'vi'];
+---
+
+<div
+  id="projects"
+  class="z-20 py-16 md:py-32 section bg-background relative isolate overflow-hidden"
+>
+  <div class="mx-auto max-w-5xl px-6 lg:px-8">
+    <div class="max-w-2xl mb-8">
+      <h1 class="text-4xl font-bold tracking-tight text-base-800 dark:text-base-100 sm:text-5xl">
+        {t.title}
+      </h1>
+      <div class="mt-6 text-base text-base-600 dark:text-base-400">
+        {t.description}
+      </div>
+    </div>
+
+    <div class="w-full">
+      <div class="flex items-center justify-between rounded-2xl border border-base-200 dark:border-base-800 bg-white/70 dark:bg-base-900/60 backdrop-blur-sm p-5 sm:p-6">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-accent-300/30 bg-accent-50 text-accent-700 dark:bg-accent-900/20 dark:text-accent-300 px-3 py-1 text-xs font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+              <path fill-rule="evenodd" d="M11.25 3.104a.75.75 0 0 1 1.5 0v1.33a8.25 8.25 0 1 1-6.41 14.167.75.75 0 0 1 1.06-1.06 6.75 6.75 0 1 0 5.85-11.327v1.33a.75.75 0 0 1-1.5 0V3.104Z" clip-rule="evenodd" />
+            </svg>
+            {t.badge}
+          </span>
+          <span class="text-sm text-base-700 dark:text-base-300">
+            {t.description}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

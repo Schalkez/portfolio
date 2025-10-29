@@ -8,9 +8,11 @@ import Hero from "$components/Hero/Hero.svelte";
 import Learning from "$components/Learning/Learning.svelte";
 import Navbar from "$components/Navigation/Navbar.svelte";
 import Projects from "$components/Projects/Projects.astro";
+import ProjectsPlaceholder from "$components/Projects/ProjectsPlaceholder.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { getLocale } from "astro-i18n-aut";
 import { getFeaturedProjects } from "src/utils";
+import { SHOW_PROJECTS } from "src/config";
 
 const lang = getLocale(Astro.url);
 const _projects = await getFeaturedProjects(lang);
@@ -57,10 +59,13 @@ const homeStructuredData = {
   <PlanetScene client:visible />
   <Hero client:load lang={lang} />
   <About lang={lang} />
-  <Projects projects={_projects} lang={lang} />
+  {SHOW_PROJECTS ? (
+    <Projects projects={_projects} lang={lang} />
+  ) : (
+    <ProjectsPlaceholder lang={lang} />
+  )}
   <BlogLatest lang={lang} />
   <Learning client:visible lang={lang} />
   <Contact lang={lang} />
   <Footer lang={lang} />
 </BaseLayout>
-

@@ -12,3 +12,6 @@ export const SOCIALS = {
   MAIL: "mailto:mynameishieenf@gmail.com",
   SUBSTACK: "",
 };
+
+// Feature flags
+export const SHOW_PROJECTS = false;
