@@ -11,6 +11,30 @@
 
   const learnings: Learning[] = [
     {
+      title: "GraphQL",
+      description:
+        "Building typed APIs and exploring schema‑first design, caching and client integrations.",
+      date: "2025-11",
+    },
+    {
+      title: "AWS",
+      description:
+        "Hands‑on with AWS: S3, Lambda, EC2, VPC, Load Balancing, Auto Scaling, IAM, RDS, DynamoDB.",
+      date: "2025-10",
+    },
+    {
+      title: "Plasmo (Browser Extensions)",
+      description:
+        "Productive toolkit for shipping cross‑browser extensions with modern DX.",
+      date: "2025-09",
+    },
+    {
+      title: "Chrome Extensions MV3",
+      description:
+        "Migrating to Manifest V3: service workers, permissions, background, and performance patterns.",
+      date: "2025-07",
+    },
+    {
       title: "Astro",
       description:
         "Astro is a fresh breeze in web development, offering a lightweight and optimized experience for content-focused static sites.",
@@ -188,4 +212,3 @@
     </div>
   </div>
 </div>
-

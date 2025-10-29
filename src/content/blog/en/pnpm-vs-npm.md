@@ -1,24 +1,24 @@
----
-title: "PNPM – When Devs No Longer Wait for NPM to “Run Errands”"
-description: "If install time feels like waiting on someone else’s grocery trip, it’s time to let pnpm take over."
+﻿---
+title: "PNPM â€“ When Devs No Longer Wait for NPM to â€œRun Errandsâ€"
+description: "A no‑nonsense guide to PNPM vs NPM/Yarn: how the store works, why installs are faster and disks stay lean, and what to watch for when switching."
 pubDate: "2025-10-29"
 published: true
 tags: ["pnpm", "npm", "tooling", "package manager"]
 slug: "pnpm-when-devs-stop-waiting-for-npm"
 author: "Hien Nguyen"
-ogTitle: "PNPM – When Devs No Longer Wait for NPM to Run Errands"
-ogDescription: "If install time depends on NPM’s grocery run, it’s time for pnpm to handle it."
+ogTitle: "PNPM â€“ When Devs No Longer Wait for NPM to Run Errands"
+ogDescription: "PNPM vs NPM/Yarn in practice: the store model, real speed gains, lean disks, and the trade‑offs when you switch."
 pairSlug:
   vi: "pnpm-khi-dev-khong-can-cho-npm-di-cho-giup-minh-nua"
 ---
 
-# ⚡ PNPM – When Devs No Longer Wait for NPM to “Run Errands”
+# âš¡ PNPM â€“ When Devs No Longer Wait for NPM to â€œRun Errandsâ€
 
-> “npm install” cranks your fans and nukes your disk? Time to give **pnpm** a spin.
+> â€œnpm installâ€ cranks your fans and nukes your disk? Time to give **pnpm** a spin.
 
 ---
 
-## 🧩 The Familiar Story
+## ðŸ§© The Familiar Story
 
 You clone a repo and run:
 
@@ -26,18 +26,18 @@ You clone a repo and run:
 npm install
 ```
 
-And then… you wait.  
+And thenâ€¦ you wait.  
 And wait.  
 And keep waiting.
 
-Maybe you try **Yarn**—a bit better—but it still downloads the same package ten times for ten different projects.  
+Maybe you try **Yarn**â€”a bit betterâ€”but it still downloads the same package ten times for ten different projects.  
 `node_modules` bloats into gigabytes, disks fill up, and CI crawls like a sleepy turtle.
 
 That was the scene before **pnpm** showed up.
 
 ---
 
-## 🚀 How PNPM Differs from NPM and Yarn
+## ðŸš€ How PNPM Differs from NPM and Yarn
 
 In short: **pnpm stores dependencies completely differently.**
 
@@ -45,17 +45,17 @@ In short: **pnpm stores dependencies completely differently.**
 | --------------- | --------------------------------------- | ------------------------------------------------------------------------- |
 | Storage         | Copies every package per project        | Uses a **global content-addressable store**; projects just **symlink** in |
 | Disk Usage      | Heavy, lots of duplication               | Very light; saves tons of space                                           |
-| Install Speed   | Average                                  | **2–3× faster** (cache + hard links)                                      |
+| Install Speed   | Average                                  | **2â€“3Ã— faster** (cache + hard links)                                      |
 | Version Control | Managed per project                      | Laser-accurate thanks to **strict symlink resolution**                    |
-| Script Security | **Automatically runs `postinstall`**     | **Doesn’t run scripts unless you opt in**                                 |
+| Script Security | **Automatically runs `postinstall`**     | **Doesnâ€™t run scripts unless you opt in**                                 |
 
 ---
 
-## 🔒 Security — PNPM’s Underrated Superpower
+## ðŸ”’ Security â€” PNPMâ€™s Underrated Superpower
 
-This is the piece many devs overlook—but it’s huge.
+This is the piece many devs overlookâ€”but itâ€™s huge.
 
-### ❌ The Problem with NPM/Yarn
+### âŒ The Problem with NPM/Yarn
 
 When you run `npm install` or `yarn install`,  
 packages can **auto-run scripts** like:
@@ -66,28 +66,28 @@ packages can **auto-run scripts** like:
 }
 ```
 
-If you’re not auditing closely—or your CI isn’t sandboxed—that code just executed on your machine. Supply-chain attacks like this are everywhere: pull a Node.js repo (maybe for a coding test), run `npm i`, and boom—malware fires, scraping env vars for API keys, GitHub tokens, AWS creds. In September 2025 several popular packages such as `chalk` and `debug` were compromised, cascading into hundreds of dependents; the “Shai-Hulud” worm replicated across millions of installs, leaking secrets simply because install scripts auto-ran. This is a **classic attack vector**, especially dangerous for juniors or teams that don’t audit dependencies.
+If youâ€™re not auditing closelyâ€”or your CI isnâ€™t sandboxedâ€”that code just executed on your machine. Supply-chain attacks like this are everywhere: pull a Node.js repo (maybe for a coding test), run `npm i`, and boomâ€”malware fires, scraping env vars for API keys, GitHub tokens, AWS creds. In September 2025 several popular packages such as `chalk` and `debug` were compromised, cascading into hundreds of dependents; the â€œShai-Huludâ€ worm replicated across millions of installs, leaking secrets simply because install scripts auto-ran. This is a **classic attack vector**, especially dangerous for juniors or teams that donâ€™t audit dependencies.
 
-### ✅ PNPM Handles It Smarter
+### âœ… PNPM Handles It Smarter
 
-- **No script runs by default**—you have to explicitly allow it.
+- **No script runs by default**â€”you have to explicitly allow it.
 - You can set `--ignore-scripts` globally in `.npmrc`:
   ```bash
   pnpm install --ignore-scripts
   ```
-- Keeps **third-party payloads dormant**—grab a random repo, run `pnpm i`, and malicious scripts stay asleep instead of stealing keys or spreading.
-- PNPM also sandboxes `node_modules`, preventing **module A from overriding module B**—attacks such as _prototype pollution_ or _dependency shadowing_ basically disappear.
+- Keeps **third-party payloads dormant**â€”grab a random repo, run `pnpm i`, and malicious scripts stay asleep instead of stealing keys or spreading.
+- PNPM also sandboxes `node_modules`, preventing **module A from overriding module B**â€”attacks such as _prototype pollution_ or _dependency shadowing_ basically disappear.
 
-> 🧠 Translation: pnpm installs packages without blindly trusting them—exactly what you want after the latest supply-chain incidents.
+> ðŸ§  Translation: pnpm installs packages without blindly trusting themâ€”exactly what you want after the latest supply-chain incidents.
 
 ---
 
-## 🧠 A Different Design Mindset
+## ðŸ§  A Different Design Mindset
 
-### 1️⃣ “Global Store” — Smart Disk Usage
+### 1ï¸âƒ£ â€œGlobal Storeâ€ â€” Smart Disk Usage
 
 PNPM keeps dependencies in a single global store (by default: `~/.pnpm-store`).  
-Each package exists **once**—projects just link to it.
+Each package exists **once**â€”projects just link to it.
 
 ```bash
 # First project
@@ -97,19 +97,19 @@ pnpm install
 pnpm install   # Almost instant; packages already cached
 ```
 
-### 2️⃣ “Strict Linking” — No Loose Dependencies
+### 2ï¸âƒ£ â€œStrict Linkingâ€ â€” No Loose Dependencies
 
-PNPM builds `node_modules` via a custom “virtual store.”  
+PNPM builds `node_modules` via a custom â€œvirtual store.â€  
 Dependencies can only reach modules declared in `package.json`.
 
 Benefits:
 
-- No more “hidden dependency” bugs (importing something you never declared).
-- Builds are reproducible—CI won’t fail because someone’s laptop leaked globals.
+- No more â€œhidden dependencyâ€ bugs (importing something you never declared).
+- Builds are reproducibleâ€”CI wonâ€™t fail because someoneâ€™s laptop leaked globals.
 
 ---
 
-## 🧰 Quick Migration
+## ðŸ§° Quick Migration
 
 Already on NPM or Yarn?
 
@@ -126,36 +126,36 @@ pnpm install
 pnpm run dev
 ```
 
-Everything else—scripts, tooling—keeps working.  
-You’ll feel the speed boost on the first run.
+Everything elseâ€”scripts, toolingâ€”keeps working.  
+Youâ€™ll feel the speed boost on the first run.
 
 ---
 
-## ⚖️ When Not to Switch (Yet)
+## âš–ï¸ When Not to Switch (Yet)
 
-- Teams running **Yarn 1 workspaces + heavy custom plugins**—test carefully.
+- Teams running **Yarn 1 workspaces + heavy custom plugins**â€”test carefully.
 - Legacy CI/CD stacks without pnpm cache support.
 - A few tools (rare) still assume classic `node_modules` structure.
 
 That said, with **Node 18+ and corepack**, pnpm is now silky smooth.  
-Vercel, Turborepo, Nx, Cloudflare Workers—they all support it out of the box.
+Vercel, Turborepo, Nx, Cloudflare Workersâ€”they all support it out of the box.
 
 ---
 
-## 💬 TL;DR
+## ðŸ’¬ TL;DR
 
 |                 | NPM               | Yarn        | PNPM                                   |
 | --------------- | ----------------- | ----------- | -------------------------------------- |
-| Speed           | 🐢                | ⚡          | 🚀                                     |
+| Speed           | ðŸ¢                | âš¡          | ðŸš€                                     |
 | Disk Usage      | Heavy             | Medium      | Very light                             |
-| Script Safety   | Auto-runs scripts | Auto-runs   | **Doesn’t run unless you allow it**    |
-| Global Cache    | ❌                | ✅ (partial) | ✅ (full)                               |
+| Script Safety   | Auto-runs scripts | Auto-runs   | **Doesnâ€™t run unless you allow it**    |
+| Global Cache    | âŒ                | âœ… (partial) | âœ… (full)                               |
 | Isolation       | Low               | Medium      | **High (symlink isolation)**           |
 | Best For        | Any small/legacy  | Mid-size    | **Pro teams / modern CI pipelines**    |
 
 ---
 
-## 🔗 Official Resources
+## ðŸ”— Official Resources
 
 - [pnpm.io](https://pnpm.io)
 - [PNPM store structure](https://pnpm.io/symlinked-node-modules-structure)
@@ -163,6 +163,7 @@ Vercel, Turborepo, Nx, Cloudflare Workers—they all support it out of the box.
 
 ---
 
-✍️ _Written by a dev whose `node_modules` used to outweigh the source code.  
+âœï¸ _Written by a dev whose `node_modules` used to outweigh the source code.  
 With pnpm the disk stays slim, builds fly, and CI stays calm._
+
 
