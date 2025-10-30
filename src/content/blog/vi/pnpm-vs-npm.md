@@ -1,64 +1,64 @@
 ﻿---
-title: "PNPM â€“ Khi Dev KhÃ´ng Cáº§n Pháº£i Chá» NPM â€œÄ‘i chá»£â€ GiÃºp MÃ¬nh Ná»¯a"
-description: "Bài viết thực chiến về PNPM so với NPM/Yarn: cơ chế store, vì sao cài đặt nhanh và tiết kiệm dung lượng, cùng lưu ý khi chuyển đổi."
+title: "PNPM – Khi Dev Không Cần Phải Chờ NPM “đi chợ” Giúp Mình Nữa"
+description: "Khi thời gian cài đặt lâu như mẹ “đi chợ”, đã đến lúc để pnpm cáng đáng nhiệm vụ!"
 pubDate: "2025-10-29"
 published: true
 tags: ["pnpm", "npm", "tooling", "package manager"]
 slug: "pnpm-khi-dev-khong-can-cho-npm-di-cho-giup-minh-nua"
 author: "Hien Nguyen"
-ogTitle: "PNPM â€“ Khi Dev KhÃ´ng Cáº§n Pháº£i Chá» NPM Ä‘i chá»£ GiÃºp MÃ¬nh Ná»¯a"
-ogDescription: "PNPM vs NPM/Yarn theo góc nhìn thực tế: store hoạt động ra sao, tốc độ tăng thế nào, ổ đĩa gọn hơn bao nhiêu và lưu ý khi chuyển đổi."
+ogTitle: "PNPM – Khi Dev Không Cần Phải Chờ NPM đi chợ Giúp Mình Nữa"
+ogDescription: "Khi thời gian cài đặt lâu như mẹ “đi chợ”, đã đến lúc để pnpm cáng đáng nhiệm vụ!"
 pairSlug:
   en: "pnpm-when-devs-stop-waiting-for-npm"
 ---
 
-# âš¡ PNPM â€“ Khi Dev KhÃ´ng Cáº§n Pháº£i Chá» NPM â€œÄi Chá»£â€ Ná»¯a
+# ⚡ PNPM – Khi Dev Không Cần Phải Chờ NPM “Đi Chợ” Nữa
 
-> â€œnpm installâ€ mÃ  quáº¡t CPU gÃ o rÃº, disk sáº¯p ná»• tung â€” thÃ¬ Ä‘Ã£ Ä‘áº¿n lÃºc báº¡n thá»­ **pnpm**.
+> “npm install” mà quạt CPU gào rú, disk sắp nổ tung — thì đã đến lúc bạn thử **pnpm**.
 
 ---
 
-## ðŸ§© CÃ¢u Chuyá»‡n Quen Thuá»™c
+## 🧩 Câu Chuyện Quen Thuộc
 
-Báº¡n clone má»™t repo, cháº¡y lá»‡nh:
+Bạn clone một repo, chạy lệnh:
 
 ```bash
 npm install
 ```
 
-VÃ  rá»“i... chá».  
-Chá» mÃ£i.  
-Chá» hoÃ i.
+Và rồi... chờ.  
+Chờ mãi.  
+Chờ hoài.
 
-Rá»“i báº¡n thá»­ **Yarn**, tháº¥y nhanh hÆ¡n tÃ­, nhÆ°ng váº«n pháº£i táº£i cÃ¹ng má»™t package 10 láº§n cho 10 dá»± Ã¡n khÃ¡c nhau.  
-á»” cá»©ng ngÃ y cÃ ng phÃ¬nh to, thÆ° má»¥c `node_modules` náº·ng cáº£ GB, vÃ  CI thÃ¬ cháº¡y cháº­m nhÆ° rÃ¹a bÃ².
+Rồi bạn thử **Yarn**, thấy nhanh hơn tí, nhưng vẫn phải tải cùng một package 10 lần cho 10 dự án khác nhau.  
+Ổ cứng ngày càng phình to, thư mục `node_modules` nặng cả GB, và CI thì chạy chậm như rùa bò.
 
-ÄÃ³ lÃ  bá»©c tranh trÆ°á»›c khi **pnpm** xuáº¥t hiá»‡n.
+Đó là bức tranh trước khi **pnpm** xuất hiện.
 
 ---
 
-## ðŸš€ PNPM KhÃ¡c Biá»‡t NhÆ° Tháº¿ NÃ o Vá»›i NPM VÃ  Yarn?
+## 🚀 PNPM Khác Biệt Như Thế Nào Với NPM Và Yarn?
 
-TÃ³m gá»n: **pnpm sá»­ dá»¥ng cÃ¡ch lÆ°u dependency hoÃ n toÃ n khÃ¡c biá»‡t.**
+Tóm gọn: **pnpm sử dụng cách lưu dependency hoàn toàn khác biệt.**
 
-| CÆ¡ Cháº¿          | NPM / Yarn                            | PNPM                                                                    |
+| Cơ Chế          | NPM / Yarn                            | PNPM                                                                    |
 | --------------- | ------------------------------------- | ----------------------------------------------------------------------- |
-| CÃ¡ch LÆ°u        | Copy riÃªng package cho tá»«ng dá»± Ã¡n     | Sá»­ dá»¥ng **global content-addressable store**, chá»‰ **symlink** vÃ o dá»± Ã¡n |
-| Dung LÆ°á»£ng Disk | Náº·ng, láº·p dá»¯ liá»‡u                     | Ráº¥t nháº¹, tiáº¿t kiá»‡m á»• cá»©ng                                               |
-| Tá»‘c Äá»™ CÃ i Äáº·t  | BÃ¬nh thÆ°á»ng                           | **Nhanh hÆ¡n 2â€“3 láº§n** (nhá» cache + hard link)                           |
-| Quáº£n LÃ½ Version | Theo tá»«ng dá»± Ã¡n                       | SiÃªu chÃ­nh xÃ¡c nhá» **strict symlink resolution**                        |
-| Báº£o Máº­t Script  | **Tá»± Ä‘á»™ng cháº¡y `postinstall` script** | **KhÃ´ng tá»± Ä‘á»™ng cháº¡y trá»« khi explicit**                                 |
+| Cách Lưu        | Copy riêng package cho từng dự án     | Sử dụng **global content-addressable store**, chỉ **symlink** vào dự án |
+| Dung Lượng Disk | Nặng, lặp dữ liệu                     | Rất nhẹ, tiết kiệm ổ cứng                                               |
+| Tốc Độ Cài Đặt  | Bình thường                           | **Nhanh hơn 2–3 lần** (nhờ cache + hard link)                           |
+| Quản Lý Version | Theo từng dự án                       | Siêu chính xác nhờ **strict symlink resolution**                        |
+| Bảo Mật Script  | **Tự động chạy `postinstall` script** | **Không tự động chạy trừ khi explicit**                                 |
 
 ---
 
-## ðŸ”’ Báº£o Máº­t â€“ Äiá»ƒm LÃ m PNPM Thá»±c Sá»± â€œÄÃ¡ng Tiá»nâ€
+## 🔒 Bảo Mật – Điểm Làm PNPM Thực Sự “Đáng Tiền”
 
-ÄÃ¢y lÃ  pháº§n mÃ  nhiá»u dev **chÆ°a chÃº Ã½ nhÆ°ng cá»±c ká»³ quan trá»ng**.
+Đây là phần mà nhiều dev **chưa chú ý nhưng cực kỳ quan trọng**.
 
-### âŒ Váº¥n Äá» Cá»§a NPM/Yarn:
+### ❌ Vấn Đề Của NPM/Yarn:
 
-Khi cháº¡y `npm install` hoáº·c `yarn install`,  
-cÃ¡c package cÃ³ thá»ƒ **tá»± Ä‘á»™ng cháº¡y script** nhÆ°:
+Khi chạy `npm install` hoặc `yarn install`,  
+các package có thể **tự động chạy script** như:
 
 ```json
 "scripts": {
@@ -66,102 +66,101 @@ cÃ¡c package cÃ³ thá»ƒ **tá»± Ä‘á»™ng cháº¡y script** nhÆ°
 }
 ```
 
-Náº¿u khÃ´ng kiá»ƒm soÃ¡t ká»¹ hoáº·c CI khÃ´ng sandbox, báº¡n vá»«a má»Ÿ cá»­a cho mÃ£ Ä‘á»™c cháº¡y trÃªn mÃ¡y mÃ¬nh. Gáº§n Ä‘Ã¢y, cÃ¡c vá»¥ lá»«a Ä‘áº£o kiá»ƒu nÃ y diá»…n ra thÆ°á»ng xuyÃªn: dev pull source Node.js tá»« repo láº¡ (thÆ°á»ng qua bÃ i test hoáº·c bÃ i táº­p), cháº¡y `npm i` lÃ  "toang" â€“ mÃ£ Ä‘á»™c tá»± cháº¡y, quÃ©t env variables Ä‘á»ƒ steal API keys, GitHub tokens, AWS credentials, tháº­m chÃ­ lan truyá»n nhÆ° worm. VÃ­ dá»¥, thÃ¡ng 9/2025, má»™t loáº¡t package phá»• biáº¿n nhÆ° chalk, debug bá»‹ compromise, dáº«n Ä‘áº¿n hÃ ng trÄƒm package khÃ¡c bá»‹ nhiá»…m, Ä‘Ã¡nh cáº¯p credentials tá»« mÃ´i trÆ°á»ng dev. Worm "Shai-Hulud" Ä‘Ã£ tá»± replicate, áº£nh hÆ°á»Ÿng hÃ ng triá»‡u install, khiáº¿n bao nhiÃªu key vÃ  tÃ i khoáº£n bay mÃ u chá»‰ vÃ¬ scripts auto-run. ÄÃ¢y lÃ  **vector táº¥n cÃ´ng phá»• biáº¿n** (supply chain attack), Ä‘áº·c biá»‡t vá»›i dev má»›i hoáº·c team khÃ´ng audit dependencies.
+Nếu không kiểm soát kỹ hoặc CI không sandbox, bạn vừa mở cửa cho mã độc chạy trên máy mình. Gần đây, các vụ lừa đảo kiểu này diễn ra thường xuyên: dev pull source Node.js từ repo lạ (thường qua bài test hoặc bài tập), chạy `npm i` là "toang" – mã độc tự chạy, quét env variables để steal API keys, GitHub tokens, AWS credentials, thậm chí lan truyền như worm. Ví dụ, tháng 9/2025, một loạt package phổ biến như chalk, debug bị compromise, dẫn đến hàng trăm package khác bị nhiễm, đánh cắp credentials từ môi trường dev. Worm "Shai-Hulud" đã tự replicate, ảnh hưởng hàng triệu install, khiến bao nhiêu key và tài khoản bay màu chỉ vì scripts auto-run. Đây là **vector tấn công phổ biến** (supply chain attack), đặc biệt với dev mới hoặc team không audit dependencies.
 
-### âœ… PNPM Xá»­ LÃ½ ThÃ´ng Minh HÆ¡n:
+### ✅ PNPM Xử Lý Thông Minh Hơn:
 
-- **KhÃ´ng tá»± Ä‘á»™ng cháº¡y script**, trá»« khi báº¡n **explicitly cho phÃ©p**.
-- CÃ³ thá»ƒ báº­t `--ignore-scripts` máº·c Ä‘á»‹nh trong `.npmrc`:
+- **Không tự động chạy script**, trừ khi bạn **explicitly cho phép**.
+- Có thể bật `--ignore-scripts` mặc định trong `.npmrc`:
   ```bash
   pnpm install --ignore-scripts
   ```
-- GiÃºp **ngÄƒn cháº·n code Ä‘á»™c háº¡i** tá»« dependency bÃªn thá»© ba ngay tá»« Ä‘áº§u â€“ pull repo láº¡ vá», cháº¡y `pnpm i` thÃ¬ mÃ£ Ä‘á»™c náº±m im, khÃ´ng steal keys hay lan truyá»n.
-- NgoÃ i ra, pnpm sandbox hÃ³a `node_modules`, háº¡n cháº¿ **module A override module B** â€” cÃ¡c kiá»ƒu táº¥n cÃ´ng nhÆ° _prototype pollution_ hay _dependency shadowing_ gáº§n nhÆ° biáº¿n máº¥t.
+- Giúp **ngăn chặn code độc hại** từ dependency bên thứ ba ngay từ đầu – pull repo lạ về, chạy `pnpm i` thì mã độc nằm im, không steal keys hay lan truyền.
+- Ngoài ra, pnpm sandbox hóa `node_modules`, hạn chế **module A override module B** — các kiểu tấn công như _prototype pollution_ hay _dependency shadowing_ gần như biến mất.
 
-> ðŸ§  NÃ³i cÃ¡ch khÃ¡c: pnpm cÃ i package, nhÆ°ng khÃ´ng â€œtin tÆ°á»Ÿng mÃ¹ quÃ¡ngâ€ package Ä‘Ã³ â€“ lÃ½ tÆ°á»Ÿng Ä‘á»ƒ trÃ¡nh nhá»¯ng vá»¥ "toang" tÃ i khoáº£n gáº§n Ä‘Ã¢y.
+> 🧠 Nói cách khác: pnpm cài package, nhưng không “tin tưởng mù quáng” package đó – lý tưởng để tránh những vụ "toang" tài khoản gần đây.
 
 ---
 
-## ðŸ§  TÆ° Duy Thiáº¿t Káº¿ KhÃ¡c Biá»‡t
+## 🧠 Tư Duy Thiết Kế Khác Biệt
 
-### 1ï¸âƒ£ â€œGlobal Storeâ€ â€“ á»” ÄÄ©a ThÃ´ng Minh
+### 1️⃣ “Global Store” – Ổ Đĩa Thông Minh
 
-PNPM cÃ³ má»™t nÆ¡i lÆ°u trá»¯ toÃ n cá»¥c (máº·c Ä‘á»‹nh: `~/.pnpm-store`).  
-Má»—i package chá»‰ tá»“n táº¡i **má»™t báº£n duy nháº¥t** â€” cÃ¡c dá»± Ã¡n chá»‰ â€œlinkâ€ tá»›i Ä‘Ã³.
+PNPM có một nơi lưu trữ toàn cục (mặc định: `~/.pnpm-store`).  
+Mỗi package chỉ tồn tại **một bản duy nhất** — các dự án chỉ “link” tới đó.
 
 ```bash
-# Láº§n Ä‘áº§u
+# Lần đầu
 pnpm install
 
-# Láº§n sau (vá»›i dá»± Ã¡n khÃ¡c)
-pnpm install   # Gáº§n nhÆ° tá»©c thÃ¬, vÃ¬ package Ä‘Ã£ cÃ³ sáºµn
+# Lần sau (với dự án khác)
+pnpm install   # Gần như tức thì, vì package đã có sẵn
 ```
 
-### 2ï¸âƒ£ â€œStrict Linkingâ€ â€“ KhÃ´ng Äá»ƒ Dependency TrÃ n Lan
+### 2️⃣ “Strict Linking” – Không Để Dependency Tràn Lan
 
-PNPM táº¡o `node_modules` theo cáº¥u trÃºc â€œvirtual storeâ€ riÃªng:  
-Dependency chá»‰ access Ä‘Æ°á»£c nhá»¯ng gÃ¬ khai bÃ¡o trong `package.json`.  
-Äiá»u nÃ y giÃºp:
+PNPM tạo `node_modules` theo cấu trúc “virtual store” riêng:  
+Dependency chỉ access được những gì khai báo trong `package.json`.  
+Điều này giúp:
 
-- TrÃ¡nh lá»—i â€œhidden dependencyâ€ (import module khÃ´ng khai bÃ¡o).
-- Build reproducible, CI khÃ´ng lo â€œcháº¡y tá»‘t trÃªn mÃ¡y A, fail trÃªn mÃ¡y Bâ€.
+- Tránh lỗi “hidden dependency” (import module không khai báo).
+- Build reproducible, CI không lo “chạy tốt trên máy A, fail trên máy B”.
 
 ---
 
-## ðŸ§° Migration Nhanh Gá»n
+## 🧰 Migration Nhanh Gọn
 
-Náº¿u dá»± Ã¡n Ä‘ang dÃ¹ng NPM/Yarn:
+Nếu dự án đang dùng NPM/Yarn:
 
 ```bash
 npm install -g pnpm
-# Hoáº·c dÃ¹ng corepack (Node 18+)
+# Hoặc dùng corepack (Node 18+)
 corepack enable pnpm
 ```
 
-Chuyá»ƒn sang dÃ¹ng:
+Chuyển sang dùng:
 
 ```bash
 pnpm install
 pnpm run dev
 ```
 
-Táº¥t cáº£ script vÃ  config váº«n hoáº¡t Ä‘á»™ng bÃ¬nh thÆ°á»ng.  
-Báº¡n sáº½ tháº¥y tá»‘c Ä‘á»™ khÃ¡c biá»‡t ngay tá»« láº§n Ä‘áº§u.
+Tất cả script và config vẫn hoạt động bình thường.  
+Bạn sẽ thấy tốc độ khác biệt ngay từ lần đầu.
 
 ---
 
-## âš–ï¸ Khi NÃ o ChÆ°a Cáº§n Vá»™i Chuyá»ƒn Sang PNPM?
+## ⚖️ Khi Nào Chưa Cần Vội Chuyển Sang PNPM?
 
-- Team Ä‘ang dÃ¹ng **workspace Yarn 1 + custom plugin** â€” cáº§n test ká»¹.
-- Há»‡ thá»‘ng CI/CD cÅ© chÆ°a há»— trá»£ pnpm cache.
-- Má»™t sá»‘ tool (hiáº¿m) váº«n assume cáº¥u trÃºc `node_modules` truyá»n thá»‘ng.
+- Team đang dùng **workspace Yarn 1 + custom plugin** — cần test kỹ.
+- Hệ thống CI/CD cũ chưa hỗ trợ pnpm cache.
+- Một số tool (hiếm) vẫn assume cấu trúc `node_modules` truyền thống.
 
-Tuy nhiÃªn, vá»›i **Node 18+ vÃ  corepack**, viá»‡c dÃ¹ng pnpm giá» Ä‘Ã£ cá»±c ká»³ mÆ°á»£t mÃ .  
-Cáº£ Vercel, Turborepo, NX, Cloudflare Workers Ä‘á»u há»— trá»£ sáºµn.
+Tuy nhiên, với **Node 18+ và corepack**, việc dùng pnpm giờ đã cực kỳ mượt mà.  
+Cả Vercel, Turborepo, NX, Cloudflare Workers đều hỗ trợ sẵn.
 
 ---
 
-## ðŸ’¬ Tá»•ng Káº¿t
+## 💬 Tổng Kết
 
 |                 | NPM               | Yarn         | PNPM                                |
 | --------------- | ----------------- | ------------ | ----------------------------------- |
-| Tá»‘c Äá»™          | ðŸ¢                | âš¡           | ðŸš€                                  |
-| Dung LÆ°á»£ng Disk | Náº·ng              | Trung bÃ¬nh   | Ráº¥t nháº¹                             |
-| An ToÃ n Script  | Cháº¡y tá»± Ä‘á»™ng      | Cháº¡y tá»± Ä‘á»™ng | **KhÃ´ng auto-run**                  |
-| Cache ToÃ n Cá»¥c  | âŒ                | âœ… (partial) | âœ… (full)                           |
-| Isolation       | Tháº¥p              | Trung bÃ¬nh   | **Cao (symlink isolation)**         |
-| PhÃ¹ Há»£p Vá»›i     | Má»i dá»± Ã¡n nhá»/lá»›n | Trung bÃ¬nh   | **Dev chuyÃªn nghiá»‡p / CI hiá»‡n Ä‘áº¡i** |
+| Tốc Độ          | 🐢                | ⚡           | 🚀                                  |
+| Dung Lượng Disk | Nặng              | Trung bình   | Rất nhẹ                             |
+| An Toàn Script  | Chạy tự động      | Chạy tự động | **Không auto-run**                  |
+| Cache Toàn Cục  | ❌                | ✅ (partial) | ✅ (full)                           |
+| Isolation       | Thấp              | Trung bình   | **Cao (symlink isolation)**         |
+| Phù Hợp Với     | Mọi dự án nhỏ/lớn | Trung bình   | **Dev chuyên nghiệp / CI hiện đại** |
 
 ---
 
-## ðŸ”— TÃ i Liá»‡u ChÃ­nh Thá»©c
+## 🔗 Tài Liệu Chính Thức
 
 - [pnpm.io](https://pnpm.io)
-- [Cáº¥u trÃºc store cá»§a pnpm](https://pnpm.io/symlinked-node-modules-structure)
+- [Cấu trúc store của pnpm](https://pnpm.io/symlinked-node-modules-structure)
 - [Corepack & pnpm setup](https://nodejs.org/api/corepack.html)
 
 ---
 
-âœï¸ _Viáº¿t bá»Ÿi má»™t dev tá»«ng tháº¥y `node_modules` náº·ng hÆ¡n cáº£ source code.  
-Giá» á»• cá»©ng sáº¡ch sáº½, build nhanh chÃ³ng, CI Ãªm ru â€“ nhá» pnpm._
-
+✍️ _Viết bởi một dev từng thấy `node_modules` nặng hơn cả source code.  
+Giờ ổ cứng sạch sẽ, build nhanh chóng, CI êm ru – nhờ pnpm._
