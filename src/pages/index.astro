@@ -12,16 +12,16 @@ import ProjectsPlaceholder from "$components/Projects/ProjectsPlaceholder.astro"
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { getLocale } from "astro-i18n-aut";
 import { getFeaturedProjects } from "src/utils";
-import { SHOW_PROJECTS, SITE } from "src/config";
+import { SHOW_PROJECTS, SITE, SITE_NAME } from "src/config";
 
 const lang = getLocale(Astro.url);
 const _projects = await getFeaturedProjects(lang);
 
 // SEO meta tags cho trang chủ
 const seoProps = {
-  title: "Hiền - Full-Stack Software Engineer Portfolio",
+  title: `${SITE_NAME} by Hiền Nguyen`,
   description:
-    "Hi, I'm Hiền! A passionate full-stack software engineer. Specializing in modern web technologies like Astro, Svelte, React, and TypeScript. Check out my projects and experience.",
+    "Modern dev playbook from Hiền Nguyen — full-stack workflows, AI-assisted delivery, and projects built with Astro, Svelte, React, and TypeScript.",
   keywords:
     "hiền, software engineer, full-stack developer, portfolio, web development, astro, svelte, react, typescript, javascript",
   type: "website",
@@ -31,9 +31,9 @@ const seoProps = {
 const homeStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Hiền's Portfolio - Home",
+  name: SITE_NAME,
   description:
-    "Personal portfolio and blog of Hiền, a full-stack software engineer",
+    "Modern Dev Playbook by Hiền Nguyen: strategies, experiments, and projects for shipping fast and clean.",
   url: SITE,
   mainEntity: {
     "@type": "Person",

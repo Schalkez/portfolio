@@ -2,6 +2,7 @@ export const BASE = "";
 const defaultSite = "https://hiennguyen.io";
 export const SITE = import.meta.env.PUBLIC_SITE_URL ?? defaultSite;
 export const SITE_FAVICON = "🌎";
+export const SITE_NAME = "Modern Dev Playbook";
 
 export const BASE_COLOR = "zinc";
 export const ACCENT_COLOR = "cyan";

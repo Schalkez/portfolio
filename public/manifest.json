@@ -1,7 +1,7 @@
 {
-  "name": "Hiền's Portfolio",
-  "short_name": "Hiền",
-  "description": "Full-Stack Software Engineer Portfolio",
+  "name": "Modern Dev Playbook",
+  "short_name": "ModDev",
+  "description": "Modern Dev Playbook by Hiền Nguyen",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

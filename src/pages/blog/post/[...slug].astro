@@ -6,7 +6,7 @@ import ProseWrapper from "$layouts/ProseWrapper.astro";
 import Navbar from "$components/Navigation/Navbar.svelte";
 import BlogBreadcrumb from "$components/Blog/BlogBreadcrumb.astro";
 import { getLocale } from "astro-i18n-aut";
-import { SITE } from "src/config";
+import { SITE, SITE_NAME } from "src/config";
 import BackToTop from "$components/ui/BackToTop.svelte";
 
 export async function getStaticPaths() {
@@ -86,7 +86,7 @@ const structuredData = {
   },
   publisher: {
     "@type": "Organization",
-    name: "Hiền's Portfolio",
+    name: SITE_NAME,
     url: SITE,
   },
   datePublished: finalPost.data.pubDate.toISOString(),
@@ -159,4 +159,3 @@ const structuredData = {
 
   <BackToTop client:load />
 </BaseLayout>
-

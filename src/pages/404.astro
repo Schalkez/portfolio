@@ -2,14 +2,15 @@
 import BaseLayout from "$layouts/BaseLayout.astro";
 import Navbar from "$components/Navigation/Navbar.svelte";
 import { getLocale } from "astro-i18n-aut";
+import { SITE_NAME } from "src/config";
 
 const currentLang = getLocale(Astro.url);
 
 const seoProps = {
-  title: "404 - Page Not Found | Hiền's Portfolio",
+  title: `404 - Page Not Found | ${SITE_NAME}`,
   description:
-    "The page you're looking for doesn't exist. Let's get you back on track to explore Hiền's portfolio and projects.",
-  keywords: "404, page not found, portfolio, Hiền",
+    "The page you're looking for doesn't exist. Let's get you back on track with the Modern Dev Playbook by Hiền Nguyen.",
+  keywords: "404, page not found, Modern Dev Playbook, Hiền",
   type: "website",
 };
 ---
@@ -36,8 +37,8 @@ const seoProps = {
           <p class="text-lg text-base-600 dark:text-base-400 mb-8">
             {
               currentLang === "vi"
-                ? "Trang bạn đang tìm kiếm không tồn tại. Hãy quay lại trang chủ để khám phá portfolio của mình."
-                : "The page you're looking for doesn't exist. Let's get you back on track to explore my portfolio."
+                ? "Trang bạn đang tìm kiếm không tồn tại. Hãy quay lại trang chủ để tiếp tục khám phá Modern Dev Playbook."
+                : "The page you're looking for doesn't exist. Head back home to keep exploring the Modern Dev Playbook."
             }
           </p>
 
@@ -61,4 +62,3 @@ const seoProps = {
     </div>
   </div>
 </BaseLayout>
-

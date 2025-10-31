@@ -1,5 +1,5 @@
 ---
-import { BASE, SITE, SITE_FAVICON } from "src/config";
+import { BASE, SITE, SITE_FAVICON, SITE_NAME } from "src/config";
 import meImage from "src/assets/about/me/me.webp";
 
 const _canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -75,7 +75,7 @@ if (typeof _image === "string") {
 <meta property="og:image" content={imageUrl} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:site_name" content="Hiền's Portfolio" />
+<meta property="og:site_name" content={SITE_NAME} />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
@@ -91,7 +91,7 @@ if (typeof _image === "string") {
 <meta name="msapplication-TileColor" content="#000000" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Hiền's Portfolio" />
+<meta name="apple-mobile-web-app-title" content={SITE_NAME} />
 
 <!-- Structured Data: Person -->
 <script
@@ -129,9 +129,9 @@ if (typeof _image === "string") {
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Hiền's Portfolio",
+    name: SITE_NAME,
     url: SITE,
-    description: "Personal portfolio and blog of Hiền, a full-stack software engineer",
+    description: "The Modern Dev Playbook by Hiền Nguyen — lessons, projects, and workflows for shipping fast and clean.",
     author: { "@type": "Person", name: "Hiền" },
     publisher: { "@type": "Person", name: "Hiền" },
     potentialAction: {
@@ -148,7 +148,7 @@ if (typeof _image === "string") {
   set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Hiền's Portfolio",
+    name: SITE_NAME,
     url: SITE,
     logo: new URL(meImage.src, SITE).toString(),
     sameAs: [
