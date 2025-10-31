@@ -1,0 +1,64 @@
+---
+name: "Sale Hunter"
+date: "2025-10-31"
+featured: true
+
+thumbnail: "/src/assets/projects/sale-hunter/hunt.gif"
+video: ""
+
+aspect: "aspect-[1/1]"
+projectUrl: ""
+codeUrl: ""
+
+projectPageVersion: "full"
+
+backgroundColor: "#fff"
+
+tags:
+  - "react"
+  - "plasmo"
+  - "nestjs"
+  - "postgresql"
+  - "graphile worker"
+  - "playwright"
+  - "brevo"
+  - "ai"
+
+mainTags:
+  - "automation"
+  - "ai"
+
+images:
+  - "/src/assets/projects/sale-hunter/hunt.gif"
+---
+
+Sale Hunter is a Chrome extension paired with a NestJS backend that automates price
+tracking and alerts for e-commerce products. The suite was designed and
+implemented with the support of AI coding agents, allowing me to iterate on
+system design and implementation far faster than a traditional workflow.
+
+### Key Outcomes
+
+- Replaced the daily manual price-check routine with an automated watchlist and
+  notification pipeline.
+- Delivered end-to-end architecture (Extension ↔ NestJS ↔ PostgreSQL ↔ Graphile
+  Worker) that scales to multiple stores and user watchlists.
+- Improved development velocity by delegating boilerplate (CRUD, DTOs,
+  migrations) to Cursor while I focused on complex logic and concurrency.
+
+### Technical Highlights
+
+- **Intelligent scraping**: Orchestrated Gemini AI to analyse DOM structures and
+  understand a user’s previously selected variants, then generate dynamic
+  Playwright flows that reliably extract prices across inconsistent storefronts.
+- **Concurrency & resilience**: Used Graphile Worker jobs to fan-out Playwright
+  crawlers while maintaining rate limits and tracking historical price changes.
+- **Watchlist domain**: Implemented CASL-based authorization so each user only
+  sees their own tracked products and alerts.
+- **Transactional alerts**: Integrated Brevo to send price drop notifications
+  directly from the backend workflow.
+
+### Tech Stack
+
+React 19 · Plasmo MV3 · NestJS 11 · PostgreSQL · Graphile Worker · Playwright ·
+Brevo · Gemini AI

@@ -1,0 +1,58 @@
+---
+name: "Guide Maker"
+date: "2025-10-31"
+featured: true
+
+thumbnail: "/src/assets/projects/guide-maker/guide-maker.jpg"
+video: ""
+
+aspect: "aspect-[1/1]"
+projectUrl: ""
+codeUrl: ""
+
+projectPageVersion: "full"
+
+backgroundColor: "#fff"
+
+tags:
+  - "react"
+  - "tailwindcss"
+  - "go"
+  - "ffmpeg"
+  - "docker"
+  - "gcp"
+  - "ai"
+
+mainTags:
+  - "automation"
+  - "documentation"
+
+images:
+  - "/src/assets/projects/guide-maker/guide-maker.jpg"
+---
+
+Guide Maker là bộ đôi **extension trình duyệt** + **backend Go** dùng để ghi lại
+hành động người dùng và tự động tạo hướng dẫn từng bước, kèm screenshot, mô tả
+và bản HTML xuất ra. Tôi tận dụng AI coding agent để tăng tốc thiết kế và triển
+khai, trong khi logic chính vẫn dựa trên rule-based để đảm bảo tính ổn định.
+
+### Tác động
+
+- Tự động hóa việc ghi chép hướng dẫn cho đội sản phẩm, tiết kiệm thời gian ghi
+  lại thao tác thủ công.
+- Xây dựng kho tri thức nhất quán với các guide có thể tái sử dụng.
+
+### Kiến trúc & điểm nhấn
+
+- Thiết kế kiến trúc microservice kết nối extension Chrome với các dịch vụ Go.
+- Nhờ AI hỗ trợ phần boilerplate nên có thể tập trung vào tích hợp dịch vụ, bảo
+  mật (Signed URL, IAM) và kiến trúc triển khai.
+- Xây dựng microservice xử lý video (Cloud Run + FFmpeg) để chuyển đổi MP4/GIF
+  theo thời gian thực.
+- Triển khai module quản lý step: tạo/sửa/xóa, kéo-thả sắp xếp, đính kèm/thay
+  thế screenshot và xuất HTML tự động.
+
+### Công nghệ
+
+React 19 · TailwindCSS 4 · Go 1.24+ · FFmpeg · Docker · Google Cloud (Cloud Run,
+Cloud Functions Gen2, GCS, IAM, Cloud Build)

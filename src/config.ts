@@ -16,4 +16,4 @@ export const SOCIALS = {
 };
 
 // Feature flags
-export const SHOW_PROJECTS = false;
+export const SHOW_PROJECTS = true;

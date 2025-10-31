@@ -1,0 +1,64 @@
+---
+name: "Sale Hunter"
+date: "2025-10-31"
+featured: true
+
+thumbnail: "/src/assets/projects/sale-hunter/hunt.gif"
+video: ""
+
+aspect: "aspect-[1/1]"
+projectUrl: ""
+codeUrl: ""
+
+projectPageVersion: "full"
+
+backgroundColor: "#fff"
+
+tags:
+  - "react"
+  - "plasmo"
+  - "nestjs"
+  - "postgresql"
+  - "graphile worker"
+  - "playwright"
+  - "brevo"
+  - "ai"
+
+mainTags:
+  - "automation"
+  - "ai"
+
+images:
+  - "/src/assets/projects/sale-hunter/hunt.gif"
+---
+
+Sale Hunter là bộ đôi **extension Chrome** và **backend NestJS** tự động hóa việc
+theo dõi giá và cảnh báo giảm giá cho sản phẩm thương mại điện tử. Dự án được
+thiết kế và triển khai với sự hỗ trợ của các AI coding agent, giúp tôi tăng tốc cả
+khâu thiết kế hệ thống lẫn hiện thực hóa.
+
+### Kết quả nổi bật
+
+- Loại bỏ quy trình kiểm giá thủ công mỗi ngày bằng watchlist tự động và quy
+  trình thông báo.
+- Xây dựng kiến trúc end-to-end (Extension ↔ NestJS ↔ PostgreSQL ↔ Graphile
+  Worker) để mở rộng cho nhiều gian hàng và watchlist người dùng.
+- Dùng Cursor xử lý phần boilerplate (CRUD, DTO, migration) để tập trung vào
+  logic khó và quản lý đồng thời.
+
+### Điểm nhấn kỹ thuật
+
+- **Trích xuất giá thông minh**: Điều phối Gemini AI phân tích DOM và ghi nhớ
+  biến thể mà người dùng đã chọn, tạo ra luồng Playwright động giúp lấy giá chính
+  xác trên nhiều layout khác nhau.
+- **Đồng bộ và ổn định**: Graphile Worker fan-out các crawler Playwright, kiểm
+  soát rate limit và lưu lịch sử giá.
+- **Miền watchlist**: Áp dụng CASL để phân quyền, đảm bảo mỗi người dùng chỉ
+  thấy sản phẩm và cảnh báo của riêng họ.
+- **Alert tự động**: Tích hợp Brevo gửi email thông báo giảm giá ngay trong
+  workflow backend.
+
+### Công nghệ
+
+React 19 · Plasmo MV3 · NestJS 11 · PostgreSQL · Graphile Worker · Playwright ·
+Brevo · Gemini AI

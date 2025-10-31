@@ -1,0 +1,60 @@
+---
+name: "Guide Maker"
+date: "2025-10-31"
+featured: true
+
+thumbnail: "/src/assets/projects/guide-maker/guide-maker.jpg"
+video: ""
+
+aspect: "aspect-[1/1]"
+projectUrl: ""
+codeUrl: ""
+
+projectPageVersion: "full"
+
+backgroundColor: "#fff"
+
+tags:
+  - "react"
+  - "tailwindcss"
+  - "go"
+  - "ffmpeg"
+  - "docker"
+  - "gcp"
+  - "ai"
+
+mainTags:
+  - "automation"
+  - "documentation"
+
+images:
+  - "/src/assets/projects/guide-maker/guide-maker.jpg"
+---
+
+Guide Maker is a browser extension paired with a Go backend that records user
+actions and automatically generates step-by-step guides — screenshots,
+descriptions, and HTML exports included. AI coding agents accelerated the design
+and implementation, while the core workflow remains deterministic to ensure
+predictable documentation output.
+
+### Impact
+
+- Automates documentation capture for product teams, saving the manual effort of
+  recording every click.
+- Builds a consistent knowledge base with reproducible step-by-step guides.
+
+### Architecture & Highlights
+
+- Designed an end-to-end microservice architecture linking the Chrome extension
+  with Go services.
+- Used AI-assisted development for boilerplate so I could focus on service
+  integration, security (signed URLs, IAM) and deployment architecture.
+- Built a video microservice (Cloud Run + FFmpeg) to convert recordings into MP4
+  and GIF assets on the fly.
+- Implemented rich step management: create/update/delete, drag-to-reorder,
+  attach/replace screenshots, and one-click HTML export.
+
+### Tech Stack
+
+React 19 · TailwindCSS 4 · Go 1.24+ · FFmpeg · Docker · Google Cloud (Cloud Run,
+Cloud Functions Gen2, GCS, IAM, Cloud Build)
