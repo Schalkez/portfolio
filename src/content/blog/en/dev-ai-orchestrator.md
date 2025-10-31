@@ -1,79 +1,106 @@
 ﻿---
-title: "When a Dev Knows How to Use AI: From Coder to Orchestrator"
-description: "How to use AI the right way to move faster, stay in control of your code, and level up your skills."
+title: "I ship 10× faster with AI — and still pass senior review"
+description: "How modern devs use AI agents (Cursor, ChatGPT Codex…) to build faster, keep the code clean, and stay in control of their codebase."
 pubDate: "2025-10-27"
 published: true
-tags: ["AI", "developer", "workflow", "productivity", "system design", "chatgpt", "claude", "orchestrator"]
+tags:
+  [
+    "AI",
+    "developer",
+    "workflow",
+    "productivity",
+    "system design",
+    "chatgpt",
+    "claude",
+    "orchestrator",
+  ]
 ---
 
-# When a Dev Knows How to Use AI: From Coder to Orchestrator
+# I ship 10× faster with AI — and still pass senior review
 
-> "AI doesn’t replace devs. It replaces people who don’t understand what they’re doing."
+> "AI doesn’t replace developers — it replaces people who don’t know what they’re doing."
 
 ---
 
-## A familiar story
+## The familiar story
 
 You’ve probably seen this (or been this person):
 
-### Scene 1: Thien, the Copy‑Paste King  
-> “Hey ChatGPT, make me a login page.”  
-→ Gets back 200 lines that run… and one tiny change collapses everything.
+### Scene 1: Thien – tosses the entire spec into AI and waits for magic
 
-### Scene 2: Sang from the Anti‑AI team  
-> “AI is dumb, the code is trash.”  
-→ While the prompt was literally: “build an e‑commerce website.”
+He pastes a 200-line project plan into Cursor: “here’s everything, handle it.”  
+→ The model nods, produces an app that *runs* with silky UI — yet the **“Save” button opens a “Delete” modal, and fixing one bug spawns ten more.**
 
-Sounds familiar? AI isn’t dumb — you just haven’t learned how to work with it yet.
+Why does that happen?  
+Because an AI only “understands” whatever fits in its current context; it can’t hold the full system flow like a real engineer.  
+When you pile five or six features into one prompt, later instructions overwrite earlier ones, the logic tangles, and the model has to **invent code that merely looks plausible inside the sliver it still remembers**.  
+Cue the domino effect of bugs.
+
+👉 Bigger prompt, blurrier context.  
+Want reliable output? Split features, feed back prior context, and make the AI “think in steps” like a teammate.
 
 ---
 
-## Truth: AI is like a super-fast junior dev team
+### Scene 2: Sang from the anti-AI camp
 
-What it’s great at:
-- Codes fast  
-- Never needs a break  
-- Doesn’t ask for a raise  
+> “AI is dumb; the code is garbage.”  
+> → Meanwhile the entire prompt was: “build an online store.”
+
+Sound familiar? AI isn’t dumb — you just haven’t learned how to work with it yet.
+
+---
+
+## Reality check: AI behaves like a hyper-fast junior team
+
+What it excels at:
+
+- Codes at lightning speed
+- Never needs a break
+- Doesn’t ask for a raise
 
 What it needs from you:
-- Clear goals  
-- Careful review  
-- Guidance toward the right approach  
 
-That’s exactly how I use AI daily. Here’s the workflow I follow.
+- Clear goals
+- Honest review
+- Guidance toward the right solution
+
+That’s how I use AI every day. Here’s the workflow that keeps me in the driver’s seat.
 
 ---
 
-## Three steps to master AI (without getting dragged around)
+## Three steps to steer AI (instead of getting dragged around)
 
-### Step 1: Talk to AI as if you’re clarifying requirements with a client
+### Step 1: Talk to AI like you’re clarifying requirements with a client
 
-Before coding, I use ChatGPT or Claude to understand the real problem.
+Before touching code, I ask ChatGPT or Claude to surface the real problem.
 
 Example:
+
 ```
-You: "I want to build a price‑tracking feature for any product URL."
+You: "I want to build a price-tracking feature for any product URL."
 
 AI: "Okay, a few questions:
-- Personal tracking only, or shared?
-- Do you need real‑time alerts?
-- Which domains should be supported?
-- Scheduled crawling (e.g., every 6h) or on‑demand when users visit?
+- Personal tracking only, or shared for many users?
+- Do you need real-time alerts?
+- Which domains must be supported?
+- Scheduled crawling (e.g., every 6h) or on-demand when users visit?
 - Target scale: 100 URLs, 10,000, or 1,000,000?"
 ```
 
-I let AI ask me back — those 5 minutes usually help me:
-- Spot edge cases  
-- Choose the right solution  
-- Avoid going in the wrong direction  
+I let the model interrogate me — those five minutes usually help me:
 
-> Tip: Ask AI “What should I ask before building this feature?”
+- Spot edge cases
+- Choose the right approach
+- Avoid heading down the wrong path
+
+> Tip: ask AI, “What should I clarify before building this feature?”
 
 ---
 
-### Step 2: Have AI draft a detailed plan
+### Step 2: Have the AI draft the plan — then review it like a tech lead
 
-Once I pick a direction, I say:
+Once I’ve chosen a direction, I prompt:
+
 ```
 "Create a detailed task list for the login feature.
 Each task must include:
@@ -82,112 +109,179 @@ Each task must include:
 - Required test cases"
 ```
 
-AI produces something like:
+AI spits out something like:
+
 ```
-Task 1: Design the User database schema  
-Task 2: Build the JWT service  
-Task 3: Implement the login API endpoint  
+Task 1: Design the user database schema
+Task 2: Implement the JWT service
+Task 3: Create the login API endpoint
 ...
 ```
 
-Now I’ve got a clear path — no more “where do I even start?”
+Now comes the *human* part: put on your tech-lead hat and sanity-check the plan.
+
+- Is it actually feasible?
+- Does it rely on missing or shaky assumptions?
+- Will it survive review from another engineer?
+
+This is where most people slip — they accept the list verbatim. Instead, grill the AI:
+
+```
+"This looks okay, but how exactly are you queuing background jobs?"
+"Is that library stable?"
+"If we swap this piece for Graphile Worker, does the logic stay intact?"
+```
+
+If one segment feels weak, ask for alternatives:
+
+“This cron job won’t deploy well on Cloud Run. Give me another approach that still ensures periodic execution.”
+
+> AI can propose a plan — you decide if it gets approved.
 
 ---
 
-### Step 3: Code with AI — but you stay in control
+### 🧱 Before coding: set the foundation and the rules for your AI agents
 
-This is crucial: never approve or paste code you don’t understand.
+Don’t ask **Cursor** or **ChatGPT Codex** to “build feature X” when your project is a blank folder.  
+Before the first line of product code, lay the groundwork:
 
-When AI writes code, I:
+1. **Bootstrap the project with a clear architecture** — DDD or solid modular boundaries.
+2. **Install the quality gate:** ESLint, Prettier, Husky, lint-staged — with strict rules (no `any`, no random `console.log`, no loose casting).
+3. **Document your principles:** DRY, KISS, SOLID — so the AI writes in *your* style.
+4. **Create a README** explaining goals and coding guidelines — when you say “read the codebase,” the agent has something concrete to latch onto.
 
-#### Ask back:
-```
-“Which hashing algorithm fits this checksum use case?”
-“This ‘get all products’ query may load thousands of items into RAM — how do we prevent that?”
-```
-
-#### Ask for explanations:
-```
-“Explain this DOM‑parsing function step‑by‑step.”
-“Should this be pipelined? Why?”
-```
-
-#### Push refactors:
-```
-“This error‑handling branch is messy — refactor using Lodash and RxJS so it’s easier to read.”
-“Extract this small util function; it shouldn’t live inside the service file.”
-“The search module isn’t SOLID‑friendly — add TODOs for the refactor steps and I’ll review them.”
-```
-
-Result: I learn more, the code is clean, and I fully understand the system flow.
+> Lay down the rules, and the AI plays by them. Skip this, and the agent codes according to its own imagination — that’s when bugs start reproducing.
 
 ---
 
-## Real-world example: Build an API in 2 hours
+### 💾 Commit like checkpoints — don’t let Cursor “die without respawning”
 
-Project: Library management API (CRUD + search)
+After every feature, **commit to GitHub**.  
+Why? Because **Cursor** or **Codex** can misread a prompt or lose context, drifting off-track before you even notice.
 
-| Time | Work | AI’s role |
-|------|------|-----------|
-| 15m | Requirement analysis | Brainstorm DB design, API structure, edge cases |
-| 10m | Planning | Generate a 12‑task checklist |
-| 60m | Coding | AI drafts → I review → Adjust → Test (iterate until done; don’t jump between tasks) |
-| 20m | Tests | AI proposes cases → I add edge cases |
-| 15m | Docs | AI drafts README → I finalize |
+With clean commits:
 
-Outcome:  
-- Full-featured API with tests and docs  
-- 100% understanding of the codebase  
-- 3–4× faster  
-- Cleaner and closer to best practices
+- If the AI goes rogue → roll back to the latest “checkpoint” like it’s a save slot.
+- A fresh AI session can understand the codebase faster thanks to clear history.
+
+> Treat each commit as a safe save. If you crash, reload — don’t replay the level.
 
 ---
 
-## Mindset shift: From “Coder” to “System designer”
+### 🧪 Test every module — make AI prove its own work
 
-Before (no AI):
-- Write every line yourself  
-- Drown in repetitive code  
-- Google syntax all day  
+When a module or feature is done, don’t sprint to the next one.  
+**Ask Cursor or Codex to write tests** (unit, integration, or E2E depending on scope).
 
-Now (with AI):
-- Focus on system design and architecture  
-- Let AI handle repetition  
-- You own logic, security, and testing  
+Example prompt:  
+“Write Jest tests for the auth module (login, register, refresh token). Cover error cases and edge cases.”
+
+Then:
+
+- Review the tests — are any cases missing?
+- Run the suite — does the AI truly understand the logic it wrote?
+- If it fails, feed the failures back as context and have it refactor.
+
+> This forces the AI to own its output. Tests become living docs — and you avoid “fix one bug, spawn two.”
+
+---
+
+### 🔄 When context overflows — reset and retrain the agent
+
+Long chats make **Cursor** or **Codex** forget earlier logic. That means the context window is saturated.
+
+**Fix it properly:**
+
+1. Start a fresh chat.
+2. Tell the agent to reread the relevant module:  
+   “Review the worker module in project A.”
+3. Ask it to summarize the current flow (e.g., “So it’s a → b → c, right?”).
+4. Only continue once you agree on the recap.
+
+> Like loading a saved game — make sure the AI knows exactly where you’re standing.
+
+---
+
+### Step 3: Code with AI agents — but keep your hands on the wheel
+
+This is the crucial part: never approve code you don’t understand.
+
+Whenever AI writes code, I always:
+
+#### Ask follow-up questions
+
+```
+"Which hashing algorithm fits this checksum?"
+"This 'get all products' query might load thousands of items into RAM — how do we prevent that?"
+```
+
+#### Demand explanations
+
+```
+"Explain this DOM-parsing function step by step."
+"Should this be pipelined? Why?"
+```
+
+#### Force refactors
+
+```
+"The async handling is messy — rewrite it with Lodash and RxJS for readability."
+"Extract this util function; it doesn’t belong in the service."
+"This search module isn’t SOLID; outline a refactor plan so I can review it."
+```
+
+The payoff: I keep learning, the code stays clean, and the system flow lives in my head.
+
+---
+
+## Mindset shift: from “coder” to “system designer”
+
+**Before (no AI):**
+
+- Writing every line yourself
+- Drowning in repetitive code
+- Googling syntax all day
+
+**Now (with AI):**
+
+- Focus on architecture and system design
+- Outsource the grunt work to AI agents
+- You still own logic, security, and testing
 
 > You’re no longer the builder — you’re the architect and supervisor.
 
 ---
 
-## Three things you should never do with AI
+## Three things you must never do with AI
 
-Paste code without reading — bugs will come.  
-Blindly trust AI — it can hallucinate APIs or suggest outdated patterns.  
-Skip tests — AI‑written code without tests is a ticking bomb.  
-
----
-
-## Skills that still win
-
-AI accelerates you, but it cannot replace:
-
-1. Systems thinking — how everything connects  
-2. Debugging — how to find and fix issues  
-3. Security mindset — spotting risks  
-4. Code review — telling good code from bad  
-5. Testing — ensuring stability and safety  
-
-> These require human judgment. AI doesn’t have that.
+Copy code without reading — bugs will pile up.  
+Trust AI blindly — it will hallucinate APIs or resurrect dinosaur-era patterns.  
+Skip tests — AI-written code without tests is a ticking bomb.
 
 ---
 
-## A ready‑to‑use workflow
+## Human skills still win the war
+
+AI boosts your velocity, but it can’t replace:
+
+1. Systems thinking — understanding how everything connects
+2. Debugging — finding and fixing issues
+3. Security mindset — spotting vulnerabilities
+4. Code review — telling good code from bad
+5. Testing — ensuring stability and safety
+
+> These all depend on human judgment. AI doesn’t have that.
+
+---
+
+## A workflow you can copy today
+
 ```text
-1. Receive requirement → Ask AI “What should I clarify before starting?”
+1. Receive the requirement → Ask AI "What should I ask before starting?"
 
-2. Brainstorm → List 2–3 viable approaches
+2. Brainstorm → List 2–3 feasible approaches
 
-3. Pick the best → Explain the context back to AI
+3. Pick the best path → Explain the context back to AI
 
 4. Ask AI to produce a detailed task list
 
@@ -197,47 +291,49 @@ AI accelerates you, but it cannot replace:
    - Refactor if needed
    - Test thoroughly
 
-6. Have AI propose test cases
+6. Let AI propose test cases
 
-7. AI drafts docs → You refine
+7. AI drafts the docs → You refine them
 
 8. Final review → Commit
 ```
 
 ---
 
-## Conclusion
+## Bottom line
 
-AI doesn’t replace you — it upgrades you.
+> AI doesn’t replace you — it levels you up.
 
-Winners with AI:
-- Solid foundations (code, databases, systems)  
-- Ask good questions  
-- Learn from AI daily  
-- Keep final control  
+**People who win with AI:**
 
-Losers:
-- Copy without understanding  
-- Don’t test  
-- Refuse to keep learning  
+- Have solid fundamentals (code, databases, systems)
+- Ask sharp questions
+- Learn from AI daily
+- Keep final ownership
+
+**People who lose:**
+
+- Copy without understanding
+- Don’t test
+- Refuse to keep learning
 
 Which side are you on?
 
 ---
 
-## Try it today
+## Try it on your next task
 
-Next time you code, try this:
+Next time you start coding, try this:
 
-1. Don’t Google first  
-2. Ask AI: “I’m facing X, help me understand before solving it.”  
-3. Let AI ask you back  
-4. Choose an approach → Have AI draft → Review carefully  
+1. Don’t Google immediately  
+2. Ask AI: “Here’s the problem — help me understand it before solving.”  
+3. Let AI question you back  
+4. Pick an approach → Have AI draft → Review carefully
 
-Trust me — you’ll feel the difference.
+Trust me — you’ll feel the difference immediately.
 
 ---
 
-P/S: If you found this useful, share it with a teammate. The more devs use AI properly, the stronger our community becomes.
+P.S. If this helped, share it with your teammates. The more devs who use AI responsibly, the stronger our community becomes.
 
-Written by Hien Nguyen — Full‑stack dev using AI to build faster, learn more, and sleep better.
+Written by Hien Nguyen — full-stack engineer using AI to build faster, learn more, and still get a full night’s sleep.
