@@ -23,6 +23,9 @@ importers:
       '@melt-ui/svelte':
         specifier: ^0.86.6
         version: 0.86.6(svelte@5.42.3)
+      '@microsoft/clarity':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@3.4.18(yaml@2.8.1))
@@ -773,6 +776,9 @@ packages:
     resolution: {integrity: sha512-Jer+M7DgIwT5IHfTayb4Iw/fkkxWNmC/mqn/nMh9JrbPbkxmyabfLQnhJ+JDn5HK77f84j34lubO3iqFtYAfMg==}
     peerDependencies:
       svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.118
+
+  '@microsoft/clarity@1.0.0':
+    resolution: {integrity: sha512-2QY6SmXnqRj6dWhNY8NYCN3e53j4zCFebH4wGnNhdGV1mqAsQwql2fT0w8TISxCvwwfVp8idsWLIdrRHOms1PQ==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3676,6 +3682,8 @@ snapshots:
       focus-trap: 7.6.6
       nanoid: 5.1.6
       svelte: 5.42.3
+
+  '@microsoft/clarity@1.0.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

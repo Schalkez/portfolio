@@ -3,11 +3,11 @@
   import MobileNavigationItem from "./MobileNavigationItem.svelte";
   import LanguageSwitcher from "./LanguageSwitcher.svelte";
 
-  export const className: string = "";
+export const className: string = "";
 
-  export let active: Item;
+export let active: Item;
 
-  export let items: Item[];
+export let items: readonly Item[];
   export let navigationItems: { href: string; label: string }[];
 
   export let currentLang: string = "vi";

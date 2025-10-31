@@ -15,6 +15,7 @@
     "@astrojs/svelte": "^7.0.2",
     "@astrojs/tailwind": "^5.1.4",
     "@melt-ui/svelte": "^0.86.6",
+    "@microsoft/clarity": "^1.0.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",

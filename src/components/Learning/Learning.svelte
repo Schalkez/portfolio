@@ -129,16 +129,16 @@
   // Localized titles
   const titles = {
     en: {
-      title: "always keep learning",
+      title: "Always Keep Learning",
       description:
-        "one of the things i love most about programming is that there's always something new to learn. here's a selection of some of the things i've been learning lately:",
-      showMore: "show more",
+        "One of the things I love most about programming is that there's always something new to learn. Here's a selection of some of the things I've been learning lately:",
+      showMore: "Show More",
     },
     vi: {
-      title: "luôn luôn học hỏi",
+      title: "Luôn Luôn Học Hỏi",
       description:
-        "một trong những điều tôi thích nhất ở lập trình là luôn có điều mới để học. dưới đây là một số thứ tôi học gần đây:",
-      showMore: "xem thêm",
+        "Một trong những điều tôi thích nhất ở lập trình là luôn có điều mới để học. Dưới đây là một số thứ tôi học gần đây:",
+      showMore: "Xem Thêm",
     },
   } as const;
 

@@ -12,7 +12,7 @@ pairSlug:
   vi: "dung-biome-thay-cho-eslint-prettier"
 ---
 
-# ⚡ Use Biome Instead of ESLint + Prettier — Why Not?
+# Use Biome Instead of ESLint + Prettier — Why Not?
 
 > "It’s not that ESLint + Prettier are bad. Biome simply does the same job… faster and leaner."
 
@@ -34,7 +34,7 @@ Biome (formerly Rome) is an all-in-one web tooling suite written in Rust.
 
 Here’s the key: it was designed from day one to cover both roles in one cohesive engine.
 
-## 1. Performance 🚀 (the headline reason)
+## 1. Performance (the headline reason)
 
 You’ll notice this instantly. Biome is fast. Shockingly fast.
 
@@ -51,7 +51,7 @@ That speed translates to:
 - Pre-commit hooks that fly by.
 - CI/CD pipelines that reclaim precious minutes.
 
-## 2. Simplicity 🧩 (one tool to rule them all)
+## 2. Simplicity (one tool to rule them all)
 
 Biome ends the configuration juggling act:
 
@@ -70,7 +70,7 @@ With Biome, you install one dependency and maintain a single `biome.json`.
 
 Because linter and formatter are the same engine, they never fight. No gymnastics to disable lint formatting so Prettier can take over—Biome keeps everything aligned by design.
 
-## 3. Excellent diagnostics 🩺
+## 3. Excellent diagnostics
 
 Biome doesn’t just spit out cryptic errors. It explains *why* something is wrong and often provides clear autofix suggestions. Debugging—and learning from linting—feels smoother.
 

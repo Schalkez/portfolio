@@ -12,7 +12,7 @@ import ProjectsPlaceholder from "$components/Projects/ProjectsPlaceholder.astro"
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { getLocale } from "astro-i18n-aut";
 import { getFeaturedProjects } from "src/utils";
-import { SHOW_PROJECTS } from "src/config";
+import { SHOW_PROJECTS, SITE } from "src/config";
 
 const lang = getLocale(Astro.url);
 const _projects = await getFeaturedProjects(lang);
@@ -34,7 +34,7 @@ const homeStructuredData = {
   name: "Hiền's Portfolio - Home",
   description:
     "Personal portfolio and blog of Hiền, a full-stack software engineer",
-  url: "https://portfolio.chiatien.org",
+  url: SITE,
   mainEntity: {
     "@type": "Person",
     name: "Hiền",

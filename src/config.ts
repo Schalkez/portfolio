@@ -1,5 +1,6 @@
 export const BASE = "";
-export const SITE = "https://portfolio.chiatien.org";
+const defaultSite = "https://hiennguyen.io";
+export const SITE = import.meta.env.PUBLIC_SITE_URL ?? defaultSite;
 export const SITE_FAVICON = "🌎";
 
 export const BASE_COLOR = "zinc";

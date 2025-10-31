@@ -15,14 +15,14 @@ const { lang } = Astro.props;
 // Lấy nội dung theo ngôn ngữ
 const titles = {
   en: {
-    title: "get in touch",
+    title: "Get In Touch",
     description:
-      "you have a project in mind? let's talk about it. drop me a line and I'll get back to you as soon as possible.",
+      "You have a project in mind? Let's talk about it. Drop me a line and I'll get back to you as soon as possible.",
   },
   vi: {
-    title: "liên hệ",
+    title: "Liên Hệ",
     description:
-      "bạn có một dự án trong đầu? hãy nói chuyện về nó. gửi cho tôi một dòng và tôi sẽ phản hồi sớm nhất có thể.",
+      "Bạn có một dự án trong đầu? Hãy nói chuyện về nó. Gửi cho tôi một dòng và tôi sẽ phản hồi sớm nhất có thể.",
   },
 };
 
@@ -52,19 +52,19 @@ const content = titles[lang as keyof typeof titles] || titles.en;
             <svelte:fragment slot="icon">
               <Github class="w-6 h-6" />
             </svelte:fragment>
-            github</SocialLink
+            GitHub</SocialLink
           >
           <SocialLink href={SOCIALS.LINKEDIN} class="mt-4">
             <svelte:fragment slot="icon">
               <LinkedIn class="w-6 h-6" />
             </svelte:fragment>
-            linkedin
+            LinkedIn
           </SocialLink>
           <SocialLink href={SOCIALS.FACEBOOK} class="mt-4">
             <svelte:fragment slot="icon">
               <Facebook class="w-6 h-6" />
             </svelte:fragment>
-            facebook
+            Facebook
           </SocialLink>
           <SocialLink href={SOCIALS.MAIL} class="mt-8">
             <svelte:fragment slot="icon">

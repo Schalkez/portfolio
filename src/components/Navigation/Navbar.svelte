@@ -4,13 +4,14 @@
   import { items, getNavigationItems } from "./items";
   import MobileNavigation from "./MobileNavigation.svelte";
   import { useTranslations } from "../../i18n/ui";
+  import { mostVisible } from "$scripts/mostVisible";
 
   function _setActive() {
-    // @ts-ignore
     const currentlyActive = mostVisible(document.querySelectorAll(".section"));
+    const nextActive = currentlyActive?.id;
 
-    if (currentlyActive?.id) {
-      active = currentlyActive.id;
+    if (nextActive && items.includes(nextActive as Item)) {
+      active = nextActive as Item;
     }
   }
 

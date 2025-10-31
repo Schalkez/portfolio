@@ -1,5 +1,5 @@
 ---
-import { BASE, SITE_FAVICON } from "src/config";
+import { BASE, SITE, SITE_FAVICON } from "src/config";
 import meImage from "src/assets/about/me/me.webp";
 
 const _canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -101,7 +101,7 @@ if (typeof _image === "string") {
     "@type": "Person",
     name: "Hiền",
     jobTitle: "Full-Stack Software Engineer",
-    url: "https://portfolio.chiatien.org",
+    url: SITE,
     sameAs: [
       "https://github.com/Schalkez",
       "https://www.linkedin.com/in/hien-nguyen-duc-2053b0240/",
@@ -119,7 +119,7 @@ if (typeof _image === "string") {
     ],
     description:
       "Full-stack software engineer specializing in modern web technologies",
-    image: { "@type": "ImageObject", url: new URL(meImage.src, Astro.url).toString() },
+    image: { "@type": "ImageObject", url: new URL(meImage.src, SITE).toString() },
   })}
 />
 
@@ -130,13 +130,13 @@ if (typeof _image === "string") {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Hiền's Portfolio",
-    url: "https://portfolio.chiatien.org",
+    url: SITE,
     description: "Personal portfolio and blog of Hiền, a full-stack software engineer",
     author: { "@type": "Person", name: "Hiền" },
     publisher: { "@type": "Person", name: "Hiền" },
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://portfolio.chiatien.org/search?q={search_term_string}",
+      target: `${SITE}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   })}
@@ -149,8 +149,8 @@ if (typeof _image === "string") {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Hiền's Portfolio",
-    url: "https://portfolio.chiatien.org",
-    logo: new URL(meImage.src, Astro.url).toString(),
+    url: SITE,
+    logo: new URL(meImage.src, SITE).toString(),
     sameAs: [
       "https://github.com/Schalkez",
       "https://www.linkedin.com/in/hien-nguyen-duc-2053b0240/",
@@ -161,4 +161,3 @@ if (typeof _image === "string") {
 
 <!-- Umami Analytics -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="5321d742-2ddd-4961-83ce-327a6d10257e"></script>
-

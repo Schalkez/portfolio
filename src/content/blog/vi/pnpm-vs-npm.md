@@ -12,13 +12,13 @@ pairSlug:
   en: "pnpm-when-devs-stop-waiting-for-npm"
 ---
 
-# ⚡ PNPM – Khi Dev Không Cần Phải Chờ NPM “Đi Chợ” Nữa
+# PNPM – Khi Dev Không Cần Phải Chờ NPM “Đi Chợ” Nữa
 
 > “npm install” mà quạt CPU gào rú, disk sắp nổ tung — thì đã đến lúc bạn thử **pnpm**.
 
 ---
 
-## 🧩 Câu Chuyện Quen Thuộc
+## Câu Chuyện Quen Thuộc
 
 Bạn clone một repo, chạy lệnh:
 
@@ -37,7 +37,7 @@ Rồi bạn thử **Yarn**, thấy nhanh hơn tí, nhưng vẫn phải tải cù
 
 ---
 
-## 🚀 PNPM Khác Biệt Như Thế Nào Với NPM Và Yarn?
+## PNPM Khác Biệt Như Thế Nào Với NPM Và Yarn?
 
 Tóm gọn: **pnpm sử dụng cách lưu dependency hoàn toàn khác biệt.**
 
@@ -51,11 +51,11 @@ Tóm gọn: **pnpm sử dụng cách lưu dependency hoàn toàn khác biệt.**
 
 ---
 
-## 🔒 Bảo Mật – Điểm Làm PNPM Thực Sự “Đáng Tiền”
+## Bảo Mật – Điểm Làm PNPM Thực Sự “Đáng Tiền”
 
 Đây là phần mà nhiều dev **chưa chú ý nhưng cực kỳ quan trọng**.
 
-### ❌ Vấn Đề Của NPM/Yarn:
+### Vấn Đề Của NPM/Yarn:
 
 Khi chạy `npm install` hoặc `yarn install`,  
 các package có thể **tự động chạy script** như:
@@ -68,7 +68,7 @@ các package có thể **tự động chạy script** như:
 
 Nếu không kiểm soát kỹ hoặc CI không sandbox, bạn vừa mở cửa cho mã độc chạy trên máy mình. Gần đây, các vụ lừa đảo kiểu này diễn ra thường xuyên: dev pull source Node.js từ repo lạ (thường qua bài test hoặc bài tập), chạy `npm i` là "toang" – mã độc tự chạy, quét env variables để steal API keys, GitHub tokens, AWS credentials, thậm chí lan truyền như worm. Ví dụ, tháng 9/2025, một loạt package phổ biến như chalk, debug bị compromise, dẫn đến hàng trăm package khác bị nhiễm, đánh cắp credentials từ môi trường dev. Worm "Shai-Hulud" đã tự replicate, ảnh hưởng hàng triệu install, khiến bao nhiêu key và tài khoản bay màu chỉ vì scripts auto-run. Đây là **vector tấn công phổ biến** (supply chain attack), đặc biệt với dev mới hoặc team không audit dependencies.
 
-### ✅ PNPM Xử Lý Thông Minh Hơn:
+### PNPM Xử Lý Thông Minh Hơn:
 
 - **Không tự động chạy script**, trừ khi bạn **explicitly cho phép**.
 - Có thể bật `--ignore-scripts` mặc định trong `.npmrc`:
@@ -78,13 +78,13 @@ Nếu không kiểm soát kỹ hoặc CI không sandbox, bạn vừa mở cửa 
 - Giúp **ngăn chặn code độc hại** từ dependency bên thứ ba ngay từ đầu – pull repo lạ về, chạy `pnpm i` thì mã độc nằm im, không steal keys hay lan truyền.
 - Ngoài ra, pnpm sandbox hóa `node_modules`, hạn chế **module A override module B** — các kiểu tấn công như _prototype pollution_ hay _dependency shadowing_ gần như biến mất.
 
-> 🧠 Nói cách khác: pnpm cài package, nhưng không “tin tưởng mù quáng” package đó – lý tưởng để tránh những vụ "toang" tài khoản gần đây.
+> Nói cách khác: pnpm cài package, nhưng không “tin tưởng mù quáng” package đó – lý tưởng để tránh những vụ "toang" tài khoản gần đây.
 
 ---
 
-## 🧠 Tư Duy Thiết Kế Khác Biệt
+## Tư Duy Thiết Kế Khác Biệt
 
-### 1️⃣ “Global Store” – Ổ Đĩa Thông Minh
+### 1. “Global Store” – Ổ Đĩa Thông Minh
 
 PNPM có một nơi lưu trữ toàn cục (mặc định: `~/.pnpm-store`).  
 Mỗi package chỉ tồn tại **một bản duy nhất** — các dự án chỉ “link” tới đó.
@@ -97,7 +97,7 @@ pnpm install
 pnpm install   # Gần như tức thì, vì package đã có sẵn
 ```
 
-### 2️⃣ “Strict Linking” – Không Để Dependency Tràn Lan
+### 2. “Strict Linking” – Không Để Dependency Tràn Lan
 
 PNPM tạo `node_modules` theo cấu trúc “virtual store” riêng:  
 Dependency chỉ access được những gì khai báo trong `package.json`.  
@@ -108,7 +108,7 @@ Dependency chỉ access được những gì khai báo trong `package.json`.
 
 ---
 
-## 🧰 Migration Nhanh Gọn
+## Migration Nhanh Gọn
 
 Nếu dự án đang dùng NPM/Yarn:
 
@@ -130,7 +130,7 @@ Bạn sẽ thấy tốc độ khác biệt ngay từ lần đầu.
 
 ---
 
-## ⚖️ Khi Nào Chưa Cần Vội Chuyển Sang PNPM?
+## Khi Nào Chưa Cần Vội Chuyển Sang PNPM?
 
 - Team đang dùng **workspace Yarn 1 + custom plugin** — cần test kỹ.
 - Hệ thống CI/CD cũ chưa hỗ trợ pnpm cache.
@@ -141,20 +141,20 @@ Cả Vercel, Turborepo, NX, Cloudflare Workers đều hỗ trợ sẵn.
 
 ---
 
-## 💬 Tổng Kết
+## Tổng Kết
 
 |                 | NPM               | Yarn         | PNPM                                |
 | --------------- | ----------------- | ------------ | ----------------------------------- |
-| Tốc Độ          | 🐢                | ⚡           | 🚀                                  |
+| Tốc Độ          | Chậm              | Nhanh hơn    | Nhanh nhất                          |
 | Dung Lượng Disk | Nặng              | Trung bình   | Rất nhẹ                             |
 | An Toàn Script  | Chạy tự động      | Chạy tự động | **Không auto-run**                  |
-| Cache Toàn Cục  | ❌                | ✅ (partial) | ✅ (full)                           |
+| Cache Toàn Cục  | Không             | Một phần     | Đầy đủ                              |
 | Isolation       | Thấp              | Trung bình   | **Cao (symlink isolation)**         |
 | Phù Hợp Với     | Mọi dự án nhỏ/lớn | Trung bình   | **Dev chuyên nghiệp / CI hiện đại** |
 
 ---
 
-## 🔗 Tài Liệu Chính Thức
+## Tài Liệu Chính Thức
 
 - [pnpm.io](https://pnpm.io)
 - [Cấu trúc store của pnpm](https://pnpm.io/symlinked-node-modules-structure)
@@ -162,5 +162,5 @@ Cả Vercel, Turborepo, NX, Cloudflare Workers đều hỗ trợ sẵn.
 
 ---
 
-✍️ _Viết bởi một dev từng thấy `node_modules` nặng hơn cả source code.  
+_Viết bởi một dev từng thấy `node_modules` nặng hơn cả source code.  
 Giờ ổ cứng sạch sẽ, build nhanh chóng, CI êm ru – nhờ pnpm._

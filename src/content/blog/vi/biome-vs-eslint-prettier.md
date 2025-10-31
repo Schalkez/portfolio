@@ -12,7 +12,7 @@ pairSlug:
   en: "use-biome-instead-eslint-prettier"
 ---
 
-# ⚡ Dùng Biome thay cho combo ESLint + Prettier — Tại sao không?
+# Dùng Biome thay cho combo ESLint + Prettier — Tại sao không?
 
 > "Không phải vì ESLint + Prettier dở, mà vì Biome đang làm điều tương tự… nhanh hơn, gọn hơn."
 
@@ -34,7 +34,7 @@ Biome (trước đây là Rome) là một toolchain (bộ công cụ) "tất c�
 
 Và đây là điểm mấu chốt: Nó được thiết kế từ đầu để thực hiện cả hai vai trò đó một cách thống nhất.
 
-## 1. Tốc độ 🚀 (Lý do ăn tiền nhất)
+## 1. Tốc độ (Lý do ăn tiền nhất)
 
 Đây là thứ bạn sẽ nhận thấy ngay lập tức. Biome nhanh. Nhanh đến mức kinh ngạc.
 
@@ -51,7 +51,7 @@ Tốc độ này không chỉ là để "cho oai". Nó có nghĩa là:
 - Pre-commit hook chạy trong nháy mắt.
 - Pipeline CI/CD của bạn tiết kiệm được vài phút quý giá.
 
-## 2. Sự đơn giản 🧩 (Chỉ một công cụ)
+## 2. Sự đơn giản (Chỉ một công cụ)
 
 Đây là cơn ác mộng cấu hình mà Biome giải quyết:
 
@@ -70,7 +70,7 @@ Với Biome, bạn chỉ cần một dependency và một file cấu hình biome
 
 Vì linter và formatter là cùng một công cụ, chúng không bao giờ xung đột với nhau. Bạn không cần phải cài thêm plugin để "tắt" các quy tắc format của linter để nhường chỗ cho Prettier. Chúng được sinh ra để hoạt động cùng nhau.
 
-## 3. Chẩn đoán lỗi tuyệt vời 🩺
+## 3. Chẩn đoán lỗi tuyệt vời
 
 Biome không chỉ ném ra một thông báo lỗi. Nó thường giải thích tại sao đó là lỗi và cung cấp các đề xuất sửa lỗi (autofix) rất rõ ràng. Trải nghiệm gỡ rối và học hỏi từ linter tốt hơn hẳn.
 
