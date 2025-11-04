@@ -3,310 +3,255 @@ title: "Inside an AI’s Brain: It’s Not as Smart as You Think"
 description: "Decoding how ChatGPT, Cursor, and Claude really ‘think’ — from tokens and context to making them read fresh docs and write code that never goes out of date."
 pubDate: "2025-11-03"
 published: true
-tags: ["ai", "cursor", "chatgpt", "claude", "workflow"]
+tags: ["ai", "cursor", "chatgpt", "claude", "rag", "fine-tuning", "workflow"]
 author: "Hien Nguyen"
 ---
 
-# I understand how AI thinks — and that’s how I force it to code what I want
+# I understand how AI thinks — and that is how I force it to ship the code I want
 
-> “AI won’t replace developers — but it will replace the ones who have **no idea how it really works.**”
-
----
-
-## Opening story
-
-I used to think AI was magic.  
-It wrote smooth React components, tests were green, the UI sparkled.  
-Until I asked:
-
-> “Hey, why does `updateUser()`… delete the user?”
-
-AI calmly replied:
-
-> “Because that pattern is common in the dataset.”
-
-I laughed.  
-Not because it was funny, but because I finally understood something:  
-**AI doesn’t understand anything. It only guesses.**
-
-If a developer doesn’t understand how it guesses,  
-AI is just a turbo intern — **fast guesses, fast mistakes.**
+> “AI will not replace developers — but it will replace the ones who **do not understand how it actually works.**”
 
 ---
 
-## 1. The harsh truth: it doesn’t understand, it just guesses well
+## 1) Harsh truth: AI does not “understand,” it just **guesses**
 
-ChatGPT, Claude, Cursor… have no intent, no awareness.  
-They’re language models trained to **predict the next token that looks right** in the sentence you typed.
+The first thing to accept (even if it stings): ChatGPT, Claude, whatever model you are using does **not understand** you.  
+It only **guesses**.
 
-Example:
+- It sees `const app =` and guesses the next token is `express()` **not** because it “knows” Express, but because it has seen **millions** of GitHub snippets shaped exactly like that.
+- It is a glorified “**pattern mimic**” running at lightspeed.
+- Because it only guesses, whenever context is missing it will **hallucinate something plausible**.
 
-- You write `const app =`
-- It predicts `express()`
-- Not because it “gets” Express,  
-  but because across billions of lines, “`app = express()`” is the **most common pattern**.
-
-AI is autocomplete — juiced up on steroids.
-
-### The time it “invented” an API for me
-
-I once asked:
-
-> “What’s the endpoint to upgrade a user to premium?”
-
-It answered with full confidence:  
-`POST /api/v1/users/premium/upgrade`
-
-I implemented it, ran the tests — 404.  
-That endpoint never existed.  
-It hallucinated something that “sounded right.”
-
-That’s when it clicked:
-
-> **It doesn’t know. It just remembers patterns that look similar.**
+**My lesson:** avoid vague prompts. **Feed** it the context (schema, README, explicit I/O) so it can guess the **exact** thing you want.
 
 ---
 
-## 2. Inside its brain — Transformer, attention, and that context thing
+## 2) What happens inside the “black box” when you send a prompt
 
-I’m not going textbook mode. Here’s the dev version:
+You type a prompt, hit Enter, and it feels like the model “gets it.”  
+Reality: an absurd sequence of math operations happens under the hood —  
+like a developer reading logs without ever running the program.
 
-- It reads everything you type **in parallel**, not left-to-right.
-- It “looks back” at important parts with a mechanism called **attention**.
-- It only “remembers” inside a temporary buffer called the **context window** — think of it as RAM.
+Imagine it working like this:
 
-### Attention, explained for developers
+### Step 1: **Break the prompt apart (Tokenization)**
 
-If you say:
+It does not see words, it sees tiny **tokens**.  
+Example: `"Hello world"` gets chopped into `["Hel", "lo", " world"]`.  
+The sentence `"Refactor file A but do not touch file B"` also explodes into dozens of pieces like `"Re"`, `"factor"`, `"file"`, `"A"`, `"do"`, `"not"`, `"touch"`, `"file"`, `"B"`.
 
-> “Refactor file A but **don’t touch file B**.”
+### Step 2: **Convert pieces into numbers (Embedding)**
 
-The model tags file B with extra weight — that’s attention.  
-It marks what not to touch.
+After tokenizing, each token is turned into a **vector** —  
+think of it as a “coordinate of meaning” in a high-dimensional space.
 
-Every chat session = a fresh working memory.  
-When context overflows, it **forgets the beginning** — like a dev on a 3-day sprint binge who reads code and forgets it minutes later.
+Illustration:
 
----
+| Token     | Vector (toy 3D example) |
+| --------- | ----------------------- |
+| "React"   | [0.8, 0.6, 0.1]         |
+| "Vue"     | [0.79, 0.58, 0.15]      |
+| "Angular" | [0.75, 0.6, 0.2]        |
+| "cat"     | [-0.2, 0.1, 0.9]        |
 
-## 3. Tokens, attention, context — minus the academic jargon
+The first three tokens sit **close together** because they mean similar things (frontend frameworks).  
+“cat” lives far away — semantically unrelated.
 
-- **Token**: tiny piece of text such as `"function"`, `"return"`, `"()"`.
-- **Attention**: how the model spots the parts worth focusing on.
-- **Context**: the temporary RAM — and yes, it has limits.
+AI does not “understand” what React is;  
+it simply **maps tokens to vectors**  
+and uses distances (cosine similarity) to infer relationships.
 
-Paste ten files into Cursor and it will refactor smoothly at first.  
-Ask about `authService` later and it replies: “that function’s undefined.”  
-Not because it’s dumb, but because **that chunk fell out of memory**.
+💡 Quick note:  
+• This toy table is just for intuition — real embedding spaces use thousands of dimensions.
 
-### The time I shoved 20 files into Cursor
+### Step 3: **Look at everything at once (Self-attention)**
 
-I tried refactoring an `auth` module by pasting everything — `auth.service.ts`, `jwt.util.ts`, `user.repository.ts`…
+It does not read left-to-right; it scans the entire vector map at once,  
+then decides which parts deserve focus.  
+In the earlier sentence, the vectors for “touch” and “file B” sit close together,  
+so “file B” gets marked as a **no-go zone**.  
+Not because it “understands” the rule, but because in training data,  
+phrases like “do not do X to Y” follow similar patterns.
 
-- Minute 10: spotless refactors, neat comments.
-- Minute 15: duplicate functions creep in.
-- Minute 20: it forgets `TokenService` existed.
+### Step 4: **Generate one token at a time**
 
-Conclusion:
+It never writes the whole answer in one go.  
+It generates **one token**, appends it to the context,  
+then **re-runs attention on the entire context** before predicting the next token.  
+Repeat, token by token, line by line.
 
-> “It isn’t tired. It just… ran out of RAM.”
+**Prompt example:**
 
----
+> _“Write a JavaScript function `sum(a, b)` that returns the total and add one Jest test.”_
 
-## 4. How AI “understands” code (and why it still gets it wrong)
+To keep it readable, we group the tiny tokens into meaningful **chunks** (the model still works at token granularity):
 
-AI doesn’t run your program — it **simulates how code usually behaves** based on patterns.  
-When it sees `if (x > 0)`, it doesn’t evaluate; it thinks:
+| Step | Tokens generated              | Updated context                  | Notes                                         |
+| ---: | ----------------------------- | -------------------------------- | --------------------------------------------- |
+|    1 | `function`                    | `function`                       | Starts with a familiar JavaScript template    |
+|    2 | ` sum`                        | `function sum`                   | Reuses the prompt’s function name             |
+|    3 | `(a, b) {`                    | `function sum(a, b) {`           | Adds parameters and opens the block           |
+|    4 | ` return a + b;`              | `... { return a + b;`            | Guesses the obvious implementation            |
+|    5 | ` }`                          | `... }`                          | Closes the function                           |
+|    6 | `\n\n`                        | (new line)                       | Prepares for the test section                 |
+|    7 | `test('sum', () => {`         | `test('sum', () => {`            | Standard Jest pattern                         |
+|    8 | ` expect(sum(2, 3)).toBe(5);` | `... expect(sum(2,3)).toBe(5);`  | Looks back to reuse the correct function name |
+|    9 | ` });`                        | `... });`                        | Closes the test                               |
 
-> “Well, in most cases there’ll be a return or a log next.”
+**Final output:**
 
-So code can look correct while the logic is broken.  
-It’s like a junior dev whose syntax is pristine yet the feature fails.
+```js
+function sum(a, b) {
+  return a + b;
+}
 
-👉 If you want it to grasp intent:
-
-- Provide **test cases, inputs, expected outputs.**
-- Ask it: “Explain why this test should pass or fail.”
-- Don’t just say “write code” — give it the **problem statement.**
-
-AI doesn’t need you to teach syntax. It needs the **goal.**
-
----
-
-## 5. Bigger models, bigger brains — still limited
-
-Larger models capture deeper context and write smoother responses,  
-but long-term memory still depends on **context window size.**
-
-Even with a million-token model, dump an entire project into one prompt and it’ll still derail.
-
-> Narrow prompt, sharp answer.  
-> Bloated prompt, blurry answer.
-
----
-
-## 6. Why it hallucinates — and how to keep it honest
-
-When it lacks data, it doesn’t say “I don’t know.”  
-It **predicts whatever sounds most plausible.**
-
-**Example:**
-
-> “How do you fetch server-side in Next.js 15?”  
-> — “Just use `getServerSideProps` like usual.”  
-> (Meanwhile, App Router is waving goodbye.)
-
-### How I fight “confident nonsense”
-
-1. **Feed real docs**: README, schema, changelog, release notes.
-2. **Lay down rules**: “If unsure → answer UNKNOWN. No guessing.”
-3. **Force it to browse** before coding (if the model can).
-4. **Split the prompt**: don’t shove the entire repo at once.
-
-AI isn’t malicious — it simply **lacks context.**  
-The cleaner the data you feed, the more accurate the output.
-
----
-
-## 7. How it “learns” and “forgets”
-
-- Every chat = a fresh working brain.
-- No persistent memory (unless you build an agent with storage).
-- Want it to “remember” your codebase? Use **RAG (retrieval-augmented generation).**
-
-You either **replace the brain** (fine-tuning) or **hand it a handbook every day** (RAG).
-
-### RAG vs. fine-tuning (dev version)
-
-| Approach        | Goal                                 | Use when                               | Cost / Effort                                |
-| --------------- | ------------------------------------ | -------------------------------------- | -------------------------------------------- |
-| **Fine-tuning** | Re-train the model with your data    | Keep AI strictly in your company tone  | 💸 Expensive: large dataset, time, money     |
-| **RAG**         | Let AI retrieve fresh docs every run | Ensure up-to-date knowledge & versions | ⚡ Cheap: fast, easy to update the knowledge |
-
-> Fine-tuning = **swap the brain**. RAG = **hand it the docs** every time.
-
----
-
-## 8. Chunking, embeddings, and why prompts get diluted
-
-When you drop code into Cursor or ChatGPT, it does three things:
-
-1. **Chunking:** break code/docs into smaller pieces.
-2. **Embedding:** turn each chunk into vector coordinates.
-3. **Retrieval:** when you ask something, fetch the chunks whose coordinates are closest to your question.
-
-That’s how it knows `authService` is related to `userSession`, not `auth.css`.
-
-But paste 20 files and the context window overflows.  
-Chunks with lower relevance get pushed out, so when you ask about `authService`, it answers with `userService` logic.
-
-> **Bottom line:** dilution isn’t because AI is dumb — your chunk fell out of the priority zone.
-
-Clean code, clear names, smaller files ⇒ smarter AI.  
-Just like teammates understand you because your code is readable.
-
----
-
-## 9. Hallucination and security — when it “helps” you ship bugs
-
-The scary part isn’t obvious bugs — it’s the “sounds right” logic that breaks silently.
-
-I’ve seen it write a JWT middleware that checks tokens the wrong way, letting empty tokens through.
-
-> It’s not trying to hack you, but it can “help you die quietly” with logic like `if (!token) allowAccess();` 😅
-
-When AI writes backend code, **never auto-merge.**  
-Audit especially: auth, validation, permissions.
-
-It isn’t sabotaging you — it just mimics popular patterns.  
-Popular doesn’t always mean correct.
-
----
-
-## 10. Make it “study” like a real dev — force it to read docs first
-
-Easiest way to update its knowledge before coding.
-
-### Example
-
-```
-Before coding, read the React 19 changelog
-and use the latest syntax for useActionState.
+test('sum', () => {
+  expect(sum(2, 3)).toBe(5);
+});
 ```
 
-Or paste the docs directly:
+**Pseudo-code (JS)**
 
+```js
+function respond(prompt) {
+  let context = textToEmbeddings(prompt);
+  let output = [];
+
+  while (true) {
+    const richContext = selfAttention(context);
+    const nextToken = sample(predictNextToken(richContext));
+    if (nextToken === "[END_OF_SEQUENCE]") break;
+    output.push(nextToken);
+    context.push(tokenToEmbedding(nextToken));
+  }
+
+  return tokensToText(output);
+}
 ```
-Here’s the Next.js 15 release note:
-https://nextjs.org/blog/next-15
 
-Update the login module to Server Actions.
-```
-
-It’s basically telling your intern: “Read the doc, then code.”
+> It does not “understand” you.  
+> It simply **re-examines everything it has emitted** and **guesses the next token that keeps the pattern coherent**.
 
 ---
 
-## 11. Right context + narrow prompt = sharp code
+## 3) Why AI feels “dumb” when you paste lots of code
 
-I’ve tested this:
+AI does not measure code by line count; it measures **semantic weight**.  
+A 50-line file packed with logic can exhaust it faster than 100 lines of boilerplate.
 
-- GPT-4: paste five files → refactor → forgets imports, tests fail.
-- Claude 4.5: paste the whole `/auth` folder → refactor cleanly, tests pass.
-- Gemini: read an entire monorepo → understands the structure, but outputs long, fuzzy code.
+Drop ten files into Cursor and it has to do this internally:
 
-Conclusion:
+1. **Chunking:** split the code or docs into digestible pieces.  
+2. **Embedding:** turn every chunk into that vector representation.  
+3. **Retrieval:** when you ask a question, fetch only the chunks whose vectors are **closest to your query**.
 
-**Better model ≠ better code.**  
-**Enough context + precise question = better code.**
+Problem: the **context window (temporary memory)** is finite.  
+When it overflows, the model must **evict** whatever seems least relevant —  
+and its definition of “least relevant” might be the exact file you needed.
 
----
+> You ask about `authService`, but the `authService` chunk was dropped,  
+> so it grabs `userService` (hey, looks similar) and answers using that logic.  
+> Sounds reasonable, breaks in production.
 
-## 12. Want a real-world walkthrough?
+> In short: it is not “dumb” because your file is long,  
+> it just has **too many things to juggle at once** — much like a dev debugging ten repos after three sleepless nights.
 
-This post is about how AI works inside.  
-If you want to see **how I ship 10× faster with AI and still pass senior review**, read part one of the series 👉 [Dev × AI Orchestrator](/en/blog/post/dev-ai-orchestrator/)
+**How I reduce the “dumbness”:**
 
----
-
-## TL;DR
-
-- AI doesn’t “understand,” it **predicts the most likely token.**
-- It remembers within a **context window** — when it’s full, it forgets.
-- Want it to “learn”? Use **RAG** or force it to read docs.
-- Chunking + embeddings make retrieval work, but prompts get diluted when overloaded.
-- Narrow context → sharper code.
-- And remember: **security, tests, review are on you, not the model.**
+- Split the feature into focused questions.  
+- Paste the most critical files **last** so they stay in memory.  
+- Provide explicit input/output examples.  
+- Spell out constraints: “Only touch this module, ignore everything else.”
 
 ---
 
-## Wrapping up — when devs understand how AI thinks
+## 4) Bigger model ≠ longer memory
 
-If [Dev × AI Orchestrator](/en/blog/post/dev-ai-orchestrator/) is about _working with AI like a teammate_,  
-this article is about _understanding that teammate’s brain._
+Many people assume a larger model (GPT-4) “remembers” more than GPT-3.5. **Not true.**
 
-Once you know:
+- Larger models tend to **reason deeper** and produce **cleaner code**.  
+- The available “memory” depends on the **context window**, **not** the parameter count.
 
-- how it **predicts**,
-- how it **forgets**,
-- and how to **force it to study** like a real dev,
-
-you’re no longer “using AI” — you’re **conducting an invisible dev team.**
-
-> “You don’t need a fancy prompt — you need to define the rules of the game.”
+A GPT-4 model with **8K** context still struggles compared with Claude **200K** when you drop a 100-page doc.  
+**Golden rule:** **Narrow prompts → sharper answers. Bloated prompts → diluted intent.**
 
 ---
 
-## Something to try today
+## 5) Why it hallucinates — and how I keep it honest
 
-1. Pick an old task.
-2. Feed it the latest changelog or docs.
-3. Tell your assistant to update the feature to the new syntax.
-4. Review it like a senior reviewing an intern.
+Hallucination is simple: when data is missing, the model’s job is to **keep predicting**, so it invents something “reasonable.”
 
-If the code looks cleaner and reasoning clearer — congrats,  
-you just leveled up your Dev × AI game.
+**My mitigation playbook:**
+
+- **Feed real docs:** drop in the README, schema, changelog.  
+- **Set hard rules:** “If unsure, respond with **UNKNOWN**. No guessing.”  
+- **Enable browsing:** force it to research before answering.  
+- **Decompose the task:** avoid “build the whole feature in one go”; ship module by module and test each piece.
 
 ---
 
-**Written by Hien Nguyen** — full-stack dev using AI to build faster, learn more, and still get a full night’s sleep.
+## 6) How it “learns” and “forgets” — **RAG vs fine-tuning**
+
+Bad news: close the chat tab and it forgets everything. Every conversation = **a fresh brain**.
+
+If you want it to “remember” your codebase, you have two options:
+
+| Approach               | Goal                                         | Use when                            | Cost / Effort                                 |
+| ---------------------- | -------------------------------------------- | ----------------------------------- | --------------------------------------------- |
+| **Fine-tuning**        | “Replace the brain” with your proprietary data| You need a custom tone or code style | 💸 **Very high** — like training an intern for months |
+| **RAG (Retrieval)**    | Hand it the “study guide” every time          | Your docs/codebase change frequently | ⚡ **Low** — fast, cheap, works for most teams |
+
+**Plain English:** **Fine-tuning = send it to grad school for years. RAG = hand it the cheat sheet right before the exam.**  
+For **99%** of us, **RAG is enough**.
+
+---
+
+## 7) The security nightmare of “plausible” hallucinations
+
+Syntax mistakes are easy to spot; **plausible logic errors** are lethal.
+
+Example: it writes a pristine JWT middleware but **checks the token the wrong way** (`if (isValid)` instead of `if (!isValid)`) → everyone gets in.  
+The code looks beautiful, but you just merged an **open door**.
+
+**Rule of thumb:** never auto-merge. Audit anything that touches **auth, input validation, permissions**, or **money**.
+
+---
+
+## 8) Force it to “update its brain” like a real developer
+
+GPT-4’s training cutoff is mid-2023. How do you make it ship **React 19** or **Next 15** code?
+
+- **Quick and dirty:** enable **browsing** → “**read the latest changelog before coding**.”  
+- **Safer workflow (my go-to):** **paste the changelog** right into the prompt: “**Read this.** Refactor the component, **flag anything deprecated**, propose replacements.”  
+- **Pro mode:** build an internal **RAG pipeline** — crawl changelog/GitHub/wiki, store it in a **vector database**, and let your agent query it before touching code.
+
+---
+
+## 9) My daily “teach the AI” checklist
+
+- Know the **model** and its **context window**.  
+- Slice the feature into **small tasks** with **clear I/O and success criteria**.  
+- Always **feed real docs** (schema, interfaces, README).  
+- Ask it to **scan for deprecations** and **suggest refactors**.  
+- **Test and review** like you would review an intern (especially auth and permissions).
+
+---
+
+## 10) Want to see the workflow in action?
+
+This post is the **theory of the brain.**  
+Part one shows the **hands-on workflow** to ship faster and still pass review:  
+👉 **[Dev × AI Orchestrator](/en/blog/post/dev-ai-orchestrator/)**
+
+---
+
+## TL;DR (for the impatient)
+
+- AI does **not understand**, it **predicts** based on massive pattern libraries. Want better guesses? Provide **clean, narrow context**.  
+- It behaves “dumb” with lots of code because the **context window** is limited — it must discard something.  
+- To keep it up to date, rely on **RAG** or force it to read changelogs.  
+- Never trust it with **security, permissions, or money** without a human review.
+
+---
+
+**Written by Hien Nguyen** — full-stack developer leveraging AI to build faster, learn more, and still sleep eight hours.
