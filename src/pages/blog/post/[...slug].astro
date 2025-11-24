@@ -8,6 +8,7 @@ import BlogBreadcrumb from "$components/Blog/BlogBreadcrumb.astro";
 import { getLocale } from "astro-i18n-aut";
 import { SITE, SITE_NAME } from "src/config";
 import BackToTop from "$components/ui/BackToTop.svelte";
+import Giscus from "$components/Giscus.svelte";
 
 export async function getStaticPaths() {
   const langs = ["en", "vi"];
@@ -22,7 +23,7 @@ export async function getStaticPaths() {
           params: { slug: cleanSlug },
           props: { post, lang },
         };
-      })
+      }),
     );
   }
 
@@ -37,7 +38,7 @@ let finalPost = post;
 if (currentLang !== lang) {
   const posts = await getBlogPosts(currentLang);
   const correctPost = posts.find(
-    (p) => p.slug.replace(`${currentLang}/`, "") === Astro.params.slug
+    (p) => p.slug.replace(`${currentLang}/`, "") === Astro.params.slug,
   );
   if (correctPost) {
     finalPost = correctPost;
@@ -53,7 +54,8 @@ let otherSlug: string | null = null;
 const pair = (finalPost.data as any).pairSlug;
 if (pair) {
   if (typeof pair === "string") otherSlug = pair;
-  else if (typeof pair === "object" && pair[otherLang]) otherSlug = pair[otherLang];
+  else if (typeof pair === "object" && pair[otherLang])
+    otherSlug = pair[otherLang];
 }
 const basePrefix = otherLang === "en" ? "/en" : "";
 const langSwitchAltPath = `${basePrefix}/blog/post/${otherSlug || cleanSlug}/`;
@@ -144,7 +146,7 @@ const structuredData = {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
-                }
+                },
               )
             }
           </div>
@@ -152,6 +154,10 @@ const structuredData = {
           <ProseWrapper>
             <Content />
           </ProseWrapper>
+
+          <div class="mt-16">
+            <Giscus client:visible />
+          </div>
         </div>
       </div>
     </div>
