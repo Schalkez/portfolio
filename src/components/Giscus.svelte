@@ -6,7 +6,7 @@
     export let category = "Announcements";
     export let categoryId = "DIC_kwDOPDQG584Cy2ko";
     export let mapping = "pathname";
-    export let term = "Welcome to @giscus/svelte component!";
+    export const term = "Welcome to @giscus/svelte component!";
     export let strict = "0";
     export let reactionsEnabled = "1";
     export let emitMetadata = "0";
