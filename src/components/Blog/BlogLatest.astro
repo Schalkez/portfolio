@@ -23,12 +23,14 @@ const titles = {
     description:
       "Here are some of my thoughts on things I'm learning or working on.",
     read: "Read",
+    showMore: "View All",
   },
   vi: {
     title: "Những Suy Nghĩ Của Tôi",
     description:
       "Đây là một số suy nghĩ của tôi về những thứ tôi đang học hoặc đang làm.",
     read: "Đọc",
+    showMore: "Xem Tất Cả",
   },
 };
 
@@ -102,6 +104,27 @@ const baseUrl = lang === "en" ? "/en" : "";
             ))
           }
         </div>
+      </div>
+      <div class="justify-center flex mt-16">
+        <a
+          href={`${baseUrl}/blog/`}
+          class="group flex items-center rounded-full mr-4 bg-white/90 px-4 py-2 text-sm font-medium text-base-800 shadow-lg shadow-base-800/5 ring-1 ring-base-900/5 backdrop-blur dark:bg-white/5 dark:text-base-200 dark:ring-white/10 dark:hover:ring-white/20"
+        >
+          {content.showMore}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="ml-2 h-auto w-4 stroke-base-500 group-hover:stroke-base-700 dark:group-hover:stroke-base-400"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        </a>
       </div>
     </div>
   </div>
