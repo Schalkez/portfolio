@@ -16,27 +16,51 @@
     export let loading = "lazy";
 
     onMount(() => {
-        const script = document.createElement("script");
-        script.src = "https://giscus.app/client.js";
-        script.setAttribute("data-repo", repo);
-        script.setAttribute("data-repo-id", repoId);
-        script.setAttribute("data-category", category);
-        script.setAttribute("data-category-id", categoryId);
-        script.setAttribute("data-mapping", mapping);
-        script.setAttribute("data-strict", strict);
-        script.setAttribute("data-reactions-enabled", reactionsEnabled);
-        script.setAttribute("data-emit-metadata", emitMetadata);
-        script.setAttribute("data-input-position", inputPosition);
-        script.setAttribute("data-theme", theme);
-        script.setAttribute("data-lang", lang);
-        script.setAttribute("data-loading", loading);
-        script.crossOrigin = "anonymous";
-        script.async = true;
-
         const container = document.getElementById("giscus-container");
-        if (container) {
-            container.appendChild(script);
-        }
+        if (!container) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const script = document.createElement("script");
+                        script.src = "https://giscus.app/client.js";
+                        script.setAttribute("data-repo", repo);
+                        script.setAttribute("data-repo-id", repoId);
+                        script.setAttribute("data-category", category);
+                        script.setAttribute("data-category-id", categoryId);
+                        script.setAttribute("data-mapping", mapping);
+                        script.setAttribute("data-strict", strict);
+                        script.setAttribute(
+                            "data-reactions-enabled",
+                            reactionsEnabled,
+                        );
+                        script.setAttribute("data-emit-metadata", emitMetadata);
+                        script.setAttribute(
+                            "data-input-position",
+                            inputPosition,
+                        );
+                        script.setAttribute("data-theme", theme);
+                        script.setAttribute("data-lang", lang);
+                        script.setAttribute("data-loading", loading);
+                        script.crossOrigin = "anonymous";
+                        script.async = true;
+
+                        container.appendChild(script);
+                        observer.disconnect();
+                    }
+                });
+            },
+            {
+                rootMargin: "600px", // Load when within 600px of viewport
+            },
+        );
+
+        observer.observe(container);
+
+        return () => {
+            observer.disconnect();
+        };
     });
 </script>
 
