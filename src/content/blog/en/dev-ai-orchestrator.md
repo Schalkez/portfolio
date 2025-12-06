@@ -208,10 +208,6 @@ This is the crucial part: never approve code you don’t understand.
 
 Whenever AI writes code, I always:
 
-### Bonus: Keep docs fresh with the MCP protocol
-
-Agents only stay sharp when they can reach the latest documentation. If you’re using Cursor (or any MCP-capable runtime), register a Model Context Protocol server that exposes fresh library docs. Let the agent call `resolve-library-id` to lock onto the right package, then `get-library-docs` whenever an API changes. That way the agent reads the real docs before coding, instead of hallucinating stale method names. One quick wiring step saves hours of detective work later.
-
 #### Ask follow-up questions
 
 ```
@@ -235,6 +231,10 @@ Agents only stay sharp when they can reach the latest documentation. If you’re
 ```
 
 The payoff: I keep learning, the code stays clean, and the system flow lives in my head.
+
+#### Bonus: Keep docs fresh with the MCP protocol
+
+Agents only stay sharp when they can reach the latest documentation. If you’re using Cursor (or any MCP-capable runtime), register a Model Context Protocol server that exposes fresh library docs. Let the agent call `resolve-library-id` to lock onto the right package, then `get-library-docs` whenever an API changes. That way the agent reads the real docs before coding, instead of hallucinating stale method names. One quick wiring step saves hours of detective work later.
 
 ---
 
