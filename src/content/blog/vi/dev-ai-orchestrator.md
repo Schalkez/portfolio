@@ -226,6 +226,10 @@ Khi cuộc hội thoại đã quá dài, **Cursor** hoặc **Codex** sẽ bắt 
 
 Khi AI viết code, tôi:
 
+### Bonus: Luôn cập nhật tài liệu với giao thức MCP
+
+Agent chỉ thực sự sắc bén khi truy cập được tài liệu mới nhất. Nếu bạn chạy Cursor (hoặc bất kỳ runtime nào hỗ trợ MCP), hãy nối thêm một server Model Context Protocol chuyên cung cấp docs. Cho agent gọi `resolve-library-id` để tìm đúng package, rồi `get-library-docs` mỗi khi cần tra API mới. Nhờ vậy agent đọc tài liệu thật trước khi code, tránh bịa tên hàm đã lỗi thời. Làm một lần, tiết kiệm hàng giờ dò bug sau này.
+
 #### Hỏi lại:
 
 ```

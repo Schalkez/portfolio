@@ -23,7 +23,12 @@ export default defineConfig({
     i18n({
       locales,
       defaultLocale,
-      exclude: ["pages/api/**/*", "pages/**/*.md", "pages/**/_*"],
+      exclude: [
+        "pages/api/**/*",
+        "pages/**/*.md",
+        "pages/**/_*",
+        "pages/**/*.ts", // Ignore feed/atom/sitemap endpoints not meant for i18n
+      ],
     }),
   ],
   vite: {
