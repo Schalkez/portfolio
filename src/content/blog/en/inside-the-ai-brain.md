@@ -224,6 +224,7 @@ GPT-4’s training cutoff is mid-2023. How do you make it ship **React 19** or *
 - **Quick and dirty:** enable **browsing** → “**read the latest changelog before coding**.”  
 - **Safer workflow (my go-to):** **paste the changelog** right into the prompt: “**Read this.** Refactor the component, **flag anything deprecated**, propose replacements.”  
 - **Pro mode:** build an internal **RAG pipeline** — crawl changelog/GitHub/wiki, store it in a **vector database**, and let your agent query it before touching code.
+- **Plug-and-play option:** if your agent supports the **Model Context Protocol** (e.g. Cursor’s Context7 server), wire it so it calls `resolve-library-id` → `get-library-docs` before coding. A few minutes of setup keeps it on the latest docs instead of hallucinating legacy APIs.
 
 ---
 

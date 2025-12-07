@@ -222,6 +222,7 @@ Não GPT‑4 “đóng băng” từ 2023. Làm sao bắt nó code **React 19 / 
 - **Cách “lười” (nhưng nhanh):** bật **browsing** → “**đọc changelog mới nhất rồi hẵng code**”.
 - **Cách an toàn (tôi hay dùng):** **copy/paste changelog** vào prompt: “**Đây, đọc cái này.** Refactor lại component kia, **soi deprecated** và **đề xuất refactor**.”
 - **Cách pro:** dựng **RAG nội bộ**: tự crawl changelog/GitHub/wiki, lưu **vector DB**, để agent **đọc trước khi code**.
+- **Cách “plug and play”:** nếu dùng agent hỗ trợ **Model Context Protocol** (ví dụ server Context7 của Cursor), cấu hình cho nó gọi `resolve-library-id` → `get-library-docs` trước khi viết code. Chỉ mất vài phút setup nhưng đảm bảo agent đọc doc mới nhất thay vì bịa API cũ.
 
 ---
 
