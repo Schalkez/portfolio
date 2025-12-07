@@ -74,7 +74,19 @@ Khi đã nắm nền tảng, tôi mới chuyển sang thực hành:
 2. Viết playbook chi tiết cho từng bài tập (ví dụ dựng VPC 3-tier, triển khai app stateless).
 3. Sau mỗi bước đều review lại kiến trúc: “Nếu chức năng này bung, tôi scale thế nào? Logging đặt ở đâu?”.
 
-## 6. Ví dụ thực tế: dựng lại hệ thống cũ, nhưng tính tiền khác hẳn
+## 6. Học bằng đề thực chiến, đúng cấp độ Associate
+
+AWS không bao giờ đứng một mình; mỗi bài toán luôn là combo của vài dịch vụ. Tôi tận dụng bộ câu hỏi Udemy/Sample exam nhưng chọn đúng mức Associate, chỉ tập trung vào những tình huống “đủ dùng”:
+
+- Xây backend serverless: API Gateway + Lambda + DynamoDB + CloudWatch Logs → luyện luồng request, bảo mật IAM, giới hạn chi phí.
+- Phục vụ web tĩnh toàn cầu: S3 static website + CloudFront + Route 53 + ACM → hiểu cache, HTTPS, geolocation cơ bản.
+- Di chuyển database mà không downtime dài: RDS Multi-AZ + AWS DMS + VPC peering/VPN → nắm quy trình cut-over gọn nhẹ.
+
+Với mỗi đề, tôi vẽ lại kiến trúc, trả lời các câu hỏi “dịch vụ nào chịu trách nhiệm chính?”, “lỗi xảy ra thì fallback ra sao?”, “chi phí ước lượng thế nào?”. Cách học này giúp tôi nhớ sâu các combo ở tầm Associate mà không bị chìm trong rừng dịch vụ enterprise.
+
+Thú vị là nhờ những đề thi thử ấy, tôi còn học bù lại cả kiến thức nền tảng mà trước đây (một người trái ngành như tôi) chưa từng được đào tạo bài bản: TCP vs UDP, cơ chế backoff, mô hình networking căn bản. Mỗi lần gặp khái niệm lạ, tôi lại đi đọc docs, blog, RFC, rồi hỏi thêm AI để lấp nhanh chỗ trống trước khi quay lại đọc sâu.
+
+## 7. Ví dụ thực tế: dựng lại hệ thống cũ, nhưng tính tiền khác hẳn
 
 Tôi mô phỏng hạ tầng sản phẩm cũ:
 
@@ -84,7 +96,7 @@ Tôi mô phỏng hạ tầng sản phẩm cũ:
 
 Nhờ đã đọc trước về networking, IAM, cost optimization, tôi tránh được việc mở toang security group hay để Lambda trigger vô tận đốt ngân sách. Chênh lệch chi phí dự kiến so với bản “tay nhanh hơn não” trước kia là cả một trời.
 
-## 7. Lời kết
+## 8. Lời kết
 
 Cách học này có vẻ “lý thuyết suông”, trong khi nhiều người tin làm trước sửa sau mới nhanh lên tay. Nhưng tôi — người từng trả học phí bằng tiền mặt cho sự thiếu hiểu biết — chọn đi chậm.
 
@@ -95,4 +107,3 @@ Học AWS hay bất kỳ cloud nào, công cụ và giao diện có thể đổi
 ---
 
 _Chia sẻ từ một người đang bắt đầu hành trình AWS với sự cẩn trọng tối đa._
-

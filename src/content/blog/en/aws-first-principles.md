@@ -74,7 +74,19 @@ Once the fundamentals felt solid, I started coding—but with structure:
 2. Write detailed playbooks for each exercise (e.g., build a 3-tier VPC, deploy a stateless app).
 3. After every step, review the architecture: “If this component dies, how do I scale? Where is logging? What alarms fire?”
 
-## 6. A practical example: rebuild an old system—with a wildly different bill
+## 6. Scenario-driven study at the Associate level
+
+AWS exam questions bundle services together. To stay within Associate scope, I pick Udemy / sample exam prompts that emphasise the fundamentals:
+
+- Serverless backend patterns: API Gateway + Lambda + DynamoDB + CloudWatch Logs → practise request flow, IAM guards, and cost awareness.
+- Global static sites: S3 static hosting + CloudFront + Route 53 + ACM → drill caching, HTTPS, and basic geolocation handling.
+- Minimal-downtime database moves: RDS Multi-AZ + AWS DMS + VPC peering/VPN → internalise migration planning without enterprise complexity.
+
+For every prompt I redraw the architecture and answer “Which service carries the workload?”, “How do we fail over?”, “What’s the bill going to look like?”. It keeps me sharp on combos that actually matter at the Associate level without drowning in pro-level edge cases.
+
+Interestingly, those practice questions also patch gaps in my fundamentals. Coming from a non-CS background, I never had formal lessons on things like TCP vs. UDP, exponential backoff, or even how networking layers behave. Every time a prompt mentions a concept I don’t own yet, I pause to read docs, blog posts, RFC notes—and I lean on AI to explain the basics quickly before diving deeper.
+
+## 7. A practical example: rebuild an old system—with a wildly different bill
 
 I recreated the architecture of a previous product:
 
@@ -84,7 +96,7 @@ I recreated the architecture of a previous product:
 
 Because I had already studied networking, IAM, and cost optimization, I avoided leaving security groups wide open or letting a Lambda trigger loop burn the budget. The projected cost delta versus my old “hands faster than brain” approach was night and day.
 
-## 7. Closing thoughts
+## 8. Closing thoughts
 
 Yes, this learning path looks “theoretical.” Plenty of folks believe hacking first and fixing later is the fastest way to learn. Maybe for them. But after paying literal cash for ignorance, I deliberately slowed down.
 
